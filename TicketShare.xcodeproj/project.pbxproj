@@ -12,6 +12,9 @@
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
 		620D183C1E42611400233819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620D183B1E42611400233819 /* Assets.xcassets */; };
 		620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D183D1E42611400233819 /* LaunchScreen.storyboard */; };
+		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
+		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
+		629BE9E91E6376F8006C5055 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* Event.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		620D183B1E42611400233819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		620D183E1E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620D18401E42611400233819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		629BE9E61E6376E0006C5055 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
+		629BE9E81E6376F8006C5055 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 		620D18331E42611400233819 /* TicketShare */ = {
 			isa = PBXGroup;
 			children = (
+				629BE9E31E6376A7006C5055 /* Models */,
 				620D18341E42611400233819 /* AppDelegate.swift */,
 				620D18361E42611400233819 /* ViewController.swift */,
 				620D18381E42611400233819 /* Main.storyboard */,
@@ -62,6 +69,16 @@
 				620D18401E42611400233819 /* Info.plist */,
 			);
 			path = TicketShare;
+			sourceTree = "<group>";
+		};
+		629BE9E31E6376A7006C5055 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				629BE9E41E6376BC006C5055 /* User.swift */,
+				629BE9E61E6376E0006C5055 /* Ticket.swift */,
+				629BE9E81E6376F8006C5055 /* Event.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +155,9 @@
 			files = (
 				620D18371E42611400233819 /* ViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
+				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
+				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
+				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +319,7 @@
 				620D18451E42611400233819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
