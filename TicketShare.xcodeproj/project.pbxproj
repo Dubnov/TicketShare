@@ -15,6 +15,10 @@
 		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
 		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
 		629BE9E91E6376F8006C5055 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* Event.swift */; };
+		629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */; };
+		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
+		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
+		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,11 @@
 		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		629BE9E61E6376E0006C5055 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		629BE9E81E6376F8006C5055 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		629BE9ED1E64B6B4006C5055 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
+		629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TicketShare-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +56,7 @@
 			children = (
 				620D18331E42611400233819 /* TicketShare */,
 				620D18321E42611400233819 /* Products */,
+				629BE9F11E64CAC7006C5055 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +71,8 @@
 		620D18331E42611400233819 /* TicketShare */ = {
 			isa = PBXGroup;
 			children = (
+				629BE9EC1E64B672006C5055 /* DAL */,
+				629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */,
 				629BE9E31E6376A7006C5055 /* Models */,
 				620D18341E42611400233819 /* AppDelegate.swift */,
 				620D18361E42611400233819 /* ViewController.swift */,
@@ -67,6 +80,7 @@
 				620D183B1E42611400233819 /* Assets.xcassets */,
 				620D183D1E42611400233819 /* LaunchScreen.storyboard */,
 				620D18401E42611400233819 /* Info.plist */,
+				629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -79,6 +93,23 @@
 				629BE9E81E6376F8006C5055 /* Event.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		629BE9EC1E64B672006C5055 /* DAL */ = {
+			isa = PBXGroup;
+			children = (
+				629BE9ED1E64B6B4006C5055 /* Firebase.swift */,
+				629BE9EF1E64C57E006C5055 /* SQLite.swift */,
+			);
+			name = DAL;
+			sourceTree = "<group>";
+		};
+		629BE9F11E64CAC7006C5055 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -113,6 +144,7 @@
 				TargetAttributes = {
 					620D18301E42611300233819 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -141,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */,
+				629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */,
 				620D183C1E42611400233819 /* Assets.xcassets in Resources */,
 				620D183A1E42611400233819 /* Main.storyboard in Resources */,
 			);
@@ -153,6 +186,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
+				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
 				620D18371E42611400233819 /* ViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
@@ -280,10 +315,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TicketShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ios.project.TicketShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TicketShare/TicketShare-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -292,10 +330,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = TicketShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ios.project.TicketShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TicketShare/TicketShare-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
