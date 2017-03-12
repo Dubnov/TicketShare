@@ -19,9 +19,12 @@
 		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
 		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
 		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
+		6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
+		591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.release.xcconfig"; sourceTree = "<group>"; };
 		620D18311E42611400233819 /* TicketShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicketShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		620D18341E42611400233819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		620D18361E42611400233819 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,6 +40,7 @@
 		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TicketShare-Bridging-Header.h"; sourceTree = "<group>"; };
+		F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicketShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +49,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */,
+				6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,6 +62,7 @@
 				620D18331E42611400233819 /* TicketShare */,
 				620D18321E42611400233819 /* Products */,
 				629BE9F11E64CAC7006C5055 /* Frameworks */,
+				8C04465C31D9D81CAFBCA3C7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,8 +114,18 @@
 			isa = PBXGroup;
 			children = (
 				629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */,
+				F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C04465C31D9D81CAFBCA3C7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */,
+				591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,9 +135,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 620D18431E42611400233819 /* Build configuration list for PBXNativeTarget "TicketShare" */;
 			buildPhases = (
+				C5FF990CC4A3402F13CE91CE /* [CP] Check Pods Manifest.lock */,
 				620D182D1E42611300233819 /* Sources */,
 				620D182E1E42611300233819 /* Frameworks */,
 				620D182F1E42611300233819 /* Resources */,
+				37DB363058AC13C27D81F49A /* [CP] Embed Pods Frameworks */,
+				6371538EAAFB4CC17BAF64D3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -180,6 +199,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		37DB363058AC13C27D81F49A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6371538EAAFB4CC17BAF64D3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5FF990CC4A3402F13CE91CE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		620D182D1E42611300233819 /* Sources */ = {
@@ -313,6 +380,7 @@
 		};
 		620D18441E42611400233819 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -328,6 +396,7 @@
 		};
 		620D18451E42611400233819 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
