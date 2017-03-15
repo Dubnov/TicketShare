@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		620D18351E42611400233819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18341E42611400233819 /* AppDelegate.swift */; };
-		620D18371E42611400233819 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* ViewController.swift */; };
+		620D18371E42611400233819 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* LoginViewController.swift */; };
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
 		620D183C1E42611400233819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620D183B1E42611400233819 /* Assets.xcassets */; };
 		620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D183D1E42611400233819 /* LaunchScreen.storyboard */; };
@@ -27,7 +27,7 @@
 		591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.release.xcconfig"; sourceTree = "<group>"; };
 		620D18311E42611400233819 /* TicketShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicketShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		620D18341E42611400233819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		620D18361E42611400233819 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		620D18361E42611400233819 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		620D18391E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		620D183B1E42611400233819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		620D183E1E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 				629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */,
 				629BE9E31E6376A7006C5055 /* Models */,
 				620D18341E42611400233819 /* AppDelegate.swift */,
-				620D18361E42611400233819 /* ViewController.swift */,
+				620D18361E42611400233819 /* LoginViewController.swift */,
 				620D18381E42611400233819 /* Main.storyboard */,
 				620D183B1E42611400233819 /* Assets.xcassets */,
 				620D183D1E42611400233819 /* LaunchScreen.storyboard */,
@@ -255,7 +255,7 @@
 			files = (
 				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
-				620D18371E42611400233819 /* ViewController.swift in Sources */,
+				620D18371E42611400233819 /* LoginViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
