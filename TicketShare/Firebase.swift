@@ -7,12 +7,20 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseStorage
 
 class Firebase{
-    static let instance = Firebase()
     
-    private init(){
-        
+    init(){
+        FIRApp.configure()
+    }
+    
+    func addUser(user:User, completionBlock:@escaping (Error?)->Void){
+        let ref = FIRDatabase.database().reference().child("users").child(user.email)
+        ref.setValue(user.toFireBase()){(error, dbref) in
+            completionBlock(error)
+        }
     }
     
     func addTicket(tick:Ticket){
