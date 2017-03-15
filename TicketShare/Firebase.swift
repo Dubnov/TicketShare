@@ -17,7 +17,7 @@ class Firebase{
     }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
-        let ref = FIRDatabase.database().reference().child("users").child(user.email)
+        let ref = FIRDatabase.database().reference().child("users").child(user.id)
         ref.setValue(user.toFireBase()){(error, dbref) in
             completionBlock(error)
         }
