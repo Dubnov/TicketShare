@@ -17,9 +17,32 @@ class Firebase{
     }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
-        let ref = FIRDatabase.database().reference().child("users").child(user.id)
+        FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
+            
+            if error == nil {
+                FIRAuth.auth()!.signIn(withEmail: user.email, password: user.password) { (loggedInUser, error) in
+                    let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                    changeRequest?.displayName = user.fullName
+                    changeRequest?.commitChanges()
+                }
+            } else {
+                // TODO: Pop the error
+                // error?.localizedDescription
+            }
+        }
+        
+        /*let ref = FIRDatabase.database().reference().child("users").child(user.id)
         ref.setValue(user.toFireBase()){(error, dbref) in
             completionBlock(error)
+        }*/
+    }
+    
+    func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
+        FIRAuth.auth()!.signIn(withEmail: email, password: password) {(user, error) in
+            if error != nil {
+                // TODO: Pop the error
+                //print((error?.localizedDescription)!)
+            }
         }
     }
     

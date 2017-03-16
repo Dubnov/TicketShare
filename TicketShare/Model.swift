@@ -47,7 +47,11 @@ class Model{
     
     func addUser(user:User){
         modelFirebase?.addUser(user: user){(error) in
-
+        }
+    }
+    
+    func loginUser(email:String, password:String) {
+        modelFirebase?.loginUser(email: email, password: password){(error) in
         }
     }
     
