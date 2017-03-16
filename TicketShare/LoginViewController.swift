@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        txtPassword.isSecureTextEntry = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +31,13 @@ class LoginViewController: UIViewController {
             
         } else {
             Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!)
+            
+            // TODO: Call this only if login user succeeded
+            self.performSegue(withIdentifier: "performSegueToMain", sender: self)
         }
+    }
+    
+    @IBAction func unwindToLogin(segue:UIStoryboardSegue){
     }
 
     /*

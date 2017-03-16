@@ -36,32 +36,43 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-hK-1bQ">
-                                <rect key="frame" x="164" y="335" width="46" height="30"/>
+                                <rect key="frame" x="135" y="334" width="96" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login"/>
+                                <color key="backgroundColor" red="0.32992302800000001" green="1" blue="0.40588411680000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="login:" destination="igX-4u-bfo" eventType="touchUpInside" id="wgA-PC-yfM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWE-s4-DqJ">
-                                <rect key="frame" x="156" y="413" width="62" height="30"/>
+                                <rect key="frame" x="237" y="403" width="62" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign up"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="htI-GJ-J2y"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="htI-GJ-J2y"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-kh-pbt">
+                                <rect key="frame" x="75" y="408" width="174" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="txtEmail" destination="q6Y-wc-GAc" id="ycg-bX-mWv"/>
                         <outlet property="txtPassword" destination="EUT-eq-jUo" id="aYR-p0-VO7"/>
+                        <segue destination="JTJ-Q1-Asg" kind="show" identifier="performSegueToMain" id="zKO-AS-cXa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qFZ-xf-jQs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-724" y="107.49625187406298"/>
+            <point key="canvasLocation" x="-1377" y="25"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -76,9 +87,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pU5-yz-dKc">
-                                <rect key="frame" x="117" y="465" width="124" height="30"/>
+                                <rect key="frame" x="117" y="465" width="124" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Up"/>
+                                <color key="backgroundColor" red="0.15675706907525983" green="0.31520279206436508" blue="0.76710249352331605" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="registerUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U5u-KL-VMF"/>
                                 </connections>
@@ -124,6 +138,19 @@
                                 <color key="textColor" red="1" green="0.039765733839999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xnV-SS-b9O">
+                                <rect key="frame" x="0.0" y="13" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Sign Up" id="ynJ-Pz-gj8">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="keN-Od-qO7">
+                                            <connections>
+                                                <segue destination="Lhq-5f-zgA" kind="unwind" unwindAction="unwindToLoginWithSegue:" id="B4A-Ve-9Yi"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -135,11 +162,92 @@
                         <outlet property="txtEmail" destination="Gs4-nl-89N" id="fjH-Nq-tKx"/>
                         <outlet property="txtFullName" destination="ulO-UJ-LqT" id="FaM-uV-BMf"/>
                         <outlet property="txtPassword" destination="Cex-iy-AiD" id="7oz-hq-GmE"/>
+                        <segue destination="JTJ-Q1-Asg" kind="show" identifier="performSegueToMain" id="tun-Co-NN6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <exit id="Lhq-5f-zgA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="106.59670164917542"/>
+            <point key="canvasLocation" x="-330" y="384"/>
+        </scene>
+        <!--Buyer-->
+        <scene sceneID="XN0-yT-sew">
+            <objects>
+                <viewController id="HEW-Gh-vHa" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BRU-3g-s8K"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q2d-dl-f6w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j9D-qU-HNv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Buyer" id="WbB-Cf-DTr"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oIP-DE-tUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129" y="-561"/>
+        </scene>
+        <!--Seller-->
+        <scene sceneID="Vm6-Js-0gU">
+            <objects>
+                <viewController id="SQ0-Ql-wIe" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Z3-Yl-QIy"/>
+                        <viewControllerLayoutGuide type="bottom" id="qvJ-KT-MxS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jr2-Pz-XW5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Seller" id="IRj-2K-BxU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="amY-3u-aWI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129" y="107"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="yHx-en-J4i">
+            <objects>
+                <viewController id="08y-N8-iKP" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="32u-2s-nXm"/>
+                        <viewControllerLayoutGuide type="bottom" id="QUb-rQ-uKZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CjX-EI-CoO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" id="3Lx-3V-FT9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cnw-xT-27g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129" y="826"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="jdl-CU-mCz">
+            <objects>
+                <tabBarController id="JTJ-Q1-Asg" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="p9u-fW-tXh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="HEW-Gh-vHa" kind="relationship" relationship="viewControllers" id="fQa-Ml-wkN"/>
+                        <segue destination="SQ0-Ql-wIe" kind="relationship" relationship="viewControllers" id="wBT-Gh-174"/>
+                        <segue destination="08y-N8-iKP" kind="relationship" relationship="viewControllers" id="yOz-tg-dGF"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DST-p2-4lw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="665" y="25"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="tun-Co-NN6"/>
+    </inferredMetricsTieBreakers>
 </document>
