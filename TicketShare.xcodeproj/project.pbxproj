@@ -14,6 +14,8 @@
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
 		620D183C1E42611400233819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620D183B1E42611400233819 /* Assets.xcassets */; };
 		620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D183D1E42611400233819 /* LaunchScreen.storyboard */; };
+		626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */; };
+		626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE211E7B3767007EFE41 /* StringExtension.swift */; };
 		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
 		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
 		629BE9E91E6376F8006C5055 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* Event.swift */; };
@@ -37,6 +39,8 @@
 		620D183B1E42611400233819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		620D183E1E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620D18401E42611400233819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastUpdateTable.swift; sourceTree = "<group>"; };
+		626AEE211E7B3767007EFE41 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		629BE9E61E6376E0006C5055 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
 		629BE9E81E6376F8006C5055 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 				620D18401E42611400233819 /* Info.plist */,
 				629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */,
 				1455EC8F1E7AF5C700418511 /* LoginViewController.swift */,
+				626AEE211E7B3767007EFE41 /* StringExtension.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 				629BE9E41E6376BC006C5055 /* User.swift */,
 				629BE9E61E6376E0006C5055 /* Ticket.swift */,
 				629BE9E81E6376F8006C5055 /* Event.swift */,
+				626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -267,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */,
 				1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */,
 				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
@@ -275,6 +282,7 @@
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
 				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
+				626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */,
 				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
