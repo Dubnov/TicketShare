@@ -50,4 +50,27 @@ class User {
         
         return json
     }
+    
+    // SQLite Code
+    static let TABLE_NAME = "USERS"
+    static let EMAIL = "EMAIL"
+    static let PASSWORD = "PASSWORD"
+    static let FULLNAME = "FULLNAME"
+    static let IMAGE_URL = "IMAGE_URL"
+    
+    static func createUsersTable(database: OpaquePointer?) -> Bool {
+        var errormsg: UnsafeMutablePointer<Int8>? = nil
+        
+        let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( "
+            + EMAIL + " TEXT PRIMARY KEY, "
+            + PASSWORD + " TEXT, "
+            + FULLNAME + " TEXT, "
+            + IMAGE_URL + " TEXT)", nil, nil, &errormsg);
+        if(res != 0){
+            print("error creating table");
+            return false
+        }
+        
+        return true
+    }
 }

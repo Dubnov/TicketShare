@@ -21,7 +21,16 @@ class SQLite {
                 print("Failed to open db file: \(path.absoluteString)")
                 return nil
             }
+            
+            if (Ticket.createTicketsTable(database: self.database) == false || LastUpdateTable.createTable(database: self.database) == false) {
+                return nil
+            }
+            
         }
+    }
+    
+    func createEventsTable() -> Bool {
+        return true
     }
     
 }
