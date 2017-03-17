@@ -38,11 +38,16 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
-        Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!)
-        
-        // TODO: Call this only if login user succeeded
-        self.performSegue(withIdentifier: "performSegueToMain", sender: self)
-        
+        Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!) { (error) in
+            if error == nil {
+                self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+            } else {
+                let alertController = UIAlertController(title: "Login Error", message: "the email or password is incorrect", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func unwindToLogin(segue:UIStoryboardSegue){

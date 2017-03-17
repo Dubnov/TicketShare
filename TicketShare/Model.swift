@@ -46,13 +46,15 @@ class Model{
     
     private init(){}
     
-    func addUser(user:User){
+    func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         firebaseModel?.addUser(user: user){(error) in
+            completionBlock(error)
         }
     }
     
-    func loginUser(email:String, password:String) {
+    func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
         firebaseModel?.loginUser(email: email, password: password){(error) in
+            completionBlock(error)
         }
     }
     

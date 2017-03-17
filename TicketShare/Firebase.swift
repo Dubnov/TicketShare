@@ -11,6 +11,7 @@ import Firebase
 import FirebaseStorage
 
 class Firebase{
+    var currAuthUser: FIRUser? = nil;
     
     init(){
         FIRApp.configure()
@@ -18,19 +19,27 @@ class Firebase{
     }
     
     lazy var storageRef = FIRStorage.storage().reference(forURL: "gs://ticketshare-5ca22.appspot.com/")
+
+    
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
             
             if error == nil {
                 FIRAuth.auth()!.signIn(withEmail: user.email, password: user.password) { (loggedInUser, error) in
-                    let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
-                    changeRequest?.displayName = user.fullName
-                    changeRequest?.commitChanges()
+                    if error == nil {
+                        let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                        changeRequest?.displayName = user.fullName
+                        changeRequest?.commitChanges() {(err) in
+                            completionBlock(err)
+                        }
+                        
+                    } else {
+                        completionBlock(error)
+                    }
                 }
             } else {
-                // TODO: Pop the error
-                // error?.localizedDescription
+                completionBlock(error)
             }
         }
         
@@ -42,10 +51,7 @@ class Firebase{
     
     func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
         FIRAuth.auth()!.signIn(withEmail: email, password: password) {(user, error) in
-            if error != nil {
-                // TODO: Pop the error
-                //print((error?.localizedDescription)!)
-            }
+            completionBlock(error)
         }
     }
     
@@ -115,3 +121,6 @@ class Firebase{
             }
         })
     }}
+
+
+
