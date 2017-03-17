@@ -66,6 +66,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             // if not, save details and move to main page
             let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!)
             Model.instance.addUser(user: user)
+            
+            // TODO: Call this only if add user succeeded
+            self.performSegue(withIdentifier: "performSegueToMain", sender: self)
         } else {
             let alertController = UIAlertController(title: "Register Error", message: "one or more of the fields are incorrect", preferredStyle: UIAlertControllerStyle.alert)
             let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil)
