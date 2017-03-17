@@ -118,10 +118,16 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         // Register - Check if email exists in db, if so - print message
         // if not, save details and move to main page
         let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!)
-        Model.instance.addUser(user: user)
-            
-        // TODO: Call this only if add user succeeded
-        self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+        Model.instance.addUser(user: user) {(err) in
+            if err == nil {
+                self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+            } else {
+                let alertController = UIAlertController(title: "Sign Up Error", message: err?.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
 }
 

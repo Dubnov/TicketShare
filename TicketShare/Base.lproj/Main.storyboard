@@ -284,11 +284,11 @@
             </objects>
             <point key="canvasLocation" x="3772" y="125"/>
         </scene>
-        <!--Seller-->
+        <!--Tickets-->
         <scene sceneID="vW4-gP-8Ia">
             <objects>
                 <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Seller" id="np1-Kp-fSY"/>
+                    <tabBarItem key="tabBarItem" title="Tickets" id="np1-Kp-fSY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

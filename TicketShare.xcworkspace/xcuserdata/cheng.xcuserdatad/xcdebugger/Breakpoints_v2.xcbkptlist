@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/LoginViewController.swift"
-            timestampString = "511445782.37017"
+            timestampString = "511474540.115306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73">
+            startingLineNumber = "78"
+            endingLineNumber = "78">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/LoginViewController.swift"
-            timestampString = "511445782.37017"
+            timestampString = "511474540.115306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "LoginViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/LoginViewController.swift"
-            timestampString = "511445782.37017"
+            timestampString = "511474540.115306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72">
+            startingLineNumber = "77"
+            endingLineNumber = "77">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -102,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/LoginViewController.swift"
-            timestampString = "511445782.37017"
+            timestampString = "511474540.115306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88">
+            startingLineNumber = "93"
+            endingLineNumber = "93">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -116,11 +116,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/LoginViewController.swift"
-            timestampString = "511445782.37017"
+            timestampString = "511474540.115306"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89">
+            startingLineNumber = "94"
+            endingLineNumber = "94">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -135,7 +135,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "49"
             endingLineNumber = "49"
-            landmarkName = "addUser(user:)"
+            landmarkName = "addUser(user:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -178,11 +178,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/Firebase.swift"
-            timestampString = "511375025.887063"
+            timestampString = "511473886.15046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "addUser(user:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -194,11 +194,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/Firebase.swift"
-            timestampString = "511375025.887063"
+            timestampString = "511473886.15046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "addUser(user:completionBlock:)"
             landmarkType = "7">
             <Locations>
@@ -242,11 +242,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/Firebase.swift"
-            timestampString = "511375025.887063"
+            timestampString = "511473886.15046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "addUser(user:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -258,11 +258,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/Firebase.swift"
-            timestampString = "511373016.740583"
+            timestampString = "511473225.039293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "Firebase"
             landmarkType = "3">
          </BreakpointContent>
@@ -274,11 +274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/Firebase.swift"
-            timestampString = "511375025.887063"
+            timestampString = "511473225.039293"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "addUser(user:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -306,11 +306,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/Firebase.swift"
-            timestampString = "511388739.525225"
+            timestampString = "511473886.15046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "loginUser(email:password:completionBlock:)"
             landmarkType = "7">
          </BreakpointContent>
