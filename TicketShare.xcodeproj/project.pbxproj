@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B1ACC1E79DF8F001D3690 /* Model.swift */; };
 		1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC8F1E7AF5C700418511 /* LoginViewController.swift */; };
+		1455EC941E7C0E4900418511 /* SellerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC931E7C0E4900418511 /* SellerTableViewController.swift */; };
+		1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC951E7C0F3600418511 /* NewTicketViewController.swift */; };
+		1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileViewController.swift */; };
+		1455EC9A1E7C0F8000418511 /* BuyerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC991E7C0F8000418511 /* BuyerViewController.swift */; };
 		620D18351E42611400233819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18341E42611400233819 /* AppDelegate.swift */; };
 		620D18371E42611400233819 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* RegisterViewController.swift */; };
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
@@ -28,6 +32,10 @@
 		141B1ACC1E79DF8F001D3690 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		1455EC8E1E7AEF9600418511 /* TicketShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TicketShare.entitlements; sourceTree = "<group>"; };
 		1455EC8F1E7AF5C700418511 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1455EC931E7C0E4900418511 /* SellerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellerTableViewController.swift; sourceTree = "<group>"; };
+		1455EC951E7C0F3600418511 /* NewTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
+		1455EC971E7C0F6C00418511 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1455EC991E7C0F8000418511 /* BuyerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerViewController.swift; sourceTree = "<group>"; };
 		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
 		591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.release.xcconfig"; sourceTree = "<group>"; };
 		620D18311E42611400233819 /* TicketShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicketShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,6 +102,10 @@
 				620D18401E42611400233819 /* Info.plist */,
 				629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */,
 				1455EC8F1E7AF5C700418511 /* LoginViewController.swift */,
+				1455EC931E7C0E4900418511 /* SellerTableViewController.swift */,
+				1455EC951E7C0F3600418511 /* NewTicketViewController.swift */,
+				1455EC971E7C0F6C00418511 /* ProfileViewController.swift */,
+				1455EC991E7C0F8000418511 /* BuyerViewController.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -270,9 +282,13 @@
 				1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */,
 				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
+				1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */,
 				620D18371E42611400233819 /* RegisterViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
+				1455EC9A1E7C0F8000418511 /* BuyerViewController.swift in Sources */,
+				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
+				1455EC941E7C0E4900418511 /* SellerTableViewController.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
 				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
 				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,

@@ -10,31 +10,39 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        txtPassword.isSecureTextEntry = true
+        self.txtPassword.isSecureTextEntry = true
+        self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
 
+    func textFieldDidChanged(_ textField: UITextField) {
+        if self.txtEmail.text != "" && self.txtPassword.text != "" {
+            self.btnLogin.isEnabled = true
+            self.btnLogin.alpha = 1
+        } else {
+            self.btnLogin.isEnabled = false
+            self.btnLogin.alpha = 0.5
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func login(_ sender: Any) {
-        if (txtEmail.text?.characters.count == 0) {
-            
-        } else if (txtPassword.text?.characters.count == 0) {
-            
-        } else {
-            Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!)
-            
-            // TODO: Call this only if login user succeeded
-            self.performSegue(withIdentifier: "performSegueToMain", sender: self)
-        }
+        Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!)
+        
+        // TODO: Call this only if login user succeeded
+        self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+        
     }
     
     @IBAction func unwindToLogin(segue:UIStoryboardSegue){

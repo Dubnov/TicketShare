@@ -35,7 +35,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-hK-1bQ">
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-hK-1bQ">
                                 <rect key="frame" x="135" y="334" width="96" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.32992302800000001" green="1" blue="0.40588411680000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -65,6 +65,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="btnLogin" destination="qd3-hK-1bQ" id="xS9-vL-pQ3"/>
                         <outlet property="txtEmail" destination="q6Y-wc-GAc" id="ycg-bX-mWv"/>
                         <outlet property="txtPassword" destination="EUT-eq-jUo" id="aYR-p0-VO7"/>
                         <segue destination="JTJ-Q1-Asg" kind="show" identifier="performSegueToMain" id="zKO-AS-cXa"/>
@@ -170,10 +171,10 @@
             </objects>
             <point key="canvasLocation" x="-330" y="384"/>
         </scene>
-        <!--Buyer-->
+        <!--Buyer view Controller-->
         <scene sceneID="XN0-yT-sew">
             <objects>
-                <viewController id="HEW-Gh-vHa" sceneMemberID="viewController">
+                <viewController id="HEW-Gh-vHa" userLabel="Buyer view Controller" customClass="BuyerViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BRU-3g-s8K"/>
                         <viewControllerLayoutGuide type="bottom" id="Q2d-dl-f6w"/>
@@ -181,6 +182,13 @@
                     <view key="view" contentMode="scaleToFill" id="j9D-qU-HNv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sqg-Cv-ZE7">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Buyer" id="WbB-Cf-DTr"/>
@@ -189,29 +197,82 @@
             </objects>
             <point key="canvasLocation" x="2129" y="-561"/>
         </scene>
-        <!--Seller-->
-        <scene sceneID="Vm6-Js-0gU">
+        <!--Seller View Controller-->
+        <scene sceneID="JL4-Zm-AYl">
             <objects>
-                <viewController id="SQ0-Ql-wIe" sceneMemberID="viewController">
+                <tableViewController id="138-XM-tpZ" userLabel="Seller View Controller" customClass="SellerTableViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Keb-ZV-V58">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="7a3-r0-0hV">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7a3-r0-0hV" id="DXb-dU-Cwa">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="138-XM-tpZ" id="wcP-Jb-IUS"/>
+                            <outlet property="delegate" destination="138-XM-tpZ" id="pDH-Ah-wjz"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="My Tickets" id="Mtu-F9-F12">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gkb-8l-nka">
+                            <connections>
+                                <segue destination="7IE-b5-0iA" kind="show" id="XfM-Rd-1oM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="syG-7T-M2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3004" y="125"/>
+        </scene>
+        <!--New Ticket View Controller-->
+        <scene sceneID="2Np-uU-fIH">
+            <objects>
+                <viewController id="7IE-b5-0iA" customClass="NewTicketViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4Z3-Yl-QIy"/>
-                        <viewControllerLayoutGuide type="bottom" id="qvJ-KT-MxS"/>
+                        <viewControllerLayoutGuide type="top" id="cDo-cE-sVS"/>
+                        <viewControllerLayoutGuide type="bottom" id="RaA-o1-Xpi"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jr2-Pz-XW5">
+                    <view key="view" contentMode="scaleToFill" id="vtk-cB-WL7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Seller" id="IRj-2K-BxU"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="amY-3u-aWI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fQz-8E-eES" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2129" y="107"/>
+            <point key="canvasLocation" x="3772" y="125"/>
         </scene>
-        <!--Profile-->
+        <!--Seller-->
+        <scene sceneID="vW4-gP-8Ia">
+            <objects>
+                <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Seller" id="np1-Kp-fSY"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="138-XM-tpZ" kind="relationship" relationship="rootViewController" id="fu4-Jz-ts0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qnk-SB-Eoq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129" y="125"/>
+        </scene>
+        <!--Profile View Controller-->
         <scene sceneID="yHx-en-J4i">
             <objects>
-                <viewController id="08y-N8-iKP" sceneMemberID="viewController">
+                <viewController id="08y-N8-iKP" userLabel="Profile View Controller" customClass="ProfileViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="32u-2s-nXm"/>
                         <viewControllerLayoutGuide type="bottom" id="QUb-rQ-uKZ"/>
@@ -238,7 +299,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="HEW-Gh-vHa" kind="relationship" relationship="viewControllers" id="fQa-Ml-wkN"/>
-                        <segue destination="SQ0-Ql-wIe" kind="relationship" relationship="viewControllers" id="wBT-Gh-174"/>
+                        <segue destination="mGX-WS-h5F" kind="relationship" relationship="viewControllers" id="YOV-ST-5dV"/>
                         <segue destination="08y-N8-iKP" kind="relationship" relationship="viewControllers" id="yOz-tg-dGF"/>
                     </connections>
                 </tabBarController>
