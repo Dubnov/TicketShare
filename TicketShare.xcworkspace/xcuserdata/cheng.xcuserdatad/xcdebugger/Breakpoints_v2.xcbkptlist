@@ -146,11 +146,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/RegisterViewController.swift"
-            timestampString = "511375025.887063"
+            timestampString = "511463895.534362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "registerUser(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -263,8 +263,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
             endingLineNumber = "19"
-            landmarkName = "addUser(user:completionBlock:)"
-            landmarkType = "7">
+            landmarkName = "Firebase"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -322,12 +322,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TicketShare/RegisterViewController.swift"
-            timestampString = "511389297.091851"
+            timestampString = "511463895.534362"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "passwordEditingDidEndValidate(_:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "validatePassword()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
