@@ -35,6 +35,17 @@ class TicketDetailsViewController: UIViewController {
                 self.ticketImageView!.image = image
             })
         }
+        
+        // Convert address to latitude&longitude
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(self.addrField.text!) { (placemarksOptional, error) -> Void in
+            if let placemarks = placemarksOptional {
+                if let location = placemarks.first?.location {
+                    print("latitude:\(location.coordinate.latitude)")
+                    print("longitude:\(location.coordinate.longitude)")
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

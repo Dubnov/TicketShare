@@ -3,10 +3,34 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Model.(getAllTicketsAndObserve() -&gt; ()).(closure #1):Model.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Ticket.TABLE_NAME">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Firebase.(loginUser(email : String, password : String, completionBlock : (Error?) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.currAuthUser.displayName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Ticket.init(json : [String : Any]) -&gt; Ticket:Ticket.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "json">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Firebase.(getAllTicketsAndObserve(Date?, callback : ([Ticket]) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.children.allObjects">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
