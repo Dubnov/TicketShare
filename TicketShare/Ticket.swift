@@ -31,7 +31,7 @@ class Ticket {
     
     init(json: Dictionary<String, Any>) {
         self.title = json["title"] as! String
-        self.seller = json["password"] as! String
+        self.seller = json["seller"] as! String
         self.price = json["price"] as! Int
         self.address = json["address"] as! String
         self.amount = json["amount"] as! Int
@@ -162,7 +162,7 @@ class Ticket {
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, address: address!, description: description!, imageUrl: imageUrl!)
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, address: address!, description: description, imageUrl: imageUrl)
                 tickets.append(ticket)
             }
         }
