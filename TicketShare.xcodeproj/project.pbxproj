@@ -7,21 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B1ACC1E79DF8F001D3690 /* Model.swift */; };
+		1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC8F1E7AF5C700418511 /* LoginViewController.swift */; };
+		1455EC941E7C0E4900418511 /* SellerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC931E7C0E4900418511 /* SellerTableViewController.swift */; };
+		1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC951E7C0F3600418511 /* NewTicketViewController.swift */; };
+		1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileViewController.swift */; };
 		620D18351E42611400233819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18341E42611400233819 /* AppDelegate.swift */; };
-		620D18371E42611400233819 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* ViewController.swift */; };
+		620D18371E42611400233819 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* RegisterViewController.swift */; };
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
 		620D183C1E42611400233819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620D183B1E42611400233819 /* Assets.xcassets */; };
 		620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D183D1E42611400233819 /* LaunchScreen.storyboard */; };
+		626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */; };
+		626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE211E7B3767007EFE41 /* StringExtension.swift */; };
+		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
+		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
+		629BE9E91E6376F8006C5055 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* Event.swift */; };
+		629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */; };
+		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
+		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
+		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
+		6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		141B1ACC1E79DF8F001D3690 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		1455EC8E1E7AEF9600418511 /* TicketShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TicketShare.entitlements; sourceTree = "<group>"; };
+		1455EC8F1E7AF5C700418511 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1455EC931E7C0E4900418511 /* SellerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellerTableViewController.swift; sourceTree = "<group>"; };
+		1455EC951E7C0F3600418511 /* NewTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
+		1455EC971E7C0F6C00418511 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
+		591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.release.xcconfig"; sourceTree = "<group>"; };
 		620D18311E42611400233819 /* TicketShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicketShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		620D18341E42611400233819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		620D18361E42611400233819 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		620D18361E42611400233819 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		620D18391E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		620D183B1E42611400233819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		620D183E1E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620D18401E42611400233819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastUpdateTable.swift; sourceTree = "<group>"; };
+		626AEE211E7B3767007EFE41 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		629BE9E61E6376E0006C5055 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
+		629BE9E81E6376F8006C5055 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		629BE9ED1E64B6B4006C5055 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
+		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
+		629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TicketShare-Bridging-Header.h"; sourceTree = "<group>"; };
+		F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicketShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */,
+				6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +76,8 @@
 			children = (
 				620D18331E42611400233819 /* TicketShare */,
 				620D18321E42611400233819 /* Products */,
+				629BE9F11E64CAC7006C5055 /* Frameworks */,
+				8C04465C31D9D81CAFBCA3C7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +92,63 @@
 		620D18331E42611400233819 /* TicketShare */ = {
 			isa = PBXGroup;
 			children = (
+				1455EC8E1E7AEF9600418511 /* TicketShare.entitlements */,
+				629BE9EC1E64B672006C5055 /* DAL */,
+				629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */,
+				629BE9E31E6376A7006C5055 /* Models */,
 				620D18341E42611400233819 /* AppDelegate.swift */,
-				620D18361E42611400233819 /* ViewController.swift */,
+				620D18361E42611400233819 /* RegisterViewController.swift */,
 				620D18381E42611400233819 /* Main.storyboard */,
 				620D183B1E42611400233819 /* Assets.xcassets */,
 				620D183D1E42611400233819 /* LaunchScreen.storyboard */,
 				620D18401E42611400233819 /* Info.plist */,
+				629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */,
+				1455EC8F1E7AF5C700418511 /* LoginViewController.swift */,
+				1455EC931E7C0E4900418511 /* SellerTableViewController.swift */,
+				1455EC951E7C0F3600418511 /* NewTicketViewController.swift */,
+				1455EC971E7C0F6C00418511 /* ProfileViewController.swift */,
+				626AEE211E7B3767007EFE41 /* StringExtension.swift */,
 			);
 			path = TicketShare;
+			sourceTree = "<group>";
+		};
+		629BE9E31E6376A7006C5055 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				629BE9E41E6376BC006C5055 /* User.swift */,
+				629BE9E61E6376E0006C5055 /* Ticket.swift */,
+				629BE9E81E6376F8006C5055 /* Event.swift */,
+				626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		629BE9EC1E64B672006C5055 /* DAL */ = {
+			isa = PBXGroup;
+			children = (
+				629BE9ED1E64B6B4006C5055 /* Firebase.swift */,
+				629BE9EF1E64C57E006C5055 /* SQLite.swift */,
+				141B1ACC1E79DF8F001D3690 /* Model.swift */,
+			);
+			name = DAL;
+			sourceTree = "<group>";
+		};
+		629BE9F11E64CAC7006C5055 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */,
+				F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C04465C31D9D81CAFBCA3C7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */,
+				591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +158,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 620D18431E42611400233819 /* Build configuration list for PBXNativeTarget "TicketShare" */;
 			buildPhases = (
+				C5FF990CC4A3402F13CE91CE /* [CP] Check Pods Manifest.lock */,
 				620D182D1E42611300233819 /* Sources */,
 				620D182E1E42611300233819 /* Frameworks */,
 				620D182F1E42611300233819 /* Resources */,
+				37DB363058AC13C27D81F49A /* [CP] Embed Pods Frameworks */,
+				6371538EAAFB4CC17BAF64D3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -96,7 +186,14 @@
 				TargetAttributes = {
 					620D18301E42611300233819 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 5W4R5D73Q3;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -124,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */,
+				629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */,
 				620D183C1E42611400233819 /* Assets.xcassets in Resources */,
 				620D183A1E42611400233819 /* Main.storyboard in Resources */,
 			);
@@ -131,13 +229,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		37DB363058AC13C27D81F49A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6371538EAAFB4CC17BAF64D3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5FF990CC4A3402F13CE91CE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		620D182D1E42611300233819 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				620D18371E42611400233819 /* ViewController.swift in Sources */,
+				626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */,
+				1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */,
+				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
+				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
+				1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */,
+				620D18371E42611400233819 /* RegisterViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
+				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
+				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
+				1455EC941E7C0E4900418511 /* SellerTableViewController.swift in Sources */,
+				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
+				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
+				626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */,
+				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +361,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -247,7 +405,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -258,24 +416,35 @@
 		};
 		620D18441E42611400233819 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TicketShare/TicketShare.entitlements;
+				DEVELOPMENT_TEAM = 5W4R5D73Q3;
 				INFOPLIST_FILE = TicketShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ios.project.TicketShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TicketShare/TicketShare-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		620D18451E42611400233819 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = TicketShare/TicketShare.entitlements;
+				DEVELOPMENT_TEAM = 5W4R5D73Q3;
 				INFOPLIST_FILE = TicketShare/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ios.project.TicketShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TicketShare/TicketShare-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -299,6 +468,7 @@
 				620D18451E42611400233819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
