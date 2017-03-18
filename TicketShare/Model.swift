@@ -63,7 +63,7 @@ class Model{
         }
     }
     
-    func getAllTickets() {
+    func getAllTickets(callback:@escaping ([Ticket])->Void) {
         let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database,
                                                                table: Ticket.TABLE_NAME)
         firebaseModel?.getAllTickets(lastUpdateDate, callback: { (tickets) in
@@ -85,7 +85,33 @@ class Model{
             
             let totalList = Ticket.getAllTicketsFromLocalDB(database: (self.sqlModel?.database)!)
             
-            NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketListUpdate), object:nil , userInfo:["students":totalList])
+            callback(totalList)
+        })
+    }
+    
+    func getAllTicketsAndObserve() {
+        let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database,
+                                                               table: Ticket.TABLE_NAME)
+        firebaseModel?.getAllTicketsAndObserve(lastUpdateDate, callback: { (tickets) in
+            var lastUpdate:Date?
+            for ticket in tickets{
+                ticket.addTicketToLocalDB(database: (self.sqlModel?.database)!)
+                if lastUpdate == nil{
+                    lastUpdate = ticket.lastUpdateDate
+                }else{
+                    if lastUpdate!.compare(ticket.lastUpdateDate!) == ComparisonResult.orderedAscending{
+                        lastUpdate = ticket.lastUpdateDate
+                    }
+                }
+            }
+            
+            if (lastUpdate != nil){
+                LastUpdateTable.setLastUpdate(database: self.sqlModel!.database, table: Ticket.TABLE_NAME, lastUpdate: lastUpdate!)
+            }
+            
+            let totalList = Ticket.getAllTicketsFromLocalDB(database: (self.sqlModel?.database)!)
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketListUpdate), object:nil , userInfo:["tickets":totalList])
         })
     }
     
