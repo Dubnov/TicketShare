@@ -41,15 +41,23 @@ class TicketTableViewController: UITableViewController {
         return self.ticketsList.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TicketTableViewCell", for: indexPath) as! TicketTableViewCell
+        
+        /*cell.nameLabel!.text = self.ticketsList[indexPath.row].name
+        cell.stid!.text = self.studentList[indexPath.row].id
+        
+        if let imUrl = self.studentList[indexPath.row].imageUrl{
+            Model.instance.getImage(urlStr: imUrl, callback: { (image) in
+                cell.stImage!.image = image
+            })
+        }
+        */
+        
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
