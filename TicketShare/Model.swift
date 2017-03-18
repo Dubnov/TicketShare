@@ -132,4 +132,8 @@ class Model{
         return documentsDirectory
     }
     
+    func getCurrentAuthUserName() -> String? {
+        return firebaseModel?.getCurrentAuthUserName()
+    }
+    
 }
