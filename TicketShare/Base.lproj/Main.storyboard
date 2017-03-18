@@ -214,7 +214,7 @@
         <scene sceneID="JL4-Zm-AYl">
             <objects>
                 <tableViewController id="138-XM-tpZ" userLabel="Seller View Controller" customClass="TicketTableViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Keb-ZV-V58">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="Keb-ZV-V58">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -226,7 +226,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJO-3s-qap">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="eJO-3s-qap">
                                             <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
@@ -238,14 +238,28 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAC-L4-BRb">
-                                            <rect key="frame" x="233" y="61" width="134" height="21"/>
+                                            <rect key="frame" x="306" y="61" width="50" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gCM-jP-zjN">
+                                            <rect key="frame" x="98" y="61" width="49" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMQ-Yk-a8I">
+                                            <rect key="frame" x="232" y="61" width="66" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEb-Zy-6vg">
-                                            <rect key="frame" x="98" y="61" width="127" height="21"/>
+                                            <rect key="frame" x="151" y="61" width="50" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -258,6 +272,7 @@
                                     <outlet property="nameLabel" destination="frR-Q2-V8u" id="AaC-7a-WEi"/>
                                     <outlet property="priceLabel" destination="dEb-Zy-6vg" id="tZ6-Ii-GFQ"/>
                                     <outlet property="ticketImageView" destination="eJO-3s-qap" id="Jvl-M6-Yrm"/>
+                                    <segue destination="SFI-uU-a8w" kind="show" id="1UM-2d-9aD"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -404,6 +419,28 @@
             </objects>
             <point key="canvasLocation" x="3772" y="124.58770614692655"/>
         </scene>
+        <!--Ticket Details-->
+        <scene sceneID="HyX-mE-7RU">
+            <objects>
+                <viewController id="SFI-uU-a8w" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PFY-fF-hkt"/>
+                        <viewControllerLayoutGuide type="bottom" id="LVq-W8-69w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R5M-wz-t1F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Ticket Details" id="eOQ-XJ-Ngh">
+                        <barButtonItem key="backBarButtonItem" title="&lt;" id="Sbj-Ma-EBq"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="yNA-it-UKF"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Joz-Bo-mFu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3471" y="842"/>
+        </scene>
         <!--Tickets-->
         <scene sceneID="vW4-gP-8Ia">
             <objects>
@@ -459,6 +496,9 @@
             <point key="canvasLocation" x="665" y="25"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="default" width="137" height="137"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tun-Co-NN6"/>
     </inferredMetricsTieBreakers>
