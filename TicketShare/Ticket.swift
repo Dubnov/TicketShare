@@ -84,7 +84,7 @@ class Ticket {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
         
         let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( "
-            + TITLE + " TEXT, "
+            + TITLE + " TEXT PRIMARY KEY, "
             + AMOUNT + " INT, "
             + SELLER + " TEXT, "
             + ADDRESS + " TEXT, "
