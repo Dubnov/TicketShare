@@ -210,25 +210,6 @@
             </objects>
             <point key="canvasLocation" x="-330.39999999999998" y="383.65817091454278"/>
         </scene>
-        <!--Buyer view Controller-->
-        <scene sceneID="XN0-yT-sew">
-            <objects>
-                <viewController id="HEW-Gh-vHa" userLabel="Buyer view Controller" customClass="BuyerViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BRU-3g-s8K"/>
-                        <viewControllerLayoutGuide type="bottom" id="Q2d-dl-f6w"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="j9D-qU-HNv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Buyer" id="WbB-Cf-DTr"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oIP-DE-tUN" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2129" y="-561"/>
-        </scene>
         <!--Seller View Controller-->
         <scene sceneID="JL4-Zm-AYl">
             <objects>
@@ -318,7 +299,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cnw-xT-27g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2129" y="826"/>
+            <point key="canvasLocation" x="1370" y="861"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="jdl-CU-mCz">
@@ -330,7 +311,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="HEW-Gh-vHa" kind="relationship" relationship="viewControllers" id="fQa-Ml-wkN"/>
                         <segue destination="mGX-WS-h5F" kind="relationship" relationship="viewControllers" id="YOV-ST-5dV"/>
                         <segue destination="08y-N8-iKP" kind="relationship" relationship="viewControllers" id="yOz-tg-dGF"/>
                     </connections>
