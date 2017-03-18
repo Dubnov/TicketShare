@@ -13,18 +13,18 @@ class Ticket {
     var seller:String
     var title:String
     var amount:Int
+    var price:Int
     var description:String?
     var address:String
     var imageUrl:String?
     var lastUpdateDate:Date?
-    var event:String
     
-    init(seller:String, title:String, event:String, amount:Int, address:String, description:String?, imageUrl:String?) {
+    init(seller:String, title:String, price:Int, amount:Int, address:String, description:String?, imageUrl:String?) {
         self.seller = seller
         self.address = address
         self.title = title
         self.amount = amount
-        self.event = event
+        self.price = price
         self.imageUrl = imageUrl
         self.description = description
     }
@@ -32,7 +32,7 @@ class Ticket {
     init(json: Dictionary<String, Any>) {
         self.title = json["title"] as! String
         self.seller = json["password"] as! String
-        self.event = json["event"] as! String
+        self.price = json["price"] as! Int
         self.address = json["address"] as! String
         self.amount = json["amount"] as! Int
         
@@ -53,7 +53,7 @@ class Ticket {
         json["title"] = self.title
         json["seller"] = self.seller
         json["amount"] = self.amount        
-        json["event"] = self.event
+        json["price"] = self.price
         json["address"] = self.address
         
         if self.description != nil {
@@ -77,7 +77,7 @@ class Ticket {
     static let ADDRESS = "ADDRESS"
     static let DESCRIPTION = "DESCRIPTION"
     static let IMAGE_URL = "IMAGE_URL"
-    static let EVENT = "EVENT"
+    static let PRICE = "PRICE"
     static let LAST_UPDATE_DATE = "LAST_UPDATE_DATE"
     
     static func createTicketsTable(database: OpaquePointer?) -> Bool {
@@ -89,7 +89,7 @@ class Ticket {
             + SELLER + " TEXT, "
             + ADDRESS + " TEXT, "
             + DESCRIPTION + " TEXT, "
-            + EVENT + " TEXT, "
+            + PRICE + " INT, "
             + IMAGE_URL + " TEXT, "
             + LAST_UPDATE_DATE + " DOUBLE)", nil, nil, &errormsg);
         if(res != 0){
@@ -108,7 +108,7 @@ class Ticket {
             + Ticket.SELLER + ","
             + Ticket.ADDRESS + ","
             + Ticket.DESCRIPTION + ","
-            + Ticket.EVENT + ","
+            + Ticket.PRICE + ","
             + Ticket.IMAGE_URL + ","
             + Ticket.LAST_UPDATE_DATE + ") VALUES (?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             
@@ -117,7 +117,7 @@ class Ticket {
             let amount = self.amount
             let address = self.address.cString(using: .utf8)
             let description = self.description?.cString(using: .utf8)
-            let event = self.event.cString(using: .utf8)
+            let price = self.price
             var imageUrl = "".cString(using: .utf8)
             if self.imageUrl != nil {
                 imageUrl = self.imageUrl!.cString(using: .utf8)
@@ -128,7 +128,7 @@ class Ticket {
             sqlite3_bind_text(sqlite3_stmt, 3, seller,-1,nil);
             sqlite3_bind_text(sqlite3_stmt, 4, address, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 5, description,-1,nil);
-            sqlite3_bind_text(sqlite3_stmt, 6, event,-1,nil);
+            sqlite3_bind_int(sqlite3_stmt, 6, Int32(price));
             sqlite3_bind_text(sqlite3_stmt, 7, imageUrl,-1,nil);
             
             if (self.lastUpdateDate == nil){
@@ -156,13 +156,13 @@ class Ticket {
                 let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,2))
                 let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 3))
                 let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,4))
-                let event =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,5))
+                let price =  Int(sqlite3_column_int(sqlite3_stmt, 5))
                 var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,6))
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, event: event!, amount: amount, address: address!, description: description!, imageUrl: imageUrl!)
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, address: address!, description: description!, imageUrl: imageUrl!)
                 tickets.append(ticket)
             }
         }
