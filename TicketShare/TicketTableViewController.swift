@@ -45,15 +45,15 @@ class TicketTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TicketTableViewCell", for: indexPath) as! TicketTableViewCell
         
-        /*cell.nameLabel!.text = self.ticketsList[indexPath.row].name
-        cell.stid!.text = self.studentList[indexPath.row].id
+        cell.nameLabel!.text = self.ticketsList[indexPath.row].title
+        cell.amountLabel!.text = String(self.ticketsList[indexPath.row].amount)
+        cell.priceLabel!.text = String(self.ticketsList[indexPath.row].price) + "₪"
         
-        if let imUrl = self.studentList[indexPath.row].imageUrl{
+        if let imUrl = self.ticketsList[indexPath.row].imageUrl{
             Model.instance.getImage(urlStr: imUrl, callback: { (image) in
-                cell.stImage!.image = image
+                cell.ticketImageView!.image = image
             })
         }
-        */
         
         return cell
     }

@@ -255,8 +255,8 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="amountLabel" destination="oAC-L4-BRb" id="PUP-v2-eDM"/>
-                                    <outlet property="dateLabel" destination="dEb-Zy-6vg" id="aq1-Yp-jDV"/>
                                     <outlet property="nameLabel" destination="frR-Q2-V8u" id="AaC-7a-WEi"/>
+                                    <outlet property="priceLabel" destination="dEb-Zy-6vg" id="tZ6-Ii-GFQ"/>
                                     <outlet property="ticketImageView" destination="eJO-3s-qap" id="Jvl-M6-Yrm"/>
                                 </connections>
                             </tableViewCell>

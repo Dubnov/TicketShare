@@ -11,7 +11,7 @@ import UIKit
 class TicketTableViewCell: UITableViewCell {
     // Properties
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var ticketImageView: UIImageView!
 
