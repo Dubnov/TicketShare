@@ -20,7 +20,9 @@ class Firebase{
     
     lazy var storageRef = FIRStorage.storage().reference(forURL: "gs://ticketshare-5ca22.appspot.com/")
 
-    
+    func getCurrentAuthUserName() -> String? {
+        return currAuthUser?.displayName
+    }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
@@ -31,6 +33,9 @@ class Firebase{
                         let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
                         changeRequest?.displayName = user.fullName
                         changeRequest?.commitChanges() {(err) in
+                            if err == nil {
+                                self.currAuthUser = FIRAuth.auth()?.currentUser
+                            }
                             completionBlock(err)
                         }
                         
@@ -51,6 +56,9 @@ class Firebase{
     
     func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
         FIRAuth.auth()!.signIn(withEmail: email, password: password) {(user, error) in
+            if error == nil {
+                self.currAuthUser = user
+            }
             completionBlock(error)
         }
     }

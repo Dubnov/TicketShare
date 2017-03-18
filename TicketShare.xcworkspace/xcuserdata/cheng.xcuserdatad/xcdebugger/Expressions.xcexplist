@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "Firebase.(loginUser(email : String, password : String, completionBlock : (Error?) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currAuthUser.displayName">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
