@@ -13,6 +13,7 @@
 		1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileViewController.swift */; };
 		507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */; };
 		507E6A411E7D86300091F13C /* TicketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A401E7D86300091F13C /* TicketTableViewController.swift */; };
+		507E6A431E7DB6F10091F13C /* TicketDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */; };
 		620D18351E42611400233819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18341E42611400233819 /* AppDelegate.swift */; };
 		620D18371E42611400233819 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* RegisterViewController.swift */; };
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
 		507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
 		507E6A401E7D86300091F13C /* TicketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewController.swift; sourceTree = "<group>"; };
+		507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailsViewController.swift; sourceTree = "<group>"; };
 		591A737A09FF25E4132EB51B /* Pods-TicketShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.release.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.release.xcconfig"; sourceTree = "<group>"; };
 		620D18311E42611400233819 /* TicketShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TicketShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		620D18341E42611400233819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				626AEE211E7B3767007EFE41 /* StringExtension.swift */,
 				507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */,
 				507E6A401E7D86300091F13C /* TicketTableViewController.swift */,
+				507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */,
 				626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */,
 				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,
+				507E6A431E7DB6F10091F13C /* TicketDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
