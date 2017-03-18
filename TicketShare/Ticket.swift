@@ -14,12 +14,14 @@ class Ticket {
     var title:String
     var amount:Int
     var description:String?
+    var address:String
     var imageUrl:String?
     var lastUpdateDate:Date?
     var event:String
     
-    init(seller:String, title:String, event:String, amount:Int, description:String?, imageUrl:String?) {
+    init(seller:String, title:String, event:String, amount:Int, address:String, description:String?, imageUrl:String?) {
         self.seller = seller
+        self.address = address
         self.title = title
         self.amount = amount
         self.event = event
@@ -31,6 +33,7 @@ class Ticket {
         self.title = json["title"] as! String
         self.seller = json["password"] as! String
         self.event = json["event"] as! String
+        self.address = json["address"] as! String
         self.amount = json["amount"] as! Int
         
         if let des = json["description"] as? String {
@@ -51,6 +54,7 @@ class Ticket {
         json["seller"] = self.seller
         json["amount"] = self.amount        
         json["event"] = self.event
+        json["address"] = self.address
         
         if self.description != nil {
             json["description"] = self.description!
@@ -70,6 +74,7 @@ class Ticket {
     static let SELLER = "SELLER"
     static let TITLE = "TITLE"
     static let AMOUNT = "AMOUNT"
+    static let ADDRESS = "ADDRESS"
     static let DESCRIPTION = "DESCRIPTION"
     static let IMAGE_URL = "IMAGE_URL"
     static let EVENT = "EVENT"
@@ -82,6 +87,7 @@ class Ticket {
             + TITLE + " TEXT, "
             + AMOUNT + " INT, "
             + SELLER + " TEXT, "
+            + ADDRESS + " TEXT, "
             + DESCRIPTION + " TEXT, "
             + EVENT + " TEXT, "
             + IMAGE_URL + " TEXT, "
@@ -100,14 +106,16 @@ class Ticket {
             + "(" + Ticket.TITLE + ","
             + Ticket.AMOUNT + ","
             + Ticket.SELLER + ","
+            + Ticket.ADDRESS + ","
             + Ticket.DESCRIPTION + ","
             + Ticket.EVENT + ","
             + Ticket.IMAGE_URL + ","
-            + Ticket.LAST_UPDATE_DATE + ") VALUES (?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            + Ticket.LAST_UPDATE_DATE + ") VALUES (?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             
             let title = self.title.cString(using: .utf8)
             let seller = self.seller.cString(using: .utf8)
             let amount = self.amount
+            let address = self.address.cString(using: .utf8)
             let description = self.description?.cString(using: .utf8)
             let event = self.event.cString(using: .utf8)
             var imageUrl = "".cString(using: .utf8)
@@ -118,14 +126,15 @@ class Ticket {
             sqlite3_bind_text(sqlite3_stmt, 1, title,-1,nil);
             sqlite3_bind_int(sqlite3_stmt, 2, Int32(amount));
             sqlite3_bind_text(sqlite3_stmt, 3, seller,-1,nil);
-            sqlite3_bind_text(sqlite3_stmt, 4, description,-1,nil);
-            sqlite3_bind_text(sqlite3_stmt, 5, event,-1,nil);
-            sqlite3_bind_text(sqlite3_stmt, 6, imageUrl,-1,nil);
+            sqlite3_bind_text(sqlite3_stmt, 4, address, -1, nil)
+            sqlite3_bind_text(sqlite3_stmt, 5, description,-1,nil);
+            sqlite3_bind_text(sqlite3_stmt, 6, event,-1,nil);
+            sqlite3_bind_text(sqlite3_stmt, 7, imageUrl,-1,nil);
             
             if (self.lastUpdateDate == nil){
                 self.lastUpdateDate = Date()
             }
-            sqlite3_bind_double(sqlite3_stmt, 7, self.lastUpdateDate!.toFirebase());
+            sqlite3_bind_double(sqlite3_stmt, 8, self.lastUpdateDate!.toFirebase());
             
             if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
                 print("new row added succefully")
@@ -145,6 +154,7 @@ class Ticket {
                 let title =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,0))
                 let amount =  Int(sqlite3_column_int(sqlite3_stmt, 1))
                 let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,2))
+                let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 3))
                 let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,4))
                 let event =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,5))
                 var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,6))
@@ -152,7 +162,7 @@ class Ticket {
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, event: event!, amount: amount, description: description!, imageUrl: imageUrl!)
+                let ticket = Ticket(seller: seller!, title: title!, event: event!, amount: amount, address: address!, description: description!, imageUrl: imageUrl!)
                 tickets.append(ticket)
             }
         }
