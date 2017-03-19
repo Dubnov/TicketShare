@@ -10,6 +10,7 @@ import Foundation
 import FirebaseDatabase
 
 class Ticket {
+    var id:String?
     var seller:String
     var title:String
     var amount:Int
@@ -30,6 +31,7 @@ class Ticket {
     }
     
     init(json: Dictionary<String, Any>) {
+        self.id = json["id"] as? String
         self.title = json["title"] as! String
         self.seller = json["seller"] as! String
         self.price = json["price"] as! Int
@@ -71,6 +73,7 @@ class Ticket {
     // SQLite code
     
     static let TABLE_NAME = "TICKETS"
+    static let ID = "ID"
     static let SELLER = "SELLER"
     static let TITLE = "TITLE"
     static let AMOUNT = "AMOUNT"
@@ -84,7 +87,8 @@ class Ticket {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
         
         let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ( "
-            + TITLE + " TEXT PRIMARY KEY, "
+            + ID + " TEXT PRIMARY KEY, "
+            + TITLE + " TEXT, "
             + AMOUNT + " INT, "
             + SELLER + " TEXT, "
             + ADDRESS + " TEXT, "

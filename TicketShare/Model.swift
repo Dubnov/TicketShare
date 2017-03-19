@@ -63,32 +63,6 @@ class Model{
         }
     }
     
-    func getAllTickets(callback:@escaping ([Ticket])->Void) {
-        let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database,
-                                                               table: Ticket.TABLE_NAME)
-        firebaseModel?.getAllTickets(lastUpdateDate, callback: { (tickets) in
-            var lastUpdate:Date?
-            for ticket in tickets{
-                ticket.addTicketToLocalDB(database: (self.sqlModel?.database)!)
-                if lastUpdate == nil{
-                    lastUpdate = ticket.lastUpdateDate
-                }else{
-                    if lastUpdate!.compare(ticket.lastUpdateDate!) == ComparisonResult.orderedAscending{
-                        lastUpdate = ticket.lastUpdateDate
-                    }
-                }
-            }
-            
-            if (lastUpdate != nil){
-                LastUpdateTable.setLastUpdate(database: self.sqlModel!.database, table: Ticket.TABLE_NAME, lastUpdate: lastUpdate!)
-            }
-            
-            let totalList = Ticket.getAllTicketsFromLocalDB(database: (self.sqlModel?.database)!)
-            
-            callback(totalList)
-        })
-    }
-    
     func getAllTicketsAndObserve() {
         let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database,
                                                                table: Ticket.TABLE_NAME)
