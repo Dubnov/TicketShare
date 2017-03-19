@@ -105,7 +105,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
         request.transportType = .automobile
         
         let directions = MKDirections(request: request)
-        directions.calculate (completionHandler: {
+        /*directions.calculate (completionHandler: {
             (response: MKDirectionsResponse?, error: NSError?) in
             if let routeResponse = response?.routes {
                 if let route = routeResponse.first {
@@ -129,7 +129,33 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
             } else if let _ = error {
                 
             }
-        } as! MKDirectionsHandler)
+        } as! MKDirectionsHandler)*/
+        
+        directions.calculate(completionHandler: {(response, error) in
+            if let routeResponse = response?.routes {
+                if let route = routeResponse.first {
+                    self.distLabel.text = String(route.distance/1000.0) + "Km"
+                    self.etaLabel.text = String((route.expectedTravelTime/60)/60) + " Hours"
+                    
+                    self.mapView.addOverlays([route.polyline])
+                    if self.mapView.overlays.count == 1 {
+                        self.mapView.setVisibleMapRect(route.polyline.boundingMapRect,
+                                                       edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
+                                                       animated: false)
+                    }
+                    else {
+                        let polylineBoundingRect =  MKMapRectUnion(self.mapView.visibleMapRect,
+                                                                   route.polyline.boundingMapRect)
+                        self.mapView.setVisibleMapRect(polylineBoundingRect,
+                                                       edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
+                                                       animated: false)
+                    }
+                }
+            } else if let _ = error {
+                
+            }
+
+        })
     }
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
