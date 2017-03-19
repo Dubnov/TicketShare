@@ -25,7 +25,7 @@ class Firebase{
     }
     
     func getCurrentAuthUserEmail() -> String? {
-        return currAuthUser?.email
+        return self.currAuthUser?.email
     }
     
     func signOut() {
