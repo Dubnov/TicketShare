@@ -579,7 +579,7 @@
         <scene sceneID="vW4-gP-8Ia">
             <objects>
                 <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tickets" id="np1-Kp-fSY"/>
+                    <tabBarItem key="tabBarItem" title="Tickets" image="Ticket" selectedImage="Ticket" id="np1-Kp-fSY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -605,7 +605,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" id="3Lx-3V-FT9"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="Profile" selectedImage="Profile" id="3Lx-3V-FT9"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cnw-xT-27g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -631,6 +631,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Profile" width="25" height="25"/>
+        <image name="Ticket" width="30" height="30"/>
         <image name="default" width="137" height="137"/>
     </resources>
     <inferredMetricsTieBreakers>
