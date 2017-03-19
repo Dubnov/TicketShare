@@ -95,15 +95,11 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             currLocation = locationManager.location!
             self.currloaded = true
             calcDriveDetails()
+            let currLocAnnotation = MKPointAnnotation()
+            currLocAnnotation.coordinate = currLocation.coordinate
+            self.mapView.addAnnotation(currLocAnnotation)
         }
     }
-    
-    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currLocation = locations.last! as CLLocation
-        if locations.last != nil {
-            calcDriveDetails()
-        }
-    }*/
     
     func calcDriveDetails() {
         if selectedLoaded && currloaded {
