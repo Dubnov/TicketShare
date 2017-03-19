@@ -57,6 +57,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func unwindToLogin(segue:UIStoryboardSegue){
+        self.txtEmail.text?.removeAll()
+        self.txtPassword.text?.removeAll()
     }
 
     /*
