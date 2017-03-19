@@ -9,13 +9,15 @@
 import UIKit
 import MapKit
 
-class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
+class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var selectedTicket = Ticket(seller: "", title: "", price: 0, amount: 0, address: "", description: "", imageUrl: nil)
     var locationManager = CLLocationManager()
     var currLocation = CLLocation()
     var selectedMapItem = MKMapItem()
     var selectedLatitude: Double = 0
     var selectedLongitude: Double = 0
+    var selectedLoaded = false
+    var currloaded = false
     
     @IBOutlet weak var navigateButton: UIButton!
     @IBOutlet weak var sellerField: UITextField!
@@ -51,6 +53,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
             })
         }
         
+        self.mapView.delegate = self
+        
         // Convert address to latitude&longitude
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(self.addrField.text!) { (placemarksOptional, error) -> Void in
@@ -60,6 +64,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
                     print("longitude:\(location.coordinate.longitude)")
                     self.selectedLatitude = location.coordinate.latitude
                     self.selectedLongitude = location.coordinate.longitude
+                    self.selectedLoaded = true
                     let coordinates = CLLocationCoordinate2DMake(self.selectedLatitude,
                                                                  self.selectedLongitude)
                     let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
@@ -74,6 +79,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
                     let eventAnnotation = MKPointAnnotation()
                     eventAnnotation.coordinate = eventCoordinate
                     self.mapView.addAnnotation(eventAnnotation)
+                    self.calcDriveDetails()
                 }
             }
         }
@@ -86,79 +92,53 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currLocation = locations.last! as CLLocation
-        if locations.last != nil {
+            currLocation = locationManager.location!
+            self.currloaded = true
             calcDriveDetails()
+            let currLocAnnotation = MKPointAnnotation()
+            currLocAnnotation.coordinate = currLocation.coordinate
+            self.mapView.addAnnotation(currLocAnnotation)
         }
     }
     
     func calcDriveDetails() {
-        let request: MKDirectionsRequest = MKDirectionsRequest()
-        let placemark = MKPlacemark(coordinate: currLocation.coordinate, addressDictionary: nil)
-        let mapitem = MKMapItem(placemark: placemark)
-        request.source = mapitem
-        request.destination = self.selectedMapItem
-        request.transportType = .automobile
+        if selectedLoaded && currloaded {
+            let request: MKDirectionsRequest = MKDirectionsRequest()
+            let placemark = MKPlacemark(coordinate: currLocation.coordinate, addressDictionary: nil)
+            let mapitem = MKMapItem(placemark: placemark)
+            request.source = mapitem
+            request.destination = self.selectedMapItem
+            request.transportType = .automobile
         
-        let directions = MKDirections(request: request)
-        /*directions.calculate (completionHandler: {
-            (response: MKDirectionsResponse?, error: NSError?) in
-            if let routeResponse = response?.routes {
-                if let route = routeResponse.first {
-                    self.distLabel.text = String(route.distance/1000.0) + "Km"
-                    self.etaLabel.text = String((route.expectedTravelTime/60)/60) + " Hours"
+            let directions = MKDirections(request: request)
+            directions.calculate(completionHandler: {(response, error) in
+                if let routeResponse = response?.routes {
+                    if let route = routeResponse.first {
+                        self.distLabel.text = String(route.distance/1000.0) + "Km"
+                        self.etaLabel.text = String((route.expectedTravelTime/60)/60) + " Hours"
                     
-                    self.mapView.addOverlays([route.polyline])
-                    if self.mapView.overlays.count == 1 {
-                        self.mapView.setVisibleMapRect(route.polyline.boundingMapRect,
-                                                  edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-                                                  animated: false)
+                        self.mapView.addOverlays([route.polyline])
+                        if self.mapView.overlays.count == 1 {
+                            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect,
+                                                           edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
+                                                           animated: false)
+                        }
+                        else {
+                            let polylineBoundingRect =  MKMapRectUnion(self.mapView.visibleMapRect,
+                                                                       route.polyline.boundingMapRect)
+                            self.mapView.setVisibleMapRect(polylineBoundingRect,
+                                                           edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
+                                                           animated: false)
+                        }
                     }
-                    else {
-                        let polylineBoundingRect =  MKMapRectUnion(self.mapView.visibleMapRect,
-                                                                   route.polyline.boundingMapRect)
-                        self.mapView.setVisibleMapRect(polylineBoundingRect,
-                                                  edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-                                                  animated: false)
-                    }
-                }
-            } else if let _ = error {
+                } else if let _ = error {
                 
-            }
-        } as! MKDirectionsHandler)*/
-        
-        directions.calculate(completionHandler: {(response, error) in
-            if let routeResponse = response?.routes {
-                if let route = routeResponse.first {
-                    self.distLabel.text = String(route.distance/1000.0) + "Km"
-                    self.etaLabel.text = String((route.expectedTravelTime/60)/60) + " Hours"
-                    
-                    self.mapView.addOverlays([route.polyline])
-                    if self.mapView.overlays.count == 1 {
-                        self.mapView.setVisibleMapRect(route.polyline.boundingMapRect,
-                                                       edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-                                                       animated: false)
-                    }
-                    else {
-                        let polylineBoundingRect =  MKMapRectUnion(self.mapView.visibleMapRect,
-                                                                   route.polyline.boundingMapRect)
-                        self.mapView.setVisibleMapRect(polylineBoundingRect,
-                                                       edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-                                                       animated: false)
-                    }
                 }
-            } else if let _ = error {
-                
-            }
-
-        })
+            })
+        }
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer! {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
             polylineRenderer.strokeColor = UIColor.blue
