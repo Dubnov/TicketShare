@@ -21,6 +21,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet weak var lblPriceRequired: UILabel!
     @IBOutlet weak var lblAddressRequired: UILabel!
     @IBOutlet weak var imgImage: UIImageView!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     var bIsTitleValid: Bool = false
     var bIsAmountValid: Bool = false
     var bIsPriceValid: Bool = false
@@ -32,6 +33,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         // Do any additional setup after loading the view.
         txtPrice.keyboardType = UIKeyboardType.numberPad
         txtAmount.keyboardType = UIKeyboardType.numberPad
+        self.loadingSpinner.isHidden = true
         
         self.txtTitle.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtAmount.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
@@ -92,15 +94,26 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     
 
     @IBAction func saveTicket(_ sender: Any) {
+        self.loadingSpinner.isHidden = false
+        self.loadingSpinner.startAnimating()
+        
         if self.imgImage.image != nil {
             Model.instance.saveImage(image: self.imgImage.image!, name: self.txtTitle.text!) {(url) in
                 let ticket = Ticket(seller: Model.instance.getCurrentAuthUserName()!, title: self.txtTitle.text!, price: Int(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, address: self.txtEventAddress.text!, description: self.txtDescription.text!, imageUrl: url)
                 Model.instance.addTicket(ticket: ticket)
+                
+                self.loadingSpinner.stopAnimating()
+                self.loadingSpinner.isHidden = true
+                
                 self.navigationController!.popViewController(animated: true)
             }
         } else {
             let ticket = Ticket(seller: Model.instance.getCurrentAuthUserName()!, title: txtTitle.text!, price: Int(txtPrice.text!)!, amount: Int(txtAmount.text!)!, address: txtEventAddress.text!, description: txtDescription.text, imageUrl: nil)
             Model.instance.addTicket(ticket: ticket)
+            
+            self.loadingSpinner.stopAnimating()
+            self.loadingSpinner.isHidden = true
+            
             self.navigationController!.popViewController(animated: true)
         }
     }

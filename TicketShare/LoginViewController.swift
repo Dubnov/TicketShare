@@ -13,10 +13,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.loadingSpinner.isHidden = true
         self.txtPassword.isSecureTextEntry = true
         self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
@@ -38,7 +40,11 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: Any) {
+        self.loadingSpinner.isHidden = false
+        self.loadingSpinner.startAnimating()
         Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!) { (error) in
+            self.loadingSpinner.stopAnimating()
+            self.loadingSpinner.isHidden = true
             if error == nil {
                 self.performSegue(withIdentifier: "performSegueToMain", sender: self)
             } else {
@@ -51,6 +57,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func unwindToLogin(segue:UIStoryboardSegue){
+        self.txtEmail.text?.removeAll()
+        self.txtPassword.text?.removeAll()
     }
 
     /*

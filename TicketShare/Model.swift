@@ -136,4 +136,12 @@ class Model{
         return firebaseModel?.getCurrentAuthUserName()
     }
     
+    func getCurrentAuthUserEmail() -> String? {
+        return firebaseModel?.getCurrentAuthUserEmail()
+    }
+    
+    func signOut() {
+        firebaseModel?.signOut()
+    }
+    
 }

@@ -19,6 +19,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var lblBadEmail: UILabel!
     @IBOutlet weak var lblBadPassword: UILabel!
+    @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     var bIsEmailValid: Bool = false
     var bIsPasswordValid: Bool = false
     var bIsFullNameValid: Bool = false
@@ -27,6 +28,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.loadingSpinner.isHidden = true
         txtPassword.isSecureTextEntry = true
         self.txtFullName.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
@@ -115,10 +117,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func registerUser(_ sender: Any) {
-        // Register - Check if email exists in db, if so - print message
-        // if not, save details and move to main page
+        self.loadingSpinner.isHidden = false
+        self.loadingSpinner.startAnimating()
+        
         let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!)
         Model.instance.addUser(user: user) {(err) in
+            self.loadingSpinner.stopAnimating()
+            self.loadingSpinner.isHidden = true
+            
             if err == nil {
                 self.performSegue(withIdentifier: "performSegueToMain", sender: self)
             } else {
