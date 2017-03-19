@@ -44,12 +44,21 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         self.txtAmount.delegate = self
     }
 
-    // Validate that amount&price fields contains only numbers
+    // Validate that amount&price fields contains only numbers and greater than 0
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // Check if the input string contains only numbers
         let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
         let compSepByCharInSet = string.components(separatedBy: aSet)
         let numberFiltered = compSepByCharInSet.joined(separator: "")
-        return string == numberFiltered
+        
+        var bIsStartWithZero: Bool = false
+        
+        // Check if the field start with zero
+        if (textField.text == "" && string == "0") {
+            bIsStartWithZero = true
+        }
+        
+        return (string == numberFiltered) && !bIsStartWithZero
     }
     
     func textFieldDidChanged(_ textField: UITextField) {
