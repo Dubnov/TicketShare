@@ -16,8 +16,7 @@ class TicketTableViewController: UITableViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector:
-            #selector(self.ticketsListDidUpdate),
-                                               name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
+            #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
         
         Model.instance.getAllTicketsAndObserve()
     }
