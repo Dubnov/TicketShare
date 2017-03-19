@@ -10,7 +10,7 @@ import Foundation
 import FirebaseDatabase
 
 class Ticket {
-    var id:String?
+    var id:String
     var seller:String
     var title:String
     var amount:Int
@@ -21,6 +21,7 @@ class Ticket {
     var lastUpdateDate:Date?
     
     init(seller:String, title:String, price:Int, amount:Int, address:String, description:String?, imageUrl:String?) {
+        self.id = ""
         self.seller = seller
         self.address = address
         self.title = title
@@ -31,7 +32,7 @@ class Ticket {
     }
     
     init(json: Dictionary<String, Any>) {
-        self.id = json["id"] as? String
+        self.id = json["id"] as! String
         self.title = json["title"] as! String
         self.seller = json["seller"] as! String
         self.price = json["price"] as! Int
@@ -107,15 +108,17 @@ class Ticket {
     func addTicketToLocalDB(database: OpaquePointer) {
         var sqlite3_stmt: OpaquePointer? = nil
         if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO " + Ticket.TABLE_NAME
-            + "(" + Ticket.TITLE + ","
+            + "(" + Ticket.ID + ","
+            + Ticket.TITLE + ","
             + Ticket.AMOUNT + ","
             + Ticket.SELLER + ","
             + Ticket.ADDRESS + ","
             + Ticket.DESCRIPTION + ","
             + Ticket.PRICE + ","
             + Ticket.IMAGE_URL + ","
-            + Ticket.LAST_UPDATE_DATE + ") VALUES (?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            + Ticket.LAST_UPDATE_DATE + ") VALUES (?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             
+            let id = self.id.cString(using: .utf8)
             let title = self.title.cString(using: .utf8)
             let seller = self.seller.cString(using: .utf8)
             let amount = self.amount
@@ -127,18 +130,19 @@ class Ticket {
                 imageUrl = self.imageUrl!.cString(using: .utf8)
             }
             
-            sqlite3_bind_text(sqlite3_stmt, 1, title,-1,nil);
-            sqlite3_bind_int(sqlite3_stmt, 2, Int32(amount));
-            sqlite3_bind_text(sqlite3_stmt, 3, seller,-1,nil);
-            sqlite3_bind_text(sqlite3_stmt, 4, address, -1, nil)
-            sqlite3_bind_text(sqlite3_stmt, 5, description,-1,nil);
-            sqlite3_bind_int(sqlite3_stmt, 6, Int32(price));
-            sqlite3_bind_text(sqlite3_stmt, 7, imageUrl,-1,nil);
+            sqlite3_bind_text(sqlite3_stmt, 1, id,-1,nil);
+            sqlite3_bind_text(sqlite3_stmt, 2, title,-1,nil);
+            sqlite3_bind_int(sqlite3_stmt, 3, Int32(amount));
+            sqlite3_bind_text(sqlite3_stmt, 4, seller,-1,nil);
+            sqlite3_bind_text(sqlite3_stmt, 5, address, -1, nil)
+            sqlite3_bind_text(sqlite3_stmt, 6, description,-1,nil);
+            sqlite3_bind_int(sqlite3_stmt, 7, Int32(price));
+            sqlite3_bind_text(sqlite3_stmt, 8, imageUrl,-1,nil);
             
             if (self.lastUpdateDate == nil){
                 self.lastUpdateDate = Date()
             }
-            sqlite3_bind_double(sqlite3_stmt, 8, self.lastUpdateDate!.toFirebase());
+            sqlite3_bind_double(sqlite3_stmt, 9, self.lastUpdateDate!.toFirebase());
             
             if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
                 print("new row added succefully")
@@ -155,13 +159,14 @@ class Ticket {
             while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
                 // using the extension method to valide utf8 string values (more explanation at the extension
                 // class)
-                let title =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,0))
-                let amount =  Int(sqlite3_column_int(sqlite3_stmt, 1))
-                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,2))
-                let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 3))
-                let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,4))
-                let price =  Int(sqlite3_column_int(sqlite3_stmt, 5))
-                var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt,6))
+                // let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
+                let title = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 1))
+                let amount =  Int(sqlite3_column_int(sqlite3_stmt, 2))
+                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 3))
+                let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 4))
+                let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 5))
+                let price =  Int(sqlite3_column_int(sqlite3_stmt, 6))
+                var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 7))
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
