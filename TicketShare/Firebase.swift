@@ -24,6 +24,19 @@ class Firebase{
         return self.currAuthUser?.displayName
     }
     
+    func getCurrentAuthUserEmail() -> String? {
+        return currAuthUser?.email
+    }
+    
+    func signOut() {
+        do {
+            try FIRAuth.auth()?.signOut()
+            self.currAuthUser = nil
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+    }
+    
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
             
