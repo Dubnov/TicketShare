@@ -21,7 +21,7 @@ class Firebase{
     lazy var storageRef = FIRStorage.storage().reference(forURL: "gs://ticketshare-5ca22.appspot.com/")
 
     func getCurrentAuthUserName() -> String? {
-        return currAuthUser?.displayName
+        return self.currAuthUser?.displayName
     }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
@@ -72,30 +72,6 @@ class Firebase{
         }
     }
     
-    func getAllTickets(_ lastUpdateDate:Date? , callback:@escaping ([Ticket])->Void){
-        let handler = {(snapshot:FIRDataSnapshot) in
-            var tickets = [Ticket]()
-            for child in snapshot.children.allObjects{
-                if let childData = child as? FIRDataSnapshot{
-                    if let json = childData.value as? Dictionary<String,Any>{
-                        let tick = Ticket(json: json)
-                        tickets.append(tick)
-                    }
-                }
-            }
-            callback(tickets)
-        }
-        
-        let ref = FIRDatabase.database().reference().child("tickets")
-        
-        if (lastUpdateDate != nil){
-            let fbQuery = ref.queryOrdered(byChild:"lastUpdateDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
-            fbQuery.observeSingleEvent(of: .value, with: handler)
-        }else{
-            ref.observeSingleEvent(of: .value, with: handler)
-        }
-    }
-    
     func getAllTicketsAndObserve(_ lastUpdateDate:Date? , callback:@escaping ([Ticket])->Void) {
         // creating the code that will parse the data returned from the observe function
         // that loads the tickets from firebase (it will be called on the first call and
@@ -104,7 +80,8 @@ class Firebase{
             var tickets = [Ticket]()
             for child in snapshot.children.allObjects{
                 if let childData = child as? FIRDataSnapshot{
-                    if let json = childData.value as? Dictionary<String,Any>{
+                    if var json = childData.value as? Dictionary<String,Any>{
+                        json["id"] = childData.key
                         let tick = Ticket(json: json)
                         tickets.append(tick)
                     }
