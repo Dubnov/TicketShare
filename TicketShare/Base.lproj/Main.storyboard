@@ -61,11 +61,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wPr-eb-Lbh">
+                                <rect key="frame" x="173" y="226" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="btnLogin" destination="qd3-hK-1bQ" id="xS9-vL-pQ3"/>
+                        <outlet property="loadingSpinner" destination="wPr-eb-Lbh" id="Ay1-Rb-Xam"/>
                         <outlet property="txtEmail" destination="q6Y-wc-GAc" id="ycg-bX-mWv"/>
                         <outlet property="txtPassword" destination="EUT-eq-jUo" id="aYR-p0-VO7"/>
                         <segue destination="JTJ-Q1-Asg" kind="show" identifier="performSegueToMain" id="zKO-AS-cXa"/>
@@ -188,6 +193,10 @@
                                 <color key="textColor" red="1" green="0.039765733839813522" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Qfm-1g-tUn">
+                                <rect key="frame" x="169" y="388" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -199,6 +208,7 @@
                         <outlet property="lblRequiredEmail" destination="LAS-vV-VAy" id="pFa-HR-3dQ"/>
                         <outlet property="lblRequiredName" destination="Zex-Yq-hh9" id="fvf-Gh-Lrf"/>
                         <outlet property="lblRequiredPassword" destination="OVC-AP-CZI" id="axY-Mh-j4A"/>
+                        <outlet property="loadingSpinner" destination="Qfm-1g-tUn" id="qDN-OZ-ITp"/>
                         <outlet property="txtEmail" destination="Gs4-nl-89N" id="fjH-Nq-tKx"/>
                         <outlet property="txtFullName" destination="ulO-UJ-LqT" id="FaM-uV-BMf"/>
                         <outlet property="txtPassword" destination="Cex-iy-AiD" id="7oz-hq-GmE"/>
@@ -424,6 +434,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="emM-1d-6ic">
+                                <rect key="frame" x="177" y="225" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -441,6 +455,7 @@
                         <outlet property="lblAmountRequired" destination="PXT-Bo-Rb8" id="jKT-ya-fBc"/>
                         <outlet property="lblPriceRequired" destination="5N4-w6-cNa" id="hrk-Z0-Vqv"/>
                         <outlet property="lblTitleRequired" destination="3Xb-W9-w7E" id="bcg-Qo-U1W"/>
+                        <outlet property="loadingSpinner" destination="emM-1d-6ic" id="J20-Fo-fKk"/>
                         <outlet property="txtAmount" destination="cZ4-32-pVK" id="dag-7f-rDK"/>
                         <outlet property="txtDescription" destination="PHL-8a-RdX" id="sgr-Bw-kNc"/>
                         <outlet property="txtEventAddress" destination="UDa-bV-jeI" id="0Oc-ty-cXo"/>
