@@ -114,8 +114,19 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             directions.calculate(completionHandler: {(response, error) in
                 if let routeResponse = response?.routes {
                     if let route = routeResponse.first {
-                        self.distLabel.text = String(route.distance/1000.0) + "Km"
-                        self.etaLabel.text = String((route.expectedTravelTime/60)/60) + " Hours"
+                        if route.distance < 1000.0 {
+                            self.distLabel.text = NSString(format: "%.2f m", route.distance) as String
+                        }
+                        else {
+                            self.distLabel.text = NSString(format: "%.2f Km", route.distance/1000) as String
+                        }
+                        
+                        if route.expectedTravelTime/60 < 60 {
+                            self.etaLabel.text = NSString(format: "%.0f Minutes", route.expectedTravelTime/60) as String
+                        }
+                        else {
+                            self.etaLabel.text = NSString(format: "%.1f Hours", route.expectedTravelTime/60/60) as String
+                        }
                     
                         self.mapView.addOverlays([route.polyline])
                         if self.mapView.overlays.count == 1 {
