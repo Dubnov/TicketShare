@@ -40,6 +40,7 @@ extension Date {
 
 class Model{
     static let instance = Model()
+    static var eventTypes:[EventType] = [EventType]()
     
     lazy private var sqlModel:SQLite? = SQLite()
     lazy private var firebaseModel:Firebase? = Firebase()
@@ -86,6 +87,10 @@ class Model{
             let totalList = Ticket.getAllTicketsFromLocalDB(database: (self.sqlModel?.database)!)
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketListUpdate), object:nil , userInfo:["tickets":totalList])
+        })
+        
+        firebaseModel?.getEventTypes(callback: {(eveTypes) in
+            Model.eventTypes = eveTypes
         })
     }
     

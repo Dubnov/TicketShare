@@ -116,6 +116,24 @@ class Firebase{
         }
     }
     
+    func getEventTypes(callback:@escaping ([EventType])->Void) {
+        let ref = FIRDatabase.database().reference().child("eventTypes")
+        
+        ref.observe(FIRDataEventType.value, with: {(snapshot) in
+            var eventTypes = [EventType]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{                    
+                    if let json = childData.value as? Dictionary<String,Any>{                        
+                        let eventType = EventType(json: json)
+                        eventTypes.append(eventType)
+                    }
+                }
+            }
+            
+            callback(eventTypes)
+        })
+    }
+    
     func saveImageToFirebase(image:UIImage, name:(String), callback:@escaping (String?)->Void){
         let filesRef = storageRef.child(name)
 

@@ -23,7 +23,7 @@
 		626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE211E7B3767007EFE41 /* StringExtension.swift */; };
 		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
 		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
-		629BE9E91E6376F8006C5055 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* Event.swift */; };
+		629BE9E91E6376F8006C5055 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* EventType.swift */; };
 		629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */; };
 		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
 		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
@@ -53,7 +53,7 @@
 		626AEE211E7B3767007EFE41 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		629BE9E61E6376E0006C5055 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
-		629BE9E81E6376F8006C5055 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		629BE9E81E6376F8006C5055 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		629BE9ED1E64B6B4006C5055 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 			children = (
 				629BE9E41E6376BC006C5055 /* User.swift */,
 				629BE9E61E6376E0006C5055 /* Ticket.swift */,
-				629BE9E81E6376F8006C5055 /* Event.swift */,
+				629BE9E81E6376F8006C5055 /* EventType.swift */,
 				626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */,
 			);
 			name = Models;
@@ -299,7 +299,7 @@
 				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
-				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
+				629BE9E91E6376F8006C5055 /* EventType.swift in Sources */,
 				507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */,
 				626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */,
 				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,
