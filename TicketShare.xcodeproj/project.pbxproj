@@ -28,6 +28,7 @@
 		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
 		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
 		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
+		62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EABFF61EABC33A00A0ED84 /* Purchase.swift */; };
 		6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TicketShare-Bridging-Header.h"; sourceTree = "<group>"; };
+		62EABFF61EABC33A00A0ED84 /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicketShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 				629BE9E61E6376E0006C5055 /* Ticket.swift */,
 				629BE9E81E6376F8006C5055 /* EventType.swift */,
 				626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */,
+				62EABFF61EABC33A00A0ED84 /* Purchase.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				507E6A411E7D86300091F13C /* TicketTableViewController.swift in Sources */,
 				620D18371E42611400233819 /* RegisterViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
+				62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */,
 				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
