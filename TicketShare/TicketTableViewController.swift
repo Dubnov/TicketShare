@@ -67,9 +67,9 @@ class TicketTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == detailSegueIdentifier,
             let destination = segue.destination as? TicketDetailsViewController,
-            let clinicIdex = self.tableView.indexPathForSelectedRow?.row
+            let ticketIndex = self.tableView.indexPathForSelectedRow?.row
         {
-            destination.selectedTicket = self.ticketsList[clinicIdex]
+            destination.selectedTicket = self.ticketsList[ticketIndex]
         }
     }
 }

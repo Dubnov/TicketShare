@@ -9,6 +9,7 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    let gradientLayer = CAGradientLayer()
 
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
@@ -16,7 +17,17 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.view.backgroundColor = UIColor.clear
+        gradientLayer.frame = self.view.bounds
+        let firstColor = UIColor(red: 106.0 / 255.0, green: 248.0 / 255.0, blue: 1.0, alpha: 1.0).cgColor
+        let secondColor = UIColor(red: 195.0 / 255.0, green: 63.0 / 255.0, blue: 1.0, alpha: 1.0).cgColor
+        gradientLayer.colors = [firstColor, secondColor]
+        gradientLayer.locations = [0.0, 0.75]
+        gradientLayer.startPoint = CGPoint(x: 1, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        
         // Do any additional setup after loading the view.
         self.loadingSpinner.isHidden = true
         self.txtPassword.isSecureTextEntry = true
