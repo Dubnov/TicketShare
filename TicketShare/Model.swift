@@ -94,6 +94,52 @@ class Model{
         })
     }
     
+    func getUserTicketsForSell(user:String?) -> [Ticket]{
+        var user2:String
+        
+        if (user == nil) {
+            user2 = self.getCurrentAuthUserUID()!
+        } else {
+            user2 = user!
+        }
+        
+        print(user2)
+        
+        return [Ticket]()
+    }
+    
+    func getUserBoughtTickets(user:String?) -> [Ticket]{
+        var user2:String
+        
+        if (user == nil) {
+            user2 = self.getCurrentAuthUserUID()!
+        } else {
+            user2 = user!
+        }
+        
+        print(user2)
+        return [Ticket]()
+    }
+    
+    func getUserFavTickets(user:String?) -> [Ticket] {
+        var user2:String
+        
+        if (user == nil) {
+            user2 = self.getCurrentAuthUserUID()!
+        } else {
+            user2 = user!
+        }
+        
+        print(user2)
+        return [Ticket]()
+    }
+    
+    func buyTicket(ticket:Ticket) {
+        let purch:Purchase = Purchase(ticketId: ticket.id, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
+        self.firebaseModel?.addPurchase(purchase: purch) {error in
+        }
+    }
+    
     func saveImage(image:UIImage, name:String, callback:@escaping (String?)->Void){
         firebaseModel?.saveImageToFirebase(image: image, name: name, callback: {(url) in
             if (url != nil){
@@ -143,6 +189,10 @@ class Model{
     
     func getCurrentAuthUserEmail() -> String? {
         return firebaseModel?.getCurrentAuthUserEmail()
+    }
+    
+    func getCurrentAuthUserUID() -> String? {
+        return firebaseModel?.getCurrentAuthUserUID()
     }
     
     func signOut() {
