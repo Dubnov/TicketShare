@@ -10,13 +10,15 @@ import Foundation
 import FirebaseDatabase
 
 class User {
+    var uid:String
     var email:String
     var password:String
     var fullName:String
     var imageUrl:String?
     var lastUpdateDate:Date?
     
-    init(email:String, password:String, fullName:String, imageUrl:String? = nil) {
+    init(email:String, password:String, fullName:String, imageUrl:String? = nil, uid:String = "") {
+        self.uid = uid
         self.email = email
         self.password = password
         self.fullName = fullName
@@ -24,6 +26,7 @@ class User {
     }
     
     init(json:Dictionary<String, Any>) {
+        self.uid = json["uid"] as! String
         self.email = json["email"] as! String
         self.password = json["password"] as! String
         self.fullName = json["fullName"] as! String
@@ -38,6 +41,7 @@ class User {
     
     func toFireBase() -> Dictionary<String, Any> {
         var json = Dictionary<String, Any>()
+        json["uid"] = self.uid
         json["email"] = self.email
         json["password"] = self.password
         json["fullName"] = self.fullName

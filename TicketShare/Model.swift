@@ -40,6 +40,7 @@ extension Date {
 
 class Model{
     static let instance = Model()
+    static var eventTypes:[EventType] = [EventType]()
     
     lazy private var sqlModel:SQLite? = SQLite()
     lazy private var firebaseModel:Firebase? = Firebase()
@@ -87,6 +88,56 @@ class Model{
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketListUpdate), object:nil , userInfo:["tickets":totalList])
         })
+        
+        firebaseModel?.getEventTypes(callback: {(eveTypes) in
+            Model.eventTypes = eveTypes
+        })
+    }
+    
+    func getUserTicketsForSell(user:String?) -> [Ticket]{
+        var user2:String
+        
+        if (user == nil) {
+            user2 = self.getCurrentAuthUserUID()!
+        } else {
+            user2 = user!
+        }
+        
+        print(user2)
+        
+        return [Ticket]()
+    }
+    
+    func getUserBoughtTickets(user:String?) -> [Ticket]{
+        var user2:String
+        
+        if (user == nil) {
+            user2 = self.getCurrentAuthUserUID()!
+        } else {
+            user2 = user!
+        }
+        
+        print(user2)
+        return [Ticket]()
+    }
+    
+    func getUserFavTickets(user:String?) -> [Ticket] {
+        var user2:String
+        
+        if (user == nil) {
+            user2 = self.getCurrentAuthUserUID()!
+        } else {
+            user2 = user!
+        }
+        
+        print(user2)
+        return [Ticket]()
+    }
+    
+    func buyTicket(ticket:Ticket) {
+        let purch:Purchase = Purchase(ticketId: ticket.id, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
+        self.firebaseModel?.addPurchase(purchase: purch) {error in
+        }
     }
     
     func saveImage(image:UIImage, name:String, callback:@escaping (String?)->Void){
@@ -138,6 +189,10 @@ class Model{
     
     func getCurrentAuthUserEmail() -> String? {
         return firebaseModel?.getCurrentAuthUserEmail()
+    }
+    
+    func getCurrentAuthUserUID() -> String? {
+        return firebaseModel?.getCurrentAuthUserUID()
     }
     
     func signOut() {
