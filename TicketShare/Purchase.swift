@@ -43,7 +43,7 @@ class Purchase {
         json["purchaseCost"] = self.purchaseCost
         json["seller"] = self.seller
         json["buyer"] = self.buyer
-        json["purchaseDate"] = Date.toFirebase(self.purchaseDate)
+        json["purchaseDate"] = self.purchaseDate.toFirebase()
         
         return json
     }
@@ -132,5 +132,89 @@ class Purchase {
         }
         sqlite3_finalize(sqlite3_stmt)
         return purchases
+    }
+    
+    static func getCurrentUserTicketsSold(database: OpaquePointer, user:String) -> [Ticket]{
+        // var purchases = [Purchase]()
+        var tickets = [Ticket]()
+        var sqlite3_stmt: OpaquePointer? = nil
+        if (sqlite3_prepare_v2(database,"SELECT T.* from " + Purchase.TABLE_NAME + " AS P INNER JOIN " + Ticket.TABLE_NAME + " AS T ON P." + Purchase.TICKET_ID +
+                                        " = T." + Ticket.ID + " WHERE " + Purchase.SELLER + " = " + user + ";",-1,&sqlite3_stmt,nil) == SQLITE_OK){
+            while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
+                // using the extension method to valide utf8 string values (more explanation at the extension class)
+                /** let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
+                let ticketId = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 1))
+                let ticketAmount = Int(sqlite3_column_int(sqlite3_stmt, 2))
+                let purchaseCost = sqlite3_column_double(sqlite3_stmt, 3)
+                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 4))
+                let buyer = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 5))
+                let purchaseDate = sqlite3_column_double(sqlite3_stmt, 6)
+                
+                let purchase = Purchase(ticketId: ticketId!, ticketAmount: ticketAmount, purchaseCost: purchaseCost, seller: seller!, buyer: buyer!, id:id!, purchaseDate: Date.fromFirebase(purchaseDate))
+                purchases.append(purchase) */
+                let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
+                let title = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 1))
+                let eventType = Int(sqlite3_column_int(sqlite3_stmt, 2))
+                let amount =  Int(sqlite3_column_int(sqlite3_stmt, 3))
+                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 4))
+                let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 5))
+                let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 6))
+                let price =  sqlite3_column_double(sqlite3_stmt, 7)
+                let isSold =  Bool((sqlite3_column_int(sqlite3_stmt, 8) != 0))
+                var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 9))
+                let lastUpdateDate = sqlite3_column_double(sqlite3_stmt, 10)
+                
+                if (imageUrl != nil && imageUrl == ""){
+                    imageUrl = nil
+                }
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate))
+                tickets.append(ticket)
+            }
+        }
+        sqlite3_finalize(sqlite3_stmt)
+        // return purchases
+        return tickets
+    }
+    
+    static func getCurrentUserTicketsBought(database: OpaquePointer, user:String) -> [Ticket]{
+        // var purchases = [Purchase]()
+        var tickets = [Ticket]()
+        var sqlite3_stmt: OpaquePointer? = nil
+        if (sqlite3_prepare_v2(database,"SELECT T.* from " + Purchase.TABLE_NAME + " AS P INNER JOIN " + Ticket.TABLE_NAME + " AS T ON P." + Purchase.TICKET_ID +
+                                        " = T." + Ticket.ID + " WHERE " + Purchase.BUYER + " = " + user + ";",-1,&sqlite3_stmt,nil) == SQLITE_OK){
+            while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
+                // using the extension method to valide utf8 string values (more explanation at the extension class)
+                /** let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
+                let ticketId = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 1))
+                let ticketAmount = Int(sqlite3_column_int(sqlite3_stmt, 2))
+                let purchaseCost = sqlite3_column_double(sqlite3_stmt, 3)
+                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 4))
+                let buyer = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 5))
+                let purchaseDate = sqlite3_column_double(sqlite3_stmt, 6)
+                
+                let purchase = Purchase(ticketId: ticketId!, ticketAmount: ticketAmount, purchaseCost: purchaseCost, seller: seller!, buyer: buyer!, id:id!, purchaseDate: Date.fromFirebase(purchaseDate))
+                purchases.append(purchase) */
+                let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
+                let title = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 1))
+                let eventType = Int(sqlite3_column_int(sqlite3_stmt, 2))
+                let amount =  Int(sqlite3_column_int(sqlite3_stmt, 3))
+                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 4))
+                let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 5))
+                let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 6))
+                let price =  sqlite3_column_double(sqlite3_stmt, 7)
+                let isSold =  Bool((sqlite3_column_int(sqlite3_stmt, 8) != 0))
+                var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 9))
+                let lastUpdateDate = sqlite3_column_double(sqlite3_stmt, 10)
+                
+                if (imageUrl != nil && imageUrl == ""){
+                    imageUrl = nil
+                }
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate))
+                tickets.append(ticket)
+            }
+        }
+        sqlite3_finalize(sqlite3_stmt)
+        // return purchases
+        return tickets
     }
 }

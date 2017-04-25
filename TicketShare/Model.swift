@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 let notifyTicketListUpdate = "com.ticketShare.notifyTicketListUpdate"
+let notifyTicketsSoldUpdate = "com.ticketShare.notifyTicketsSoldUpdate"
+let notifyBoughtTicketsUpdate = "com.ticketShare.notifyBoughtTicketsUpdate"
 
 extension Date {
     
@@ -65,8 +67,7 @@ class Model{
     }
     
     func getAllTicketsAndObserve() {
-        let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database,
-                                                               table: Ticket.TABLE_NAME)
+        let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database, table: Ticket.TABLE_NAME)
         firebaseModel?.getAllTicketsAndObserve(lastUpdateDate, callback: { (tickets) in
             var lastUpdate:Date?
             for ticket in tickets{
@@ -94,31 +95,44 @@ class Model{
         })
     }
     
-    func getUserTicketsForSell(user:String?) -> [Ticket]{
-        var user2:String
+    private func getCurrentUserPurchases(callback:@escaping()->Void) {
+        let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database, table: Purchase.TABLE_NAME)
         
-        if (user == nil) {
-            user2 = self.getCurrentAuthUserUID()!
-        } else {
-            user2 = user!
-        }
+        firebaseModel?.getCurrentUserPurchases(lastUpdateDate, callback: { (purchases) in
+            var lastUpdate:Date?
+            for purchase in purchases{
+                purchase.addPurchaseToLocalDB(database: (self.sqlModel?.database)!)
+                if lastUpdate == nil{
+                    lastUpdate = purchase.purchaseDate
+                }else{
+                    if lastUpdate!.compare(purchase.purchaseDate) == ComparisonResult.orderedAscending{
+                        lastUpdate = purchase.purchaseDate
+                    }
+                }
+            }
+            
+            if (lastUpdate != nil){
+                LastUpdateTable.setLastUpdate(database: self.sqlModel!.database, table: Purchase.TABLE_NAME, lastUpdate: lastUpdate!)
+            }
+            
+            // return Purchase.getCurrentUserPurchasesFromLocalDB(database: (self.sqlModel?.database)!)
+        })
         
-        print(user2)
-        
-        return [Ticket]()
     }
     
-    func getUserBoughtTickets(user:String?) -> [Ticket]{
-        var user2:String
-        
-        if (user == nil) {
-            user2 = self.getCurrentAuthUserUID()!
-        } else {
-            user2 = user!
+    func getCurrentUserTicketsSold(){
+        self.getCurrentUserPurchases { 
+            let userTicketsSold = Purchase.getCurrentUserTicketsSold(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketsSoldUpdate), object:nil , userInfo:["tickets":userTicketsSold])
+        }
+    }
+    
+    func getCurrentUserTicketsBought(){
+        self.getCurrentUserPurchases { 
+            let userBoughtTickets = Purchase.getCurrentUserTicketsBought(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notifyBoughtTicketsUpdate), object:nil , userInfo:["tickets":userBoughtTickets])
         }
         
-        print(user2)
-        return [Ticket]()
     }
     
     func getUserFavTickets(user:String?) -> [Ticket] {
@@ -137,6 +151,8 @@ class Model{
     func buyTicket(ticket:Ticket) {
         let purch:Purchase = Purchase(ticketId: ticket.id, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
         self.firebaseModel?.addPurchase(purchase: purch) {error in
+            let a = ""
+            print(error ?? a)
         }
     }
     

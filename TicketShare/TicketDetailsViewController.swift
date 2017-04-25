@@ -40,6 +40,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         super.viewDidLoad()
         
         if (selectedTicket != nil) {
+            
+            Model.instance.buyTicket(ticket: selectedTicket!)
             // Do any additional setup after loading the view.
             self.titleField.text = selectedTicket?.title
             self.descField.text = selectedTicket?.description
