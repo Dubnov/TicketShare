@@ -118,7 +118,7 @@ class Firebase{
         // observe the tickets store
         if (lastUpdateDate != nil){
             let fbQuery =
-                ref.queryEqual(toValue: self.getCurrentAuthUserUID()).queryOrdered(byChild:"lastUpdateDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
+                ref.queryEqual(toValue: self.getCurrentAuthUserUID()).queryOrdered(byChild:"purchaseDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
             fbQuery.observe(FIRDataEventType.value, with: handler)
         }else{
             ref.observe(FIRDataEventType.value, with: handler)
