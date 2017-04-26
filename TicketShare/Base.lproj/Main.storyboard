@@ -264,7 +264,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7a3-r0-0hV" id="DXb-dU-Cwa">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="eJO-3s-qap">
@@ -672,11 +672,11 @@
             </objects>
             <point key="canvasLocation" x="3469.5999999999999" y="841.52923538230891"/>
         </scene>
-        <!--Tickets-->
+        <!--Discover-->
         <scene sceneID="vW4-gP-8Ia">
             <objects>
                 <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tickets" image="Ticket" selectedImage="Ticket" id="np1-Kp-fSY"/>
+                    <tabBarItem key="tabBarItem" title="Discover" image="Globe" selectedImage="Globe" id="np1-Kp-fSY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -767,6 +767,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="mGX-WS-h5F" kind="relationship" relationship="viewControllers" id="YOV-ST-5dV"/>
+                        <segue destination="jkd-Wc-6Kg" kind="relationship" relationship="viewControllers" id="kCV-kH-lEW"/>
                         <segue destination="08y-N8-iKP" kind="relationship" relationship="viewControllers" id="yOz-tg-dGF"/>
                     </connections>
                 </tabBarController>
@@ -774,8 +775,65 @@
             </objects>
             <point key="canvasLocation" x="665" y="25"/>
         </scene>
+        <!--My Tickets-->
+        <scene sceneID="jpe-nE-WA3">
+            <objects>
+                <viewController id="jkd-Wc-6Kg" customClass="MyTicketsViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LbS-p1-rEM"/>
+                        <viewControllerLayoutGuide type="bottom" id="MjN-Se-Aa1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jDV-ai-mDN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="74M-5C-ABG">
+                                <rect key="frame" x="16" y="37" width="343" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="For Sale"/>
+                                    <segment title="Sold"/>
+                                    <segment title="Purchased"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlValueChanged:" destination="jkd-Wc-6Kg" eventType="valueChanged" id="VXL-ew-6Wu"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="N4x-ol-yJk">
+                                <rect key="frame" x="0.0" y="92" width="375" height="526"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="myCell" id="8Uk-vr-3lY">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Uk-vr-3lY" id="vIm-mI-4rY">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jkd-Wc-6Kg" id="hNU-az-lnJ"/>
+                                    <outlet property="delegate" destination="jkd-Wc-6Kg" id="0vZ-c4-EvU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My Tickets" image="Ticket" selectedImage="Ticket" id="sQR-zg-7Ls"/>
+                    <connections>
+                        <outlet property="mySegmentedControl" destination="74M-5C-ABG" id="5Go-7c-87L"/>
+                        <outlet property="myTableView" destination="N4x-ol-yJk" id="iPp-Ij-pJe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v25-wa-Xaf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1416.8" y="-343.17841079460271"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="Globe" width="25" height="25"/>
         <image name="Maps" width="807" height="804"/>
         <image name="Profile" width="25" height="25"/>
         <image name="Ticket" width="25" height="25"/>
