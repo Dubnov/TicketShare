@@ -306,7 +306,6 @@
 				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
-				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
 				142A31181EAD4019000B0510 /* MyTicketsViewController.swift in Sources */,
 				629BE9E91E6376F8006C5055 /* EventType.swift in Sources */,
 				507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */,
