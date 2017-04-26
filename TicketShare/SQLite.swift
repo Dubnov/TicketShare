@@ -22,15 +22,12 @@ class SQLite {
                 return nil
             }
             
-            if (Ticket.createTicketsTable(database: self.database) == false || LastUpdateTable.createTable(database: self.database) == false) {
+            if (Ticket.createTicketsTable(database: self.database) == false ||
+                LastUpdateTable.createTable(database: self.database) == false ||
+                Purchase.createPurchasesTable(database: self.database) == false) {
                 return nil
             }
             
         }
-    }
-    
-    func createEventsTable() -> Bool {
-        return true
-    }
-    
+    }    
 }

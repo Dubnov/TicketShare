@@ -28,6 +28,10 @@ class Firebase{
         return self.currAuthUser?.email
     }
     
+    func getCurrentAuthUserUID() -> String? {
+        return self.currAuthUser?.uid
+    }
+    
     func signOut() {
         do {
             try FIRAuth.auth()?.signOut()
@@ -85,6 +89,42 @@ class Firebase{
         }
     }
     
+    func addPurchase(purchase:Purchase, completionBlock:@escaping (Error?)->Void){
+        let ref = FIRDatabase.database().reference().child("purchases").childByAutoId()
+        
+        ref.setValue(purchase.toFirebase()) {(error, dbref) in
+            completionBlock(error)
+        }
+    }
+    
+    func getCurrentUserPurchases(_ lastUpdateDate:Date?, callback:@escaping ([Purchase]) -> Void) {
+        let handler = {(snapshot:FIRDataSnapshot) in
+            var purchases = [Purchase]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    if var json = childData.value as? Dictionary<String,Any>{
+                        json["id"] = childData.key
+                        let purch = Purchase(json: json)
+                        purchases.append(purch)
+                    }
+                }
+            }
+            callback(purchases)
+        }
+        
+        // create a ref to the tickets store
+        let ref = FIRDatabase.database().reference().child("purchases")
+        
+        // observe the tickets store
+        if (lastUpdateDate != nil){
+            let fbQuery =
+                ref.queryEqual(toValue: self.getCurrentAuthUserUID()).queryOrdered(byChild:"lastUpdateDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
+            fbQuery.observe(FIRDataEventType.value, with: handler)
+        }else{
+            ref.observe(FIRDataEventType.value, with: handler)
+        }
+    }
+    
     func getAllTicketsAndObserve(_ lastUpdateDate:Date? , callback:@escaping ([Ticket])->Void) {
         // creating the code that will parse the data returned from the observe function
         // that loads the tickets from firebase (it will be called on the first call and
@@ -114,6 +154,24 @@ class Firebase{
         }else{
             ref.observe(FIRDataEventType.value, with: handler)
         }
+    }
+    
+    func getEventTypes(callback:@escaping ([EventType])->Void) {
+        let ref = FIRDatabase.database().reference().child("eventTypes")
+        
+        ref.observe(FIRDataEventType.value, with: {(snapshot) in
+            var eventTypes = [EventType]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{                    
+                    if let json = childData.value as? Dictionary<String,Any>{                        
+                        let eventType = EventType(json: json)
+                        eventTypes.append(eventType)
+                    }
+                }
+            }
+            
+            callback(eventTypes)
+        })
     }
     
     func saveImageToFirebase(image:UIImage, name:(String), callback:@escaping (String?)->Void){
