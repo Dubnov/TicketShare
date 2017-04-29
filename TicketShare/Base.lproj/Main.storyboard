@@ -793,7 +793,7 @@
                                 <segments>
                                     <segment title="For Sale"/>
                                     <segment title="Sold"/>
-                                    <segment title="Purchased"/>
+                                    <segment title="Baught"/>
                                 </segments>
                                 <connections>
                                     <action selector="segmentedControlValueChanged:" destination="jkd-Wc-6Kg" eventType="valueChanged" id="VXL-ew-6Wu"/>

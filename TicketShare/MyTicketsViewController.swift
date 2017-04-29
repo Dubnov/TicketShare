@@ -11,14 +11,14 @@ import UIKit
 enum TicketCategory: Int {
     case ForSale = 0
     case Sold = 1
-    case Purchased = 2
+    case Bought = 2
 }
 
 class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     var forSaleTickets:[Purchase] = []
     var soldTickets:[Purchase] = []
-    var purchasedTickets:[Purchase] = []
+    var boughtTickets:[Purchase] = []
     
     @IBOutlet weak var mySegmentedControl: UISegmentedControl!
     @IBOutlet weak var myTableView: UITableView!
@@ -47,9 +47,9 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @objc func boughtTicketsListDidUpdate(notification:NSNotification){
-        self.purchasedTickets = notification.userInfo?["tickets"] as! [Purchase]
+        self.boughtTickets = notification.userInfo?["tickets"] as! [Purchase]
         
-        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Purchased.rawValue) {
+        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.rawValue) {
             self.myTableView.reloadData()
         }
     }
@@ -75,8 +75,8 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         case TicketCategory.Sold.rawValue:
             numberOfRowInSection = soldTickets.count
             break
-        case TicketCategory.Purchased.rawValue:
-            numberOfRowInSection = purchasedTickets.count
+        case TicketCategory.Bought.rawValue:
+            numberOfRowInSection = boughtTickets.count
             break
         default:
             break
@@ -125,13 +125,13 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             myCell.lblDateValue.text = soldTickets[indexPath.row].purchaseDate.description
             myCell.lblDateLabel.isHidden = false
             break
-        case TicketCategory.Purchased.rawValue:
-            myCell.textLabel?.text = purchasedTickets[indexPath.row].ticketId
-            myCell.lblPrice?.text = purchasedTickets[indexPath.row].purchaseCost.description
-            myCell.lblAmount?.text = purchasedTickets[indexPath.row].ticketAmount.description
+        case TicketCategory.Bought.rawValue:
+            myCell.textLabel?.text = boughtTickets[indexPath.row].ticketId
+            myCell.lblPrice?.text = boughtTickets[indexPath.row].purchaseCost.description
+            myCell.lblAmount?.text = boughtTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Seller:"
-            myCell.lblBuyerSellerValue.text = purchasedTickets[indexPath.row].seller
-            myCell.lblDateValue.text = purchasedTickets[indexPath.row].purchaseDate.description
+            myCell.lblBuyerSellerValue.text = boughtTickets[indexPath.row].seller
+            myCell.lblDateValue.text = boughtTickets[indexPath.row].purchaseDate.description
             myCell.lblDateLabel.isHidden = false
             break
         default:
