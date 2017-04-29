@@ -8,20 +8,50 @@
 
 import UIKit
 
+enum TicketCategory: Int {
+    case ForSale = 0
+    case Sold = 1
+    case Purchased = 2
+}
+
 class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var forSaleTickets:[String] = []
-    var soldTickets:[String] = []
-    var purchasedTickets:[String] = []
+    var forSaleTickets:[Purchase] = []
+    var soldTickets:[Purchase] = []
+    var purchasedTickets:[Purchase] = []
     
     @IBOutlet weak var mySegmentedControl: UISegmentedControl!
     @IBOutlet weak var myTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
         // Do any additional setup after loading the view.
-        //TODO: Fill this array from model
-        forSaleTickets = ["Chen", "Dor", "Shay"]
+        
+        //TODO: Call same method for "for sale" tickets
+        NotificationCenter.default.addObserver(self, selector:
+            #selector(self.soldTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsSoldUpdate),object: nil)
+        NotificationCenter.default.addObserver(self, selector:
+            #selector(self.boughtTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyBoughtTicketsUpdate),object: nil)
+        
+        Model.instance.getCurrentUserTicketsSold()
+        Model.instance.getCurrentUserTicketsBought()
+    }
+
+    @objc func soldTicketsListDidUpdate(notification:NSNotification){
+        self.soldTickets = notification.userInfo?["tickets"] as! [Purchase]
+        
+        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Sold.rawValue) {
+            self.myTableView.reloadData()
+        }
+    }
+    
+    @objc func boughtTicketsListDidUpdate(notification:NSNotification){
+        self.purchasedTickets = notification.userInfo?["tickets"] as! [Purchase]
+        
+        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Purchased.rawValue) {
+            self.myTableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,24 +60,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func segmentedControlValueChanged(_ sender: Any) {
-        
-        // TODO: Fill arrays from model
-        switch (mySegmentedControl.selectedSegmentIndex)
-        {
-        case 0:
-            forSaleTickets = ["sale1","sale2","sale3"]
-            break
-        case 1:
-            soldTickets = ["sold1","sold2","sold3","sold4"]
-            break
-        case 2:
-             purchasedTickets = ["purchased"]
-            break
-        default:
-            break
-        }
-        
-        myTableView.reloadData()
+        self.myTableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,13 +69,13 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         
         switch (mySegmentedControl.selectedSegmentIndex)
         {
-        case 0:
+        case TicketCategory.ForSale.rawValue:
             numberOfRowInSection = forSaleTickets.count
             break
-        case 1:
+        case TicketCategory.Sold.rawValue:
             numberOfRowInSection = soldTickets.count
             break
-        case 2:
+        case TicketCategory.Purchased.rawValue:
             numberOfRowInSection = purchasedTickets.count
             break
         default:
@@ -72,19 +85,54 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         return numberOfRowInSection
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let myCell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        var cellHeight: CGFloat
         
         switch (mySegmentedControl.selectedSegmentIndex)
         {
-        case 0:
-            myCell.textLabel?.text = forSaleTickets[indexPath.row]
+        case TicketCategory.ForSale.rawValue:
+            cellHeight = 70
             break
-        case 1:
-            myCell.textLabel?.text = soldTickets[indexPath.row]
+        default:
+            cellHeight = 105
             break
-        case 2:
-            myCell.textLabel?.text = purchasedTickets[indexPath.row]
+        }
+        
+        return cellHeight
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let myCell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! PurchaseTableViewCell
+        
+        // TODO: Replace with real values
+        switch (mySegmentedControl.selectedSegmentIndex)
+        {
+        case TicketCategory.ForSale.rawValue:
+            myCell.lblTitle?.text = forSaleTickets[indexPath.row].ticketId
+            myCell.lblPrice?.text = forSaleTickets[indexPath.row].purchaseCost.description
+            myCell.lblAmount?.text = forSaleTickets[indexPath.row].ticketAmount.description
+            myCell.lblBuyerSellerLabel.text = ""
+            myCell.lblBuyerSellerValue.text = ""
+            myCell.lblDateValue.text = ""
+            myCell.lblDateLabel.isHidden = true
+            break
+        case TicketCategory.Sold.rawValue:
+            myCell.lblTitle?.text = soldTickets[indexPath.row].ticketId
+            myCell.lblPrice?.text = soldTickets[indexPath.row].purchaseCost.description
+            myCell.lblAmount?.text = soldTickets[indexPath.row].ticketAmount.description
+            myCell.lblBuyerSellerLabel.text = "Buyer:"
+            myCell.lblBuyerSellerValue.text = soldTickets[indexPath.row].buyer
+            myCell.lblDateValue.text = soldTickets[indexPath.row].purchaseDate.description
+            myCell.lblDateLabel.isHidden = false
+            break
+        case TicketCategory.Purchased.rawValue:
+            myCell.textLabel?.text = purchasedTickets[indexPath.row].ticketId
+            myCell.lblPrice?.text = purchasedTickets[indexPath.row].purchaseCost.description
+            myCell.lblAmount?.text = purchasedTickets[indexPath.row].ticketAmount.description
+            myCell.lblBuyerSellerLabel.text = "Seller:"
+            myCell.lblBuyerSellerValue.text = purchasedTickets[indexPath.row].seller
+            myCell.lblDateValue.text = purchasedTickets[indexPath.row].purchaseDate.description
+            myCell.lblDateLabel.isHidden = false
             break
         default:
             break
