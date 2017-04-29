@@ -108,7 +108,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         if self.imgImage.image != nil {
             Model.instance.saveImage(image: self.imgImage.image!, name: self.txtTitle.text!) {(url) in
-                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserName()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: 1, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url)
+                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: 1, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url)
                 Model.instance.addTicket(ticket: ticket)
                 
                 self.loadingSpinner.stopAnimating()
@@ -117,7 +117,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
                 self.navigationController!.popViewController(animated: true)
             }
         } else {
-            let ticket = Ticket(seller: Model.instance.getCurrentAuthUserName()!, title: txtTitle.text!, price: Double(txtPrice.text!)!, amount: Int(txtAmount.text!)!, eventType: 1, address: txtEventAddress.text!, isSold: false, description: txtDescription.text, imageUrl: nil)
+            let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: txtTitle.text!, price: Double(txtPrice.text!)!, amount: Int(txtAmount.text!)!, eventType: 1, address: txtEventAddress.text!, isSold: false, description: txtDescription.text, imageUrl: nil)
             Model.instance.addTicket(ticket: ticket)
             
             self.loadingSpinner.stopAnimating()
