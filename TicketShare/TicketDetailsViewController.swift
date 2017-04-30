@@ -45,8 +45,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             // Do any additional setup after loading the view.
             self.titleField.text = selectedTicket?.title
             self.descField.text = selectedTicket?.description
-            self.amountField.text = String(describing: selectedTicket?.amount)
-            self.priceField.text = String(describing: selectedTicket?.price) + "₪"
+            self.amountField.text = selectedTicket?.amount.description //String(describing: selectedTicket?.amount)
+            self.priceField.text = (selectedTicket?.price.description)! + "₪" // String(describing: selectedTicket?.price) + "₪"
             self.addrField.text = selectedTicket?.address
             self.sellerField.text = selectedTicket?.seller
             
