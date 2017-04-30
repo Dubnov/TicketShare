@@ -243,10 +243,10 @@
             </objects>
             <point key="canvasLocation" x="-330.39999999999998" y="383.65817091454278"/>
         </scene>
-        <!--Seller View Controller-->
+        <!--Discover View Controller-->
         <scene sceneID="JL4-Zm-AYl">
             <objects>
-                <tableViewController id="138-XM-tpZ" userLabel="Seller View Controller" customClass="TicketTableViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="138-XM-tpZ" userLabel="Discover View Controller" customClass="DiscoverTableViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="Keb-ZV-V58">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -884,6 +884,7 @@
                                             <outlet property="lblDateValue" destination="Hqo-aT-JM9" id="SW8-Hh-HvD"/>
                                             <outlet property="lblPrice" destination="4FY-WC-Z58" id="rgO-t2-t8P"/>
                                             <outlet property="lblTitle" destination="XpO-QS-30b" id="ouO-fK-Wrz"/>
+                                            <segue destination="SFI-uU-a8w" kind="show" identifier="EditTicketDetailSegue" id="5SP-ei-lPG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -914,6 +915,7 @@
         <image name="default" width="137" height="137"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zKO-AS-cXa"/>
+        <segue reference="tun-Co-NN6"/>
+        <segue reference="1UM-2d-9aD"/>
     </inferredMetricsTieBreakers>
 </document>

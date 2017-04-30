@@ -16,7 +16,9 @@ enum TicketCategory: Int {
 
 class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var forSaleTickets:[Purchase] = []
+    let editDetailsSegueIdentifier = "EditTicketDetailSegue"
+    
+    var forSaleTickets:[Ticket] = []
     var soldTickets:[Purchase] = []
     var boughtTickets:[Purchase] = []
     
@@ -108,9 +110,9 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         switch (mySegmentedControl.selectedSegmentIndex)
         {
         case TicketCategory.ForSale.rawValue:
-            myCell.lblTitle?.text = forSaleTickets[indexPath.row].ticketId
-            myCell.lblPrice?.text = forSaleTickets[indexPath.row].purchaseCost.description
-            myCell.lblAmount?.text = forSaleTickets[indexPath.row].ticketAmount.description
+            myCell.lblTitle?.text = forSaleTickets[indexPath.row].title
+            myCell.lblPrice?.text = forSaleTickets[indexPath.row].price.description
+            myCell.lblAmount?.text = forSaleTickets[indexPath.row].amount.description
             myCell.lblBuyerSellerLabel.text = ""
             myCell.lblBuyerSellerValue.text = ""
             myCell.lblDateValue.text = ""
@@ -141,14 +143,18 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         return myCell
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == editDetailsSegueIdentifier {
+            let destination = segue.destination as? TicketDetailsViewController
+            
+            let indexPath = self.myTableView.indexPathForSelectedRow
+            destination?.selectedTicket = (self.forSaleTickets[indexPath!.row])
+        }
     }
-    */
 
 }
