@@ -12,6 +12,7 @@ import UIKit
 let notifyTicketListUpdate = "com.ticketShare.notifyTicketListUpdate"
 let notifyTicketsSoldUpdate = "com.ticketShare.notifyTicketsSoldUpdate"
 let notifyBoughtTicketsUpdate = "com.ticketShare.notifyBoughtTicketsUpdate"
+let notifyTicketsForSell = "com.ticketShare.notifyTicketsForSell"
 
 extension Date {
     
@@ -115,6 +116,8 @@ class Model{
                 LastUpdateTable.setLastUpdate(database: self.sqlModel!.database, table: Purchase.TABLE_NAME, lastUpdate: lastUpdate!)
             }
             
+            callback()
+            
             // return Purchase.getCurrentUserPurchasesFromLocalDB(database: (self.sqlModel?.database)!)
         })
         
@@ -122,17 +125,24 @@ class Model{
     
     func getCurrentUserTicketsSold(){
         self.getCurrentUserPurchases { 
-            let userTicketsSold = Purchase.getCurrentUserTicketsSold(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
+            let userTicketsSold = //Purchase.getCurrentUserPurchasesFromLocalDB(database: self.sqlModel!.database!)
+                Purchase.getCurrentUserTicketsSold(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
             NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketsSoldUpdate), object:nil , userInfo:["tickets":userTicketsSold])
         }
     }
     
     func getCurrentUserTicketsBought(){
         self.getCurrentUserPurchases { 
-            let userBoughtTickets = Purchase.getCurrentUserTicketsBought(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
+            let userBoughtTickets = //Purchase.getCurrentUserPurchasesFromLocalDB(database: self.sqlModel!.database!)
+                Purchase.getCurrentUserTicketsBought(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
             NotificationCenter.default.post(name: Notification.Name(rawValue: notifyBoughtTicketsUpdate), object:nil , userInfo:["tickets":userBoughtTickets])
         }
+    }
+    
+    func getCurrentUserTicketsForSell(){
+        let ticketForSell = Ticket.getUserTicketsForSell(database: self.sqlModel!.database!, user: self.getCurrentAuthUserUID()!)
         
+        NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketsForSell), object:nil , userInfo:["tickets":ticketForSell])
     }
     
     func getUserFavTickets(user:String?) -> [Ticket] {
@@ -149,10 +159,13 @@ class Model{
     }
     
     func buyTicket(ticket:Ticket) {
-        let purch:Purchase = Purchase(ticketId: ticket.id, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
-        self.firebaseModel?.addPurchase(purchase: purch) {error in
-            let a = ""
-            print(error ?? a)
+        self.firebaseModel?.buyTicket(ticket: ticket) { error in
+            if (error == nil) {
+                let purch:Purchase = Purchase(ticketId: ticket.id, ticketTitle: ticket.title, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
+                self.firebaseModel?.addPurchase(purchase: purch) {error in
+                    print(error ?? "")
+                }
+            }
         }
     }
     
