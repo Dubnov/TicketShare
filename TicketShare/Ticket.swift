@@ -210,4 +210,36 @@ class Ticket {
         sqlite3_finalize(sqlite3_stmt)
         return tickets
     }
+    
+    static func getUserTicketsForSell(database: OpaquePointer, user: String) -> [Ticket]{
+        var tickets = [Ticket]()
+        var sqlite3_stmt: OpaquePointer? = nil
+        let result = sqlite3_prepare_v2(database,"SELECT * from " + Ticket.TABLE_NAME + " WHERE " + Ticket.IS_SOLD + " = 0 AND " + Ticket.SELLER + " = ?;",-1,&sqlite3_stmt,nil)
+        if (result == SQLITE_OK){
+            sqlite3_bind_text(sqlite3_stmt, 1, user.cString(using: .utf8), -1, nil)
+            while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
+                // using the extension method to valide utf8 string values (more explanation at the extension class)
+                let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
+                let title = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 1))
+                let eventType = Int(sqlite3_column_int(sqlite3_stmt, 2))
+                let amount =  Int(sqlite3_column_int(sqlite3_stmt, 3))
+                let seller =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 4))
+                let address = String(validatingUTF8: sqlite3_column_text(sqlite3_stmt, 5))
+                let description =  String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 6))
+                let price =  sqlite3_column_double(sqlite3_stmt, 7)
+                let isSold =  Bool((sqlite3_column_int(sqlite3_stmt, 8) != 0))
+                var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 9))
+                let lastUpdateDate = sqlite3_column_double(sqlite3_stmt, 10)
+                
+                if (imageUrl != nil && imageUrl == ""){
+                    imageUrl = nil
+                }
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate))
+                tickets.append(ticket)
+            }
+        }
+        
+        sqlite3_finalize(sqlite3_stmt)
+        return tickets
+    }
 }

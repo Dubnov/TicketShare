@@ -97,6 +97,14 @@ class Firebase{
         }
     }
     
+    func buyTicket(ticket:Ticket, completionBlock:@escaping (Error?)->Void) {
+        let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
+        
+        ref.updateChildValues(["isSold": true]){(error, dbref) in
+            completionBlock(error)
+        }
+    }
+    
     func getCurrentUserPurchases(_ lastUpdateDate:Date?, callback:@escaping ([Purchase]) -> Void) {
         let handler = {(snapshot:FIRDataSnapshot) in
             var purchases = [Purchase]()
@@ -105,10 +113,14 @@ class Firebase{
                     if var json = childData.value as? Dictionary<String,Any>{
                         json["id"] = childData.key
                         let purch = Purchase(json: json)
-                        purchases.append(purch)
+                        
+                        if (purch.seller == self.getCurrentAuthUserUID() || purch.buyer == self.getCurrentAuthUserUID()) {
+                            purchases.append(purch)
+                        }
                     }
                 }
             }
+            
             callback(purchases)
         }
         
@@ -117,8 +129,7 @@ class Firebase{
         
         // observe the tickets store
         if (lastUpdateDate != nil){
-            let fbQuery =
-                ref.queryEqual(toValue: self.getCurrentAuthUserUID()).queryOrdered(byChild:"purchaseDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
+            let fbQuery = ref.queryOrdered(byChild:"purchaseDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
             fbQuery.observe(FIRDataEventType.value, with: handler)
         }else{
             ref.observe(FIRDataEventType.value, with: handler)

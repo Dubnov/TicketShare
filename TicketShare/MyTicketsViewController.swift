@@ -16,7 +16,7 @@ enum TicketCategory: Int {
 
 class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    var forSaleTickets:[Purchase] = []
+    var forSaleTickets:[Ticket] = []
     var soldTickets:[Purchase] = []
     var boughtTickets:[Purchase] = []
     
@@ -33,9 +33,12 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             #selector(self.soldTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsSoldUpdate),object: nil)
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.boughtTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyBoughtTicketsUpdate),object: nil)
+        NotificationCenter.default.addObserver(self, selector:
+            #selector(self.forSellTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsForSell),object: nil)
         
         Model.instance.getCurrentUserTicketsSold()
         Model.instance.getCurrentUserTicketsBought()
+        Model.instance.getCurrentUserTicketsForSell()
     }
 
     @objc func soldTicketsListDidUpdate(notification:NSNotification){
@@ -48,6 +51,14 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     
     @objc func boughtTicketsListDidUpdate(notification:NSNotification){
         self.boughtTickets = notification.userInfo?["tickets"] as! [Purchase]
+        
+        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.rawValue) {
+            self.myTableView.reloadData()
+        }
+    }
+    
+    @objc func forSellTicketsListDidUpdate(notification:NSNotification){
+        self.forSaleTickets = notification.userInfo?["tickets"] as! [Ticket]
         
         if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.rawValue) {
             self.myTableView.reloadData()
@@ -108,9 +119,9 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         switch (mySegmentedControl.selectedSegmentIndex)
         {
         case TicketCategory.ForSale.rawValue:
-            myCell.lblTitle?.text = forSaleTickets[indexPath.row].ticketId
-            myCell.lblPrice?.text = forSaleTickets[indexPath.row].purchaseCost.description
-            myCell.lblAmount?.text = forSaleTickets[indexPath.row].ticketAmount.description
+            myCell.lblTitle?.text = forSaleTickets[indexPath.row].title
+            myCell.lblPrice?.text = forSaleTickets[indexPath.row].price.description
+            myCell.lblAmount?.text = forSaleTickets[indexPath.row].amount.description
             myCell.lblBuyerSellerLabel.text = ""
             myCell.lblBuyerSellerValue.text = ""
             myCell.lblDateValue.text = ""
