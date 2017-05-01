@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TicketTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     var ticketsList = [Ticket]()
     var ticketsSearchResults:Array<Ticket>?
     let detailSegueIdentifier = "ShowTicketDetailSegue"
