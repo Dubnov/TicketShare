@@ -16,8 +16,6 @@ enum TicketCategory: Int {
 
 class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let editDetailsSegueIdentifier = "EditTicketDetailSegue"
-    
     var forSaleTickets:[Ticket] = []
     var soldTickets:[Purchase] = []
     var boughtTickets:[Purchase] = []
@@ -35,9 +33,12 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             #selector(self.soldTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsSoldUpdate),object: nil)
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.boughtTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyBoughtTicketsUpdate),object: nil)
+        NotificationCenter.default.addObserver(self, selector:
+            #selector(self.forSellTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsForSell),object: nil)
         
         Model.instance.getCurrentUserTicketsSold()
         Model.instance.getCurrentUserTicketsBought()
+        Model.instance.getCurrentUserTicketsForSell()
     }
 
     @objc func soldTicketsListDidUpdate(notification:NSNotification){
@@ -50,6 +51,14 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     
     @objc func boughtTicketsListDidUpdate(notification:NSNotification){
         self.boughtTickets = notification.userInfo?["tickets"] as! [Purchase]
+        
+        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.rawValue) {
+            self.myTableView.reloadData()
+        }
+    }
+    
+    @objc func forSellTicketsListDidUpdate(notification:NSNotification){
+        self.forSaleTickets = notification.userInfo?["tickets"] as! [Ticket]
         
         if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.rawValue) {
             self.myTableView.reloadData()
@@ -149,12 +158,12 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == editDetailsSegueIdentifier {
+        /*if segue.identifier == editDetailsSegueIdentifier {
             let destination = segue.destination as? TicketDetailsViewController
             
             let indexPath = self.myTableView.indexPathForSelectedRow
             destination?.selectedTicket = (self.forSaleTickets[indexPath!.row])
-        }
+        }*/
     }
 
 }
