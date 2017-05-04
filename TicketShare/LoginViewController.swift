@@ -18,9 +18,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // TODO - Delete this
-        self.txtEmail.text = "chen.goren94@gmail.com"
+        /*self.txtEmail.text = "chen.goren94@gmail.com"
         self.txtPassword.text = "123123"
-        self.login(5)
+        self.login(5)*/
 
         // TODO - uncomment
         // Do any additional setup after loading the view.
