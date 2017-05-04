@@ -11,7 +11,7 @@ import Firebase
 import FirebaseStorage
 
 class Firebase{
-    var currAuthUser: FIRUser? = nil;
+    var currAuthUser: User? = nil;
     
     init(){
         FIRApp.configure()
@@ -21,7 +21,7 @@ class Firebase{
     lazy var storageRef = FIRStorage.storage().reference(forURL: "gs://ticketshare-5ca22.appspot.com/")
 
     func getCurrentAuthUserName() -> String? {
-        return self.currAuthUser?.displayName
+        return self.currAuthUser?.fullName
     }
     
     func getCurrentAuthUserEmail() -> String? {
@@ -45,17 +45,39 @@ class Firebase{
         FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
             
             if error == nil {
-                FIRAuth.auth()!.signIn(withEmail: user.email, password: user.password) { (loggedInUser, error) in
+                user.uid = (authUser?.uid)!
+                
+                let ref = FIRDatabase.database().reference().child("users").child(user.uid)
+                
+                ref.setValue(user.toFireBase()){(error, dbref) in
                     if error == nil {
-                        let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
-                        changeRequest?.displayName = user.fullName
-                        changeRequest?.commitChanges() {(err) in
-                            if err == nil {
-                                self.currAuthUser = FIRAuth.auth()?.currentUser
-                            }
-                            completionBlock(err)
-                        }
+                        dbref.observeSingleEvent(of: .value, with: {(snapshot) in
+                            let value = snapshot.value as? NSDictionary
+                            let user = User(json: value as! Dictionary<String, Any>)
+                            self.currAuthUser = user
+                        })
                         
+                        FIRAuth.auth()!.signIn(withEmail: user.email, password: user.password) { (loggedInUser, error) in
+                            completionBlock(error)
+                            /*if error == nil {
+                                let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                                changeRequest?.displayName = user.fullName
+                                changeRequest?.commitChanges() {(err) in
+                                    if err == nil {
+                                        self.getUserFromFirebaseDB(uid: (loggedInUser?.uid)!, callback: { (error, user) in
+                                            if (error != nil) {
+                                                completionBlock(error)
+                                            } else if (user != nil){
+                                                self.currAuthUser = user
+                                            }
+                                        })
+                                    }
+                                    completionBlock(err)
+                                }
+                            } else {
+                                completionBlock(error)
+                            }*/
+                        }
                     } else {
                         completionBlock(error)
                     }
@@ -65,16 +87,34 @@ class Firebase{
             }
         }
         
-        /*let ref = FIRDatabase.database().reference().child("users").child(user.id)
-        ref.setValue(user.toFireBase()){(error, dbref) in
-            completionBlock(error)
-        }*/
+        
+    }
+    
+    func getUserFromFirebaseDB(uid:String, callback:@escaping (Error?, User?) -> Void){
+        let ref = FIRDatabase.database().reference().child("users").child(uid)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let user = User(json: value as! Dictionary<String, Any>)
+            callback(nil, user)
+            
+        }) { (error) in
+            callback(error, nil)
+        }
     }
     
     func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
-        FIRAuth.auth()!.signIn(withEmail: email, password: password) {(user, error) in
+        FIRAuth.auth()!.signIn(withEmail: email, password: password) {(userAuth, error) in
             if error == nil {
-                self.currAuthUser = user
+                self.getUserFromFirebaseDB(uid: (userAuth?.uid)!, callback: { (error, user) in
+                    if (error != nil) {
+                        completionBlock(error)
+                    } else if (user != nil){
+                        self.currAuthUser = user
+                    }
+                })
+                
             }
             completionBlock(error)
         }
