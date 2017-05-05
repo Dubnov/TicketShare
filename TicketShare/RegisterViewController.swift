@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreLocation
 
-class RegisterViewController: UIViewController, UITextFieldDelegate {
+class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate{
+    
+    var locationManager = CLLocationManager()
 
     @IBOutlet weak var lblRequiredPassword: UILabel!
     @IBOutlet weak var lblRequiredName: UILabel!
@@ -120,7 +123,18 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         self.loadingSpinner.isHidden = false
         self.loadingSpinner.startAnimating()
         
-        let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!)
+        /*self.locationManager.requestWhenInUseAuthorization()
+        var currentLocation = ""
+        
+        // get current location
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            currentLocation = locationManager.location?.coordinate.latitude.description
+        }*/
+        
+        let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!, dateOfBirth: Date())
         Model.instance.addUser(user: user) {(err) in
             self.loadingSpinner.stopAnimating()
             self.loadingSpinner.isHidden = true
