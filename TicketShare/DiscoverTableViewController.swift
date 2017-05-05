@@ -136,4 +136,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
             }
         }
     }
+    
+    @IBAction func unwindToDiscover(segue: UIStoryboardSegue) {
+    }
 }
