@@ -22,12 +22,11 @@ class LoginViewController: UIViewController {
         self.txtPassword.text = "123123"
         self.login(5)*/
 
-        // TODO - uncomment
         // Do any additional setup after loading the view.
-        /* self.loadingSpinner.isHidden = true
+        self.loadingSpinner.isHidden = true
         self.txtPassword.isSecureTextEntry = true
         self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
-        self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)*/
+        self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }
 
     func textFieldDidChanged(_ textField: UITextField) {
