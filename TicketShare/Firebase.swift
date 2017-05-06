@@ -11,7 +11,7 @@ import Firebase
 import FirebaseStorage
 
 class Firebase{
-    var currAuthUser: FIRUser? = nil;
+    var currAuthUser: User? = nil;
     
     init(){
         FIRApp.configure()
@@ -21,11 +21,15 @@ class Firebase{
     lazy var storageRef = FIRStorage.storage().reference(forURL: "gs://ticketshare-5ca22.appspot.com/")
 
     func getCurrentAuthUserName() -> String? {
-        return self.currAuthUser?.displayName
+        return self.currAuthUser?.fullName
     }
     
     func getCurrentAuthUserEmail() -> String? {
         return self.currAuthUser?.email
+    }
+    
+    func getCurrentAuthUserUID() -> String? {
+        return self.currAuthUser?.uid
     }
     
     func signOut() {
@@ -41,17 +45,39 @@ class Firebase{
         FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
             
             if error == nil {
-                FIRAuth.auth()!.signIn(withEmail: user.email, password: user.password) { (loggedInUser, error) in
+                user.uid = (authUser?.uid)!
+                
+                let ref = FIRDatabase.database().reference().child("users").child(user.uid)
+                
+                ref.setValue(user.toFireBase()){(error, dbref) in
                     if error == nil {
-                        let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
-                        changeRequest?.displayName = user.fullName
-                        changeRequest?.commitChanges() {(err) in
-                            if err == nil {
-                                self.currAuthUser = FIRAuth.auth()?.currentUser
-                            }
-                            completionBlock(err)
-                        }
+                        dbref.observeSingleEvent(of: .value, with: {(snapshot) in
+                            let value = snapshot.value as? NSDictionary
+                            let user = User(json: value as! Dictionary<String, Any>)
+                            self.currAuthUser = user
+                        })
                         
+                        FIRAuth.auth()!.signIn(withEmail: user.email, password: user.password) { (loggedInUser, error) in
+                            completionBlock(error)
+                            /*if error == nil {
+                                let changeRequest = FIRAuth.auth()?.currentUser?.profileChangeRequest()
+                                changeRequest?.displayName = user.fullName
+                                changeRequest?.commitChanges() {(err) in
+                                    if err == nil {
+                                        self.getUserFromFirebaseDB(uid: (loggedInUser?.uid)!, callback: { (error, user) in
+                                            if (error != nil) {
+                                                completionBlock(error)
+                                            } else if (user != nil){
+                                                self.currAuthUser = user
+                                            }
+                                        })
+                                    }
+                                    completionBlock(err)
+                                }
+                            } else {
+                                completionBlock(error)
+                            }*/
+                        }
                     } else {
                         completionBlock(error)
                     }
@@ -61,16 +87,34 @@ class Firebase{
             }
         }
         
-        /*let ref = FIRDatabase.database().reference().child("users").child(user.id)
-        ref.setValue(user.toFireBase()){(error, dbref) in
-            completionBlock(error)
-        }*/
+        
+    }
+    
+    func getUserFromFirebaseDB(uid:String, callback:@escaping (Error?, User?) -> Void){
+        let ref = FIRDatabase.database().reference().child("users").child(uid)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let user = User(json: value as! Dictionary<String, Any>)
+            callback(nil, user)
+            
+        }) { (error) in
+            callback(error, nil)
+        }
     }
     
     func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
-        FIRAuth.auth()!.signIn(withEmail: email, password: password) {(user, error) in
+        FIRAuth.auth()!.signIn(withEmail: email, password: password) {(userAuth, error) in
             if error == nil {
-                self.currAuthUser = user
+                self.getUserFromFirebaseDB(uid: (userAuth?.uid)!, callback: { (error, user) in
+                    if (error != nil) {
+                        completionBlock(error)
+                    } else if (user != nil){
+                        self.currAuthUser = user
+                    }
+                })
+                
             }
             completionBlock(error)
         }
@@ -82,6 +126,53 @@ class Firebase{
         // set the new ticket's data on the record ref
         ref.setValue(tick.toFireBase()){(error, dbref) in
             completionBlock(error)
+        }
+    }
+    
+    func addPurchase(purchase:Purchase, completionBlock:@escaping (Error?)->Void){
+        let ref = FIRDatabase.database().reference().child("purchases").childByAutoId()
+        
+        ref.setValue(purchase.toFirebase()) {(error, dbref) in
+            completionBlock(error)
+        }
+    }
+    
+    func buyTicket(ticket:Ticket, completionBlock:@escaping (Error?)->Void) {
+        let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
+        
+        ref.updateChildValues(["isSold": true]){(error, dbref) in
+            completionBlock(error)
+        }
+    }
+    
+    func getCurrentUserPurchases(_ lastUpdateDate:Date?, callback:@escaping ([Purchase]) -> Void) {
+        let handler = {(snapshot:FIRDataSnapshot) in
+            var purchases = [Purchase]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    if var json = childData.value as? Dictionary<String,Any>{
+                        json["id"] = childData.key
+                        let purch = Purchase(json: json)
+                        
+                        if (purch.seller == self.getCurrentAuthUserUID() || purch.buyer == self.getCurrentAuthUserUID()) {
+                            purchases.append(purch)
+                        }
+                    }
+                }
+            }
+            
+            callback(purchases)
+        }
+        
+        // create a ref to the tickets store
+        let ref = FIRDatabase.database().reference().child("purchases")
+        
+        // observe the tickets store
+        if (lastUpdateDate != nil){
+            let fbQuery = ref.queryOrdered(byChild:"purchaseDate").queryStarting(atValue:lastUpdateDate!.toFirebase())
+            fbQuery.observe(FIRDataEventType.value, with: handler)
+        }else{
+            ref.observe(FIRDataEventType.value, with: handler)
         }
     }
     
@@ -114,6 +205,24 @@ class Firebase{
         }else{
             ref.observe(FIRDataEventType.value, with: handler)
         }
+    }
+    
+    func getEventTypes(callback:@escaping ([EventType])->Void) {
+        let ref = FIRDatabase.database().reference().child("eventTypes")
+        
+        ref.observe(FIRDataEventType.value, with: {(snapshot) in
+            var eventTypes = [EventType]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{                    
+                    if let json = childData.value as? Dictionary<String,Any>{                        
+                        let eventType = EventType(json: json)
+                        eventTypes.append(eventType)
+                    }
+                }
+            }
+            
+            callback(eventTypes)
+        })
     }
     
     func saveImageToFirebase(image:UIImage, name:(String), callback:@escaping (String?)->Void){

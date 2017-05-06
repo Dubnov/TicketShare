@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-    var selectedTicket = Ticket(seller: "", title: "", price: 0, amount: 0, address: "", description: "", imageUrl: nil)
+    var selectedTicket:Ticket? = nil
     var locationManager = CLLocationManager()
     var currLocation = CLLocation()
     var selectedMapItem = MKMapItem()
@@ -38,66 +38,70 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.titleField.text = selectedTicket.title
-        self.descField.text = selectedTicket.description
-        self.amountField.text = String(selectedTicket.amount)
-        self.priceField.text = String(selectedTicket.price) + "₪"
-        self.addrField.text = selectedTicket.address
-        self.sellerField.text = selectedTicket.seller
         
-        if let imUrl = selectedTicket.imageUrl{
-            Model.instance.getImage(urlStr: imUrl, callback: { (image) in
-                self.ticketImageView!.image = image
-            })
-        }
-        
-        self.mapView.delegate = self
-        
-        // Convert address to latitude&longitude
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(self.addrField.text!) { (placemarksOptional, error) -> Void in
-            if let placemarks = placemarksOptional {
-                if let location = placemarks.first?.location {
-                    print("latitude:\(location.coordinate.latitude)")
-                    print("longitude:\(location.coordinate.longitude)")
-                    self.selectedLatitude = location.coordinate.latitude
-                    self.selectedLongitude = location.coordinate.longitude
-                    self.selectedLoaded = true
-                    let coordinates = CLLocationCoordinate2DMake(self.selectedLatitude,
-                                                                 self.selectedLongitude)
-                    let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                    self.selectedMapItem = MKMapItem(placemark: placemark)
-                    self.selectedMapItem.name = self.selectedTicket.title
-                    
-                    self.navigateButton.isEnabled = true
-                    let span = MKCoordinateSpanMake(0.0075, 0.0075)
-                    let eventCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                    let region = MKCoordinateRegion(center: eventCoordinate, span: span)
-                    self.mapView.setRegion(region, animated: true)
-                    let eventAnnotation = MKPointAnnotation()
-                    eventAnnotation.coordinate = eventCoordinate
-                    self.mapView.addAnnotation(eventAnnotation)
-                    self.calcDriveDetails()
+        if (selectedTicket != nil) {
+            
+            Model.instance.buyTicket(ticket: selectedTicket!)
+            // Do any additional setup after loading the view.
+            self.titleField.text = selectedTicket?.title
+            self.descField.text = selectedTicket?.description
+            self.amountField.text = selectedTicket?.amount.description //String(describing: selectedTicket?.amount)
+            self.priceField.text = (selectedTicket?.price.description)! + "₪" // String(describing: selectedTicket?.price) + "₪"
+            self.addrField.text = selectedTicket?.address
+            self.sellerField.text = selectedTicket?.seller
+            
+            if let imUrl = selectedTicket?.imageUrl{
+                Model.instance.getImage(urlStr: imUrl, callback: { (image) in
+                    self.ticketImageView!.image = image
+                })
+            }
+            
+            self.mapView.delegate = self
+            
+            // Convert address to latitude&longitude
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(self.addrField.text!) { (placemarksOptional, error) -> Void in
+                if let placemarks = placemarksOptional {
+                    if let location = placemarks.first?.location {
+                        print("latitude:\(location.coordinate.latitude)")
+                        print("longitude:\(location.coordinate.longitude)")
+                        self.selectedLatitude = location.coordinate.latitude
+                        self.selectedLongitude = location.coordinate.longitude
+                        self.selectedLoaded = true
+                        let coordinates = CLLocationCoordinate2DMake(self.selectedLatitude,
+                                                                     self.selectedLongitude)
+                        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+                        self.selectedMapItem = MKMapItem(placemark: placemark)
+                        self.selectedMapItem.name = self.selectedTicket?.title
+                        
+                        self.navigateButton.isEnabled = true
+                        let span = MKCoordinateSpanMake(0.0075, 0.0075)
+                        let eventCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                        let region = MKCoordinateRegion(center: eventCoordinate, span: span)
+                        self.mapView.setRegion(region, animated: true)
+                        let eventAnnotation = MKPointAnnotation()
+                        eventAnnotation.coordinate = eventCoordinate
+                        self.mapView.addAnnotation(eventAnnotation)
+                        self.calcDriveDetails()
+                    }
                 }
             }
-        }
-        
-        // 	ask for user's permission to use location
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        // get current location
-        if CLLocationManager.locationServicesEnabled(){
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-            currLocation = locationManager.location!
-            self.currloaded = true
-            calcDriveDetails()
-            let currLocAnnotation = MKPointAnnotation()
-            currLocAnnotation.coordinate = currLocation.coordinate
-            self.mapView.addAnnotation(currLocAnnotation)
+            
+            // 	ask for user's permission to use location
+            self.locationManager.requestWhenInUseAuthorization()
+            
+            // get current location
+            if CLLocationManager.locationServicesEnabled(){
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyBest
+                locationManager.startUpdatingLocation()
+                currLocation = locationManager.location!
+                self.currloaded = true
+                calcDriveDetails()
+                let currLocAnnotation = MKPointAnnotation()
+                currLocAnnotation.coordinate = currLocation.coordinate
+                self.mapView.addAnnotation(currLocAnnotation)
+            }
         }
     }
     
@@ -149,7 +153,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         }
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
             polylineRenderer.strokeColor = UIColor.blue
@@ -157,7 +161,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             return polylineRenderer
         }
     
-        return nil
+        return MKOverlayRenderer()
     }
 
     /*

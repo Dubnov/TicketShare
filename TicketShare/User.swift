@@ -10,43 +10,55 @@ import Foundation
 import FirebaseDatabase
 
 class User {
+    var uid:String
     var email:String
     var password:String
     var fullName:String
+    var dateOfBirth: Date
+    var lastLocation: String?
     var imageUrl:String?
-    var lastUpdateDate:Date?
     
-    init(email:String, password:String, fullName:String, imageUrl:String? = nil) {
+    init(email:String, password:String, fullName:String, dateOfBirth:Date, location:String? = nil, uid:String = "", imageUrl:String? = nil) {
+        self.uid = uid
         self.email = email
         self.password = password
         self.fullName = fullName
+        self.dateOfBirth = dateOfBirth
+        self.lastLocation = location
         self.imageUrl = imageUrl
     }
     
     init(json:Dictionary<String, Any>) {
+        self.uid = json["uid"] as! String
         self.email = json["email"] as! String
         self.password = json["password"] as! String
         self.fullName = json["fullName"] as! String
+        self.dateOfBirth = Date.fromFirebase(json["dateOfBirth"] as! Double)
+        
+        if let loc = json["lastLocation"] as? String {
+            self.lastLocation = loc
+        }
         
         if let im = json["imageUrl"] as? String {
             self.imageUrl = im
-        }
-        if let ts = json["lastUpdateDate"] as? Double {
-            self.lastUpdateDate = Date.fromFirebase(ts)
         }
     }
     
     func toFireBase() -> Dictionary<String, Any> {
         var json = Dictionary<String, Any>()
+        json["uid"] = self.uid
         json["email"] = self.email
         json["password"] = self.password
         json["fullName"] = self.fullName
+        json["dateOfBirth"] = self.dateOfBirth.toFirebase()
         
-        if imageUrl != nil {
-            json["imageUrl"] = imageUrl!
+        if self.lastLocation != nil {
+            json["lastLocation"] = self.lastLocation!
         }
         
-        json["lastUpdateDate"] = FIRServerValue.timestamp()
+        if self.imageUrl != nil {
+            json["imageUrl"] = self.imageUrl!
+        }
         
         return json
     }

@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
+<<<<<<< HEAD
         
         self.view.backgroundColor = UIColor.clear
         gradientLayer.frame = self.view.bounds
@@ -28,11 +29,20 @@ class LoginViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         self.view.layer.insertSublayer(gradientLayer, at: 0)
         
+=======
+
+        // TODO - Delete this
+        /*self.txtEmail.text = "chen.goren94@gmail.com"
+        self.txtPassword.text = "123123"
+        self.login(5)*/
+
+        // TODO - uncomment
+>>>>>>> 0ad9ad97da2d9f94dd9b397b1b9eadf25e2eea7b
         // Do any additional setup after loading the view.
-        self.loadingSpinner.isHidden = true
+        /* self.loadingSpinner.isHidden = true
         self.txtPassword.isSecureTextEntry = true
         self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
-        self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)*/
     }
 
     func textFieldDidChanged(_ textField: UITextField) {

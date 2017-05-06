@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B1ACC1E79DF8F001D3690 /* Model.swift */; };
+		142A31181EAD4019000B0510 /* MyTicketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142A31171EAD4019000B0510 /* MyTicketsViewController.swift */; };
 		1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC8F1E7AF5C700418511 /* LoginViewController.swift */; };
 		1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC951E7C0F3600418511 /* NewTicketViewController.swift */; };
 		1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileViewController.swift */; };
+		14D08F4F1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */; };
 		507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */; };
-		507E6A411E7D86300091F13C /* TicketTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A401E7D86300091F13C /* TicketTableViewController.swift */; };
+		507E6A411E7D86300091F13C /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */; };
 		507E6A431E7DB6F10091F13C /* TicketDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */; };
 		50A03E9B1EAB80C300241B99 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A03E9A1EAB80C300241B99 /* Lato-Black.ttf */; };
 		50A03EA51EAB80D400241B99 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A03E9C1EAB80D400241B99 /* Lato-BlackItalic.ttf */; };
@@ -33,23 +35,26 @@
 		626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE211E7B3767007EFE41 /* StringExtension.swift */; };
 		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
 		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
-		629BE9E91E6376F8006C5055 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* Event.swift */; };
+		629BE9E91E6376F8006C5055 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* EventType.swift */; };
 		629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */; };
 		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
 		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
 		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
+		62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EABFF61EABC33A00A0ED84 /* Purchase.swift */; };
 		6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		141B1ACC1E79DF8F001D3690 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		142A31171EAD4019000B0510 /* MyTicketsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTicketsViewController.swift; sourceTree = "<group>"; };
 		1455EC8E1E7AEF9600418511 /* TicketShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TicketShare.entitlements; sourceTree = "<group>"; };
 		1455EC8F1E7AF5C700418511 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1455EC951E7C0F3600418511 /* NewTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
 		1455EC971E7C0F6C00418511 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewCell.swift; sourceTree = "<group>"; };
 		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
 		507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
-		507E6A401E7D86300091F13C /* TicketTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewController.swift; sourceTree = "<group>"; };
+		507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailsViewController.swift; sourceTree = "<group>"; };
 		50A03E9A1EAB80C300241B99 /* Lato-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Black.ttf"; sourceTree = "<group>"; };
 		50A03E9C1EAB80D400241B99 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -73,12 +78,13 @@
 		626AEE211E7B3767007EFE41 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		629BE9E61E6376E0006C5055 /* Ticket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
-		629BE9E81E6376F8006C5055 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		629BE9E81E6376F8006C5055 /* EventType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		629BE9ED1E64B6B4006C5055 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TicketShare-Bridging-Header.h"; sourceTree = "<group>"; };
+		62EABFF61EABC33A00A0ED84 /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
 		F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TicketShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -139,19 +145,21 @@
 				629BE9EA1E64B28C006C5055 /* GoogleService-Info.plist */,
 				629BE9E31E6376A7006C5055 /* Models */,
 				620D18341E42611400233819 /* AppDelegate.swift */,
-				620D18361E42611400233819 /* RegisterViewController.swift */,
 				620D18381E42611400233819 /* Main.storyboard */,
 				620D183B1E42611400233819 /* Assets.xcassets */,
 				620D183D1E42611400233819 /* LaunchScreen.storyboard */,
 				620D18401E42611400233819 /* Info.plist */,
 				629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */,
 				1455EC8F1E7AF5C700418511 /* LoginViewController.swift */,
+				620D18361E42611400233819 /* RegisterViewController.swift */,
 				1455EC951E7C0F3600418511 /* NewTicketViewController.swift */,
 				1455EC971E7C0F6C00418511 /* ProfileViewController.swift */,
 				626AEE211E7B3767007EFE41 /* StringExtension.swift */,
 				507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */,
-				507E6A401E7D86300091F13C /* TicketTableViewController.swift */,
+				507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */,
 				507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */,
+				142A31171EAD4019000B0510 /* MyTicketsViewController.swift */,
+				14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -161,8 +169,9 @@
 			children = (
 				629BE9E41E6376BC006C5055 /* User.swift */,
 				629BE9E61E6376E0006C5055 /* Ticket.swift */,
-				629BE9E81E6376F8006C5055 /* Event.swift */,
+				629BE9E81E6376F8006C5055 /* EventType.swift */,
 				626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */,
+				62EABFF61EABC33A00A0ED84 /* Purchase.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -341,17 +350,20 @@
 				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
 				1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */,
-				507E6A411E7D86300091F13C /* TicketTableViewController.swift in Sources */,
+				507E6A411E7D86300091F13C /* DiscoverTableViewController.swift in Sources */,
 				620D18371E42611400233819 /* RegisterViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
+				62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */,
 				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
-				629BE9E91E6376F8006C5055 /* Event.swift in Sources */,
+				142A31181EAD4019000B0510 /* MyTicketsViewController.swift in Sources */,
+				629BE9E91E6376F8006C5055 /* EventType.swift in Sources */,
 				507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */,
 				626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */,
 				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,
 				507E6A431E7DB6F10091F13C /* TicketDetailsViewController.swift in Sources */,
+				14D08F4F1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
