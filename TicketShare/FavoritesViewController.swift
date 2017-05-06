@@ -16,6 +16,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.clear
         self.title = "My Favorites"
         self.favoritesTickets = Model.instance.getUserFavTickets(user: nil)
     }

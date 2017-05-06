@@ -31,6 +31,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.clear
         txtPrice.keyboardType = UIKeyboardType.numberPad
         txtAmount.keyboardType = UIKeyboardType.numberPad
         self.loadingSpinner.isHidden = true
