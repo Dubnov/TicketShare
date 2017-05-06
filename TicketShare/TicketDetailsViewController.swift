@@ -42,6 +42,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.backgroundColor = UIColor.clear
+        
         if (selectedTicket != nil) {
             
             Model.instance.buyTicket(ticket: selectedTicket!)

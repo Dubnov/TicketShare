@@ -10,12 +10,22 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    let gradientLayer = CAGradientLayer()
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        gradientLayer.frame = self.window!.frame
+        let firstColor = UIColor(red: 106.0 / 255.0, green: 248.0 / 255.0, blue: 1.0, alpha: 1.0).cgColor
+        let secondColor = UIColor(red: 195.0 / 255.0, green: 63.0 / 255.0, blue: 1.0, alpha: 1.0).cgColor
+        gradientLayer.colors = [firstColor, secondColor]
+        gradientLayer.locations = [0.0, 0.75]
+        gradientLayer.startPoint = CGPoint(x: 0.65, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0.35, y: 1)
+        self.window?.layer.insertSublayer(gradientLayer, at: 0)
+        
         return true
     }
 
