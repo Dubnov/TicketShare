@@ -17,7 +17,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
-<<<<<<< HEAD
         
         self.view.backgroundColor = UIColor.clear
         gradientLayer.frame = self.view.bounds
@@ -28,8 +27,6 @@ class LoginViewController: UIViewController {
         gradientLayer.startPoint = CGPoint(x: 1, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         self.view.layer.insertSublayer(gradientLayer, at: 0)
-        
-=======
 
         // TODO - Delete this
         /*self.txtEmail.text = "chen.goren94@gmail.com"
@@ -37,7 +34,6 @@ class LoginViewController: UIViewController {
         self.login(5)*/
 
         // TODO - uncomment
->>>>>>> 0ad9ad97da2d9f94dd9b397b1b9eadf25e2eea7b
         // Do any additional setup after loading the view.
         /* self.loadingSpinner.isHidden = true
         self.txtPassword.isSecureTextEntry = true

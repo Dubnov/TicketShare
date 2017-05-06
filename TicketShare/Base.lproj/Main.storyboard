@@ -254,13 +254,8 @@
         <!--Discover View Controller-->
         <scene sceneID="JL4-Zm-AYl">
             <objects>
-<<<<<<< HEAD
-                <tableViewController id="138-XM-tpZ" userLabel="Seller View Controller" customClass="TicketTableViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="Keb-ZV-V58">
-=======
                 <tableViewController id="138-XM-tpZ" userLabel="Discover View Controller" customClass="DiscoverTableViewController" customModule="TicketShare" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" id="Keb-ZV-V58">
->>>>>>> 0ad9ad97da2d9f94dd9b397b1b9eadf25e2eea7b
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -689,13 +684,8 @@
         <scene sceneID="vW4-gP-8Ia">
             <objects>
                 <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
-<<<<<<< HEAD
-                    <tabBarItem key="tabBarItem" title="Tickets" image="Ticket" selectedImage="Ticket" id="np1-Kp-fSY"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dj5-eC-9Ge">
-=======
                     <tabBarItem key="tabBarItem" title="Discover" image="Globe" selectedImage="Globe" id="np1-Kp-fSY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
->>>>>>> 0ad9ad97da2d9f94dd9b397b1b9eadf25e2eea7b
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
