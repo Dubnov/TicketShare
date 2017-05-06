@@ -18,8 +18,11 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     var selectedLongitude: Double = 0
     var selectedLoaded = false
     var currloaded = false
+    var bIsFromMyTickets = false
     
+    @IBOutlet weak var btnBuyTicket: UIButton!
     @IBOutlet weak var navigateButton: UIButton!
+    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var sellerField: UITextField!
     @IBOutlet weak var ticketImageView: UIImageView!
     @IBOutlet weak var addrField: UITextField!
@@ -102,6 +105,12 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 currLocAnnotation.coordinate = currLocation.coordinate
                 self.mapView.addAnnotation(currLocAnnotation)
             }
+            
+            if !self.bIsFromMyTickets {
+                self.navBar.isHidden = true
+            } else {
+                self.btnBuyTicket.isHidden = true
+            }
         }
     }
     
@@ -162,6 +171,20 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         }
     
         return MKOverlayRenderer()
+    }
+    
+    @IBAction func backToMyTickets(_ sender: Any) {
+        self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
+    }
+    
+    @IBAction func saveEditedTicket(_ sender: Any) {
+        // TODO - Call edit ticket function
+        self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
+    }
+    
+    @IBAction func buyTicket(_ sender: Any) {
+        // TODO - Call buy ticket function
+        self.performSegue(withIdentifier: "unwindToDiscover", sender: self)
     }
 
     /*

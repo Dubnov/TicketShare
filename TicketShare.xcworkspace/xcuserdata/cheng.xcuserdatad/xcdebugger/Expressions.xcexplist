@@ -11,6 +11,22 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "Firebase.(getAllTicketsAndObserve(Date?, callback : ([Ticket]) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.children.allObjects">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyTicketsViewController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:MyTicketsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "boughtTickets[indexPath.row]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Firebase.(loginUser(email : String, password : String, completionBlock : (Error?) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
          <PersistentStrings>
             <PersistentString
@@ -19,10 +35,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Firebase.(getAllTicketsAndObserve(Date?, callback : ([Ticket]) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
+         contextName = "Ticket.init(json : [String : Any]) -&gt; Ticket:Ticket.swift">
          <PersistentStrings>
             <PersistentString
-               value = "snapshot.children.allObjects">
+               value = "json">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -38,12 +54,29 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Ticket.init(json : [String : Any]) -&gt; Ticket:Ticket.swift">
+         contextName = "FavoritesViewController.viewDidLoad() -&gt; ():FavoritesViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "json">
+               value = "favoritesTickets">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MyTicketsViewController.boughtTicketsListDidUpdate(notification : NSNotification) -&gt; ():MyTicketsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.boughtTickets">
+            </PersistentString>
+            <PersistentString
+               value = "TicketCategory.Bought.rawValue">
+            </PersistentString>
+            <PersistentString
+               value = "TicketCategory.Bought.hashValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Purchase.addPurchaseToLocalDB(database : OpaquePointer) -&gt; ():Purchase.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>
