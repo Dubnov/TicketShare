@@ -11,9 +11,10 @@
 		142A31181EAD4019000B0510 /* MyTicketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142A31171EAD4019000B0510 /* MyTicketsViewController.swift */; };
 		144B5BE11EBC80E4009DF256 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B5BE01EBC80E4009DF256 /* FavoritesViewController.swift */; };
 		144B5BE31EBC8A61009DF256 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B5BE21EBC8A61009DF256 /* FavoritesTableViewCell.swift */; };
+		144B5BE51EBE17DD009DF256 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144B5BE41EBE17DD009DF256 /* MyProfileViewController.swift */; };
 		1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC8F1E7AF5C700418511 /* LoginViewController.swift */; };
 		1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC951E7C0F3600418511 /* NewTicketViewController.swift */; };
-		1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileViewController.swift */; };
+		1455EC981E7C0F6C00418511 /* ProfileDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileDetailsViewController.swift */; };
 		14D08F4F1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */; };
 		507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */; };
 		507E6A411E7D86300091F13C /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */; };
@@ -51,10 +52,11 @@
 		142A31171EAD4019000B0510 /* MyTicketsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTicketsViewController.swift; sourceTree = "<group>"; };
 		144B5BE01EBC80E4009DF256 /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		144B5BE21EBC8A61009DF256 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
+		144B5BE41EBE17DD009DF256 /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		1455EC8E1E7AEF9600418511 /* TicketShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TicketShare.entitlements; sourceTree = "<group>"; };
 		1455EC8F1E7AF5C700418511 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1455EC951E7C0F3600418511 /* NewTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTicketViewController.swift; sourceTree = "<group>"; };
-		1455EC971E7C0F6C00418511 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1455EC971E7C0F6C00418511 /* ProfileDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailsViewController.swift; sourceTree = "<group>"; };
 		14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewCell.swift; sourceTree = "<group>"; };
 		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
 		507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 				1455EC8F1E7AF5C700418511 /* LoginViewController.swift */,
 				620D18361E42611400233819 /* RegisterViewController.swift */,
 				1455EC951E7C0F3600418511 /* NewTicketViewController.swift */,
-				1455EC971E7C0F6C00418511 /* ProfileViewController.swift */,
+				1455EC971E7C0F6C00418511 /* ProfileDetailsViewController.swift */,
 				626AEE211E7B3767007EFE41 /* StringExtension.swift */,
 				507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */,
 				507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */,
@@ -166,6 +168,7 @@
 				14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */,
 				144B5BE01EBC80E4009DF256 /* FavoritesViewController.swift */,
 				144B5BE21EBC8A61009DF256 /* FavoritesTableViewCell.swift */,
+				144B5BE41EBE17DD009DF256 /* MyProfileViewController.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -355,12 +358,13 @@
 				1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */,
 				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
+				144B5BE51EBE17DD009DF256 /* MyProfileViewController.swift in Sources */,
 				1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */,
 				507E6A411E7D86300091F13C /* DiscoverTableViewController.swift in Sources */,
 				620D18371E42611400233819 /* RegisterViewController.swift in Sources */,
 				620D18351E42611400233819 /* AppDelegate.swift in Sources */,
 				62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */,
-				1455EC981E7C0F6C00418511 /* ProfileViewController.swift in Sources */,
+				1455EC981E7C0F6C00418511 /* ProfileDetailsViewController.swift in Sources */,
 				629BE9E51E6376BC006C5055 /* User.swift in Sources */,
 				629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */,
 				142A31181EAD4019000B0510 /* MyTicketsViewController.swift in Sources */,
