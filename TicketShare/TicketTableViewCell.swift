@@ -13,11 +13,20 @@ class TicketTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var ticketImageView: UIImageView!
+    @IBOutlet weak var locLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var typeImg: UIImageView!
+    @IBOutlet weak var locIcon: UIImageView!
+    @IBOutlet weak var dateIcon: UIImageView!
+    @IBOutlet weak var priceIcon: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.backgroundColor = UIColor.clear
+        self.locIcon.image = UIImage(named: "loc")
+        self.dateIcon.image = UIImage(named: "calendar")
+        self.priceIcon.image = UIImage(named: "price")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -28,6 +28,8 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
 
         // Do any additional setup after loading the view.
         
+        self.view.backgroundColor = UIColor.clear
+        
         //TODO: Call same method for "for sale" tickets
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.soldTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsSoldUpdate),object: nil)

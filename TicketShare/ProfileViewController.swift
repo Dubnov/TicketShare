@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.clear
         self.txtFullName.text = Model.instance.getCurrentAuthUserName()
         self.txtEmail.text = Model.instance.getCurrentAuthUserEmail()
     }
