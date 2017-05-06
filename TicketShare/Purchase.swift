@@ -197,10 +197,19 @@ class Purchase {
         var purchases = [Purchase]()
         // var tickets = [Ticket]()
         var sqlite3_stmt: OpaquePointer? = nil
+        var sqlite3_stmt123: OpaquePointer? = nil
+        sqlite3_prepare_v2(database,"SELECT COUNT(*) from " + Purchase.TABLE_NAME + " WHERE " + Purchase.BUYER + " = ?;",-1,&sqlite3_stmt123,nil)
+        sqlite3_bind_text(sqlite3_stmt123, 1, user.cString(using: .utf8), -1, nil)
+        sqlite3_step(sqlite3_stmt123)
+        let dor = Int(sqlite3_column_int(sqlite3_stmt123, 0))
+        print(dor)
+        
+        
+        
         let result = sqlite3_prepare_v2(database,"SELECT * from " + Purchase.TABLE_NAME + " WHERE " + Purchase.BUYER + " = ?;",-1,&sqlite3_stmt,nil)
+        // let r = sqlite3_bind_text(sqlite3_stmt, 1, user.cString(using: .utf8), -1, nil)
+        
         if (result == SQLITE_OK){
-        // if (sqlite3_prepare_v2(database,"SELECT T.* from " + Purchase.TABLE_NAME + " AS P INNER JOIN " + Ticket.TABLE_NAME + " AS T ON P." + Purchase.TICKET_ID +
-           //                             " = T." + Ticket.ID + " WHERE " + Purchase.BUYER + " = " + user + ";",-1,&sqlite3_stmt,nil) == SQLITE_OK){
             sqlite3_bind_text(sqlite3_stmt, 1, user.cString(using: .utf8), -1, nil)
             while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
                 // using the extension method to valide utf8 string values (more explanation at the extension class)
