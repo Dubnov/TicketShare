@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         gradientLayer.locations = [0.0, 0.75]
         gradientLayer.startPoint = CGPoint(x: 0.65, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.35, y: 1)
+        gradientLayer.zPosition = -1
         self.window?.layer.insertSublayer(gradientLayer, at: 0)
         
         return true
