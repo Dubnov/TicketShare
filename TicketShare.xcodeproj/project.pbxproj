@@ -16,6 +16,7 @@
 		1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC951E7C0F3600418511 /* NewTicketViewController.swift */; };
 		1455EC981E7C0F6C00418511 /* ProfileDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1455EC971E7C0F6C00418511 /* ProfileDetailsViewController.swift */; };
 		14D08F4F1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */; };
+		500835D51EC0CA3400F56AD6 /* LabelExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500835D41EC0CA3400F56AD6 /* LabelExt.swift */; };
 		507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */; };
 		507E6A411E7D86300091F13C /* DiscoverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */; };
 		507E6A431E7DB6F10091F13C /* TicketDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */; };
@@ -59,6 +60,7 @@
 		1455EC971E7C0F6C00418511 /* ProfileDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailsViewController.swift; sourceTree = "<group>"; };
 		14D08F4E1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseTableViewCell.swift; sourceTree = "<group>"; };
 		35FA059025E9EF59DAD71A8B /* Pods-TicketShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TicketShare.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TicketShare/Pods-TicketShare.debug.xcconfig"; sourceTree = "<group>"; };
+		500835D41EC0CA3400F56AD6 /* LabelExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelExt.swift; sourceTree = "<group>"; };
 		507E6A3E1E7D80840091F13C /* TicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketTableViewCell.swift; sourceTree = "<group>"; };
 		507E6A401E7D86300091F13C /* DiscoverTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverTableViewController.swift; sourceTree = "<group>"; };
 		507E6A421E7DB6F10091F13C /* TicketDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailsViewController.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				144B5BE01EBC80E4009DF256 /* FavoritesViewController.swift */,
 				144B5BE21EBC8A61009DF256 /* FavoritesTableViewCell.swift */,
 				144B5BE41EBE17DD009DF256 /* MyProfileViewController.swift */,
+				500835D41EC0CA3400F56AD6 /* LabelExt.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */,
+				500835D51EC0CA3400F56AD6 /* LabelExt.swift in Sources */,
 				1455EC901E7AF5C700418511 /* LoginViewController.swift in Sources */,
 				629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */,
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,

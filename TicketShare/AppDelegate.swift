@@ -35,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
+        UILabel.appearance().substituteFontName = "Lato-Regular"
+        
         return true
     }
 
