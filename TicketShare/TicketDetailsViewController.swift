@@ -21,39 +21,29 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     var bIsFromMyTickets = false
     
     @IBOutlet weak var btnBuyTicket: UIButton!
-    @IBOutlet weak var navigateButton: UIButton!
     @IBOutlet weak var navBar: UINavigationBar!
-    @IBOutlet weak var sellerField: UITextField!
     @IBOutlet weak var ticketImageView: UIImageView!
-    @IBOutlet weak var addrField: UITextField!
-    @IBOutlet weak var priceField: UITextField!
-    @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var descField: UITextField!
-    @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var distLabel: UILabel!
-    @IBOutlet weak var etaLabel: UILabel!
-    
-    @IBAction func navigateClick(_ sender: UIButton) {
-        let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-        self.selectedMapItem.openInMaps(launchOptions: options)
-    }
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addrLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var sellerLabel: UILabel!
+    @IBOutlet weak var amountPriceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.clear
         
-        if (selectedTicket != nil) {
+        if let ticket = selectedTicket {
             
             Model.instance.buyTicket(ticket: selectedTicket!)
             // Do any additional setup after loading the view.
-            self.titleField.text = selectedTicket?.title
-            self.descField.text = selectedTicket?.description
-            self.amountField.text = selectedTicket?.amount.description //String(describing: selectedTicket?.amount)
-            self.priceField.text = (selectedTicket?.price.description)! + "₪" // String(describing: selectedTicket?.price) + "₪"
-            self.addrField.text = selectedTicket?.address
-            self.sellerField.text = selectedTicket?.seller
+            self.titleLabel.text = selectedTicket?.title
+            self.descLabel.text = selectedTicket?.description
+            self.amountPriceLabel.text = String(ticket.amount) + " x " + String(ticket.price) + "₪"
+            self.addrLabel.text = selectedTicket?.address
+            self.sellerLabel.text = selectedTicket?.seller
             
             if let imUrl = selectedTicket?.imageUrl{
                 Model.instance.getImage(urlStr: imUrl, callback: { (image) in
@@ -65,7 +55,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             
             // Convert address to latitude&longitude
             let geocoder = CLGeocoder()
-            geocoder.geocodeAddressString(self.addrField.text!) { (placemarksOptional, error) -> Void in
+            geocoder.geocodeAddressString(self.addrLabel.text!) { (placemarksOptional, error) -> Void in
                 if let placemarks = placemarksOptional {
                     if let location = placemarks.first?.location {
                         print("latitude:\(location.coordinate.latitude)")
@@ -78,8 +68,6 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                         let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
                         self.selectedMapItem = MKMapItem(placemark: placemark)
                         self.selectedMapItem.name = self.selectedTicket?.title
-                        
-                        self.navigateButton.isEnabled = true
                         let span = MKCoordinateSpanMake(0.0075, 0.0075)
                         let eventCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                         let region = MKCoordinateRegion(center: eventCoordinate, span: span)
@@ -87,7 +75,6 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                         let eventAnnotation = MKPointAnnotation()
                         eventAnnotation.coordinate = eventCoordinate
                         self.mapView.addAnnotation(eventAnnotation)
-                        self.calcDriveDetails()
                     }
                 }
             }
@@ -102,7 +89,6 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 locationManager.startUpdatingLocation()
                 currLocation = locationManager.location!
                 self.currloaded = true
-                calcDriveDetails()
                 let currLocAnnotation = MKPointAnnotation()
                 currLocAnnotation.coordinate = currLocation.coordinate
                 self.mapView.addAnnotation(currLocAnnotation)
@@ -114,65 +100,6 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 self.btnBuyTicket.isHidden = true
             }
         }
-    }
-    
-    func calcDriveDetails() {
-        if selectedLoaded && currloaded {
-            let request: MKDirectionsRequest = MKDirectionsRequest()
-            let placemark = MKPlacemark(coordinate: currLocation.coordinate, addressDictionary: nil)
-            let mapitem = MKMapItem(placemark: placemark)
-            request.source = mapitem
-            request.destination = self.selectedMapItem
-            request.transportType = .automobile
-        
-            let directions = MKDirections(request: request)
-            directions.calculate(completionHandler: {(response, error) in
-                if let routeResponse = response?.routes {
-                    if let route = routeResponse.first {
-                        if route.distance < 1000.0 {
-                            self.distLabel.text = NSString(format: "%.2f m", route.distance) as String
-                        }
-                        else {
-                            self.distLabel.text = NSString(format: "%.2f Km", route.distance/1000) as String
-                        }
-                        
-                        if route.expectedTravelTime/60 < 60 {
-                            self.etaLabel.text = NSString(format: "%.0f Minutes", route.expectedTravelTime/60) as String
-                        }
-                        else {
-                            self.etaLabel.text = NSString(format: "%.1f Hours", route.expectedTravelTime/60/60) as String
-                        }
-                    
-                        self.mapView.addOverlays([route.polyline])
-                        if self.mapView.overlays.count == 1 {
-                            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect,
-                                                           edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-                                                           animated: false)
-                        }
-                        else {
-                            let polylineBoundingRect =  MKMapRectUnion(self.mapView.visibleMapRect,
-                                                                       route.polyline.boundingMapRect)
-                            self.mapView.setVisibleMapRect(polylineBoundingRect,
-                                                           edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-                                                           animated: false)
-                        }
-                    }
-                } else if let _ = error {
-                
-                }
-            })
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.blue
-            polylineRenderer.lineWidth = 5
-            return polylineRenderer
-        }
-    
-        return MKOverlayRenderer()
     }
     
     @IBAction func backToMyTickets(_ sender: Any) {
