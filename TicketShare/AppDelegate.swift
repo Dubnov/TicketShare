@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Adding a gradient background across the app
         gradientLayer.frame = self.window!.frame
         let firstColor = UIColor(red: 106.0 / 255.0, green: 248.0 / 255.0, blue: 1.0, alpha: 1.0).cgColor
         let secondColor = UIColor(red: 195.0 / 255.0, green: 63.0 / 255.0, blue: 1.0, alpha: 1.0).cgColor
@@ -26,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         gradientLayer.endPoint = CGPoint(x: 0.35, y: 1)
         gradientLayer.zPosition = -1
         self.window?.layer.insertSublayer(gradientLayer, at: 0)
+        
+        // Makin navigation bar clear
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         return true
     }
