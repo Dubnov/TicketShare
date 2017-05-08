@@ -11,6 +11,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "MyTicketsViewController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():MyTicketsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "segue.identifier">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Firebase.(getAllTicketsAndObserve(Date?, callback : ([Ticket]) -&gt; ()) -&gt; ()).(closure #1):Firebase.swift">
          <PersistentStrings>
             <PersistentString
@@ -23,6 +31,14 @@
          <PersistentStrings>
             <PersistentString
                value = "boughtTickets[indexPath.row]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "LoginViewController.unwindToLogin(segue : UIStoryboardSegue) -&gt; ():LoginViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.txtEmail.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
