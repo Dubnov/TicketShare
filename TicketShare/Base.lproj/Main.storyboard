@@ -1005,7 +1005,7 @@
                                 <segments>
                                     <segment title="For Sale"/>
                                     <segment title="Sold"/>
-                                    <segment title="Baught"/>
+                                    <segment title="Bought"/>
                                 </segments>
                                 <color key="tintColor" red="0.72920965018332873" green="0.19726654772160154" blue="0.85455935846560849" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
