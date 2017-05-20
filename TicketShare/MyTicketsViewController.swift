@@ -38,8 +38,12 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.forSellTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsForSell),object: nil)
         
-        Model.instance.getCurrentUserTicketsSold()
-        Model.instance.getCurrentUserTicketsBought()
+        
+        Model.instance.getCurrentUserPurchases() {
+            
+        }
+        //Model.instance.getCurrentUserTicketsSold()
+        //Model.instance.getCurrentUserTicketsBought()
         Model.instance.getCurrentUserTicketsForSell()
     }
 
