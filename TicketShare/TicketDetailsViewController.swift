@@ -37,7 +37,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         
         if let ticket = selectedTicket {
             
-            Model.instance.buyTicket(ticket: selectedTicket!)
+            
             // Do any additional setup after loading the view.
             self.titleLabel.text = selectedTicket?.title
             self.descLabel.text = selectedTicket?.description
@@ -113,6 +113,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     
     @IBAction func buyTicket(_ sender: Any) {
         // TODO - Call buy ticket function
+        Model.instance.buyTicket(ticket: selectedTicket!)
         self.performSegue(withIdentifier: "unwindToDiscover", sender: self)
     }
 

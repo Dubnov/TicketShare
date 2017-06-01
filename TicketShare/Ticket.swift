@@ -213,10 +213,11 @@ class Ticket {
     
     static func getUserTicketsForSell(database: OpaquePointer, user: String) -> [Ticket]{
         var tickets = [Ticket]()
+        let seller = user.cString(using: .utf8)
         var sqlite3_stmt: OpaquePointer? = nil
         let result = sqlite3_prepare_v2(database,"SELECT * from " + Ticket.TABLE_NAME + " WHERE " + Ticket.IS_SOLD + " = 0 AND " + Ticket.SELLER + " = ?;",-1,&sqlite3_stmt,nil)
         if (result == SQLITE_OK){
-            sqlite3_bind_text(sqlite3_stmt, 1, user.cString(using: .utf8), -1, nil)
+            sqlite3_bind_text(sqlite3_stmt, 1, seller, -1, nil)
             while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
                 // using the extension method to valide utf8 string values (more explanation at the extension class)
                 let id = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 0))
