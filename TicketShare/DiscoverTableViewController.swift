@@ -15,6 +15,14 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.isTranslucent = true
+//        self.navigationController?.view.backgroundColor = .clear
+        
+        self.view.backgroundColor = UIColor.clear
+        self.tableView.backgroundColor = UIColor.clear
         
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
@@ -47,7 +55,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     }
     
     override public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 155
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,13 +87,30 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
             let tickets = arrayOfTickets![indexPath.row]
             
             cell.nameLabel!.text = tickets.title
-            cell.amountLabel!.text = String(tickets.amount)
-            cell.priceLabel!.text = String(tickets.price) + "₪"
+            cell.amountLabel!.text = String(tickets.amount) + "x"
+            cell.amountLabel.layer.borderColor = cell.amountLabel.textColor.cgColor
+            cell.amountLabel.layer.borderWidth = 2.0
+            cell.amountLabel.layer.cornerRadius = 6.0
             
-            if let imUrl = tickets.imageUrl{
-                Model.instance.getImage(urlStr: imUrl, callback: { (image) in
-                    cell.ticketImageView!.image = image
-                })
+            cell.priceLabel!.text = String(tickets.price) + "₪"
+            cell.locLabel.text = tickets.address
+            let date = Date()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd.MM.yyyy"
+            let result = formatter.string(from: date)
+            cell.dateLabel.text = result
+            
+            switch tickets.eventType {
+            case 1:
+                cell.typeImg.image = UIImage(named: "concert")
+            case 2:
+                cell.typeImg.image = UIImage(named: "sports")
+            case 3:
+                cell.typeImg.image = UIImage(named: "festival")
+            case 4:
+                cell.typeImg.image = UIImage(named: "theater")
+            default:
+                cell.typeImg.image = UIImage(named: "unknown")
             }
             
             if tableView != self.searchDisplayController!.searchResultsTableView {
@@ -135,5 +160,8 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
                 }
             }
         }
+    }
+    
+    @IBAction func unwindToDiscover(segue: UIStoryboardSegue) {
     }
 }

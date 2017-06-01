@@ -10,7 +10,6 @@ import UIKit
 import CoreLocation
 
 class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate{
-    
     var locationManager = CLLocationManager()
 
     @IBOutlet weak var lblRequiredPassword: UILabel!
@@ -31,6 +30,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationM
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.view.backgroundColor = UIColor.clear
+        
         self.loadingSpinner.isHidden = true
         txtPassword.isSecureTextEntry = true
         self.txtFullName.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)

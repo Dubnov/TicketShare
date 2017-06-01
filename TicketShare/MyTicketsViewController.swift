@@ -28,6 +28,8 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
 
         // Do any additional setup after loading the view.
         
+        self.view.backgroundColor = UIColor.clear
+        
         //TODO: Call same method for "for sale" tickets
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.soldTicketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketsSoldUpdate),object: nil)
@@ -60,7 +62,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     @objc func forSellTicketsListDidUpdate(notification:NSNotification){
         self.forSaleTickets = notification.userInfo?["tickets"] as! [Ticket]
         
-        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.rawValue) {
+        if (mySegmentedControl.selectedSegmentIndex == TicketCategory.ForSale.rawValue) {
             self.myTableView.reloadData()
         }
     }
@@ -128,7 +130,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             myCell.lblDateLabel.isHidden = true
             break
         case TicketCategory.Sold.rawValue:
-            myCell.lblTitle?.text = soldTickets[indexPath.row].ticketId
+            myCell.lblTitle?.text = soldTickets[indexPath.row].ticketTitle
             myCell.lblPrice?.text = soldTickets[indexPath.row].purchaseCost.description
             myCell.lblAmount?.text = soldTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Buyer:"
@@ -137,7 +139,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             myCell.lblDateLabel.isHidden = false
             break
         case TicketCategory.Bought.rawValue:
-            myCell.textLabel?.text = boughtTickets[indexPath.row].ticketId
+            myCell.lblTitle?.text = boughtTickets[indexPath.row].ticketTitle
             myCell.lblPrice?.text = boughtTickets[indexPath.row].purchaseCost.description
             myCell.lblAmount?.text = boughtTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Seller:"
@@ -155,15 +157,27 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - Navigation
 
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if mySegmentedControl.selectedSegmentIndex == TicketCategory.ForSale.hashValue {
+            return true
+        }
+        
+        return false
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        /*if segue.identifier == editDetailsSegueIdentifier {
+        if segue.identifier == "EditTicketDetailSegue" {
             let destination = segue.destination as? TicketDetailsViewController
             
             let indexPath = self.myTableView.indexPathForSelectedRow
             destination?.selectedTicket = (self.forSaleTickets[indexPath!.row])
-        }*/
+            destination?.bIsFromMyTickets = true;
+        }
+    }
+    
+    @IBAction func unwindToMyTickets(segue: UIStoryboardSegue) {
     }
 
 }
