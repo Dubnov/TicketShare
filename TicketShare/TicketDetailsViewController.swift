@@ -116,14 +116,12 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         Model.instance.addFavoriteTicket(ticket: selectedTicket!)
         self.btnAddToFav.isHidden = true
         self.btnRemoveFromFav.isHidden = false
-        // self.performSegue(withIdentifier: "unwindToDiscover", sender: self)
     }
     
     @IBAction func removeFromFavorites(_ sender: UIButton) {
         Model.instance.removeFavoriteTicket(ticketId: selectedTicket!.id)
         self.btnRemoveFromFav.isHidden = true
         self.btnAddToFav.isHidden = false
-        // self.performSegue(withIdentifier: "unwindToDiscover", sender: self)
     }
     
     @IBAction func backToMyTickets(_ sender: Any) {

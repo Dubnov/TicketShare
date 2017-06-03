@@ -45,6 +45,8 @@ class User {
         if let im = json["imageUrl"] as? String {
             self.imageUrl = im
         }
+        
+        self.addFavorites(tickets: Model.instance.getUserFavoriteTickets(user: uid))
     }
     
     func toFireBase() -> Dictionary<String, Any> {

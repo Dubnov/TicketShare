@@ -658,7 +658,6 @@
                                 </state>
                                 <connections>
                                     <action selector="addToFavorite:" destination="SFI-uU-a8w" eventType="touchUpInside" id="i1d-v3-f9Y"/>
-                                    <action selector="buyTicket:" destination="SFI-uU-a8w" eventType="touchUpInside" id="C83-cj-DW8"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8f-fa-a7j">
