@@ -12,17 +12,29 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     var ticketsList = [Ticket]()
     var ticketsSearchResults:Array<Ticket>?
     let detailSegueIdentifier = "ShowTicketDetailSegue"
+    var headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1.0, height: 33.0))
+    var selectedSegment = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
-//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        self.navigationController?.navigationBar.shadowImage = UIImage()
-//        self.navigationController?.navigationBar.isTranslucent = true
-//        self.navigationController?.view.backgroundColor = .clear
         
         self.view.backgroundColor = UIColor.clear
         self.tableView.backgroundColor = UIColor.clear
+        self.searchDisplayController?.searchResultsTableView.backgroundColor = UIColor.init(white: 1.0, alpha: 0.8)
+        self.searchDisplayController?.searchResultsTableView.separatorColor = UIColor.clear
+        
+        let segBar = UISegmentedControl(items: ["All","Nearby","For You"])
+        let tableframe = self.tableView.frame
+        segBar.tintColor = UIColor(red: 186.0 / 255.0, green: 50.0 / 255.0, blue: 218.0 / 255.0, alpha: 1.0)
+        segBar.backgroundColor = UIColor.white
+        segBar.layer.cornerRadius = 14.5
+        segBar.layer.borderColor = segBar.tintColor.cgColor
+        segBar.layer.borderWidth = 1.0
+        segBar.layer.masksToBounds = true
+        segBar.frame = CGRect(x: tableframe.minX + 15, y: 0.0, width: tableframe.width - 30, height: 29.0)
+        segBar.selectedSegmentIndex = 0
+        segBar.addTarget(self, action: "segmentClicked:", for: .valueChanged)
+        self.headerView.addSubview(segBar)
         
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
@@ -56,6 +68,17 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     
     override public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 155
+    }
+    
+    override public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if(section == 0){
+            return self.headerView;
+        }
+        return nil;
+    }
+    
+    override public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -122,6 +145,12 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         return cell
     }
     
+    func segmentClicked(_ sender: UISegmentedControl) {
+        self.selectedSegment = sender.selectedSegmentIndex
+        
+        // TO DO call function to filter
+    }
+    
     func filterContentForSearchText(searchText: String) {
         // Filter the array using the filter method
         if self.ticketsList.isEmpty {
@@ -138,6 +167,14 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         self.filterContentForSearchText(searchText: searchString!)
         return true
     }
+    
+//    func searchDisplayController(_ controller: UISearchDisplayController, willShowSearchResultsTableView tableView: UITableView) {
+//        self.tableView.isHidden = true
+//    }
+//    
+//    func searchDisplayController(_ controller: UISearchDisplayController, didHideSearchResultsTableView tableView: UITableView) {
+//        self.tableView.isHidden = false
+//    }
     
     // MARK: - Navigation
     
