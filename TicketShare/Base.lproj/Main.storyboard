@@ -588,7 +588,7 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdR-cV-bYb">
-                                <rect key="frame" x="124" y="578" width="127" height="30"/>
+                                <rect key="frame" x="19" y="578" width="127" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Buy This!">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -650,6 +650,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufs-LN-1HY">
+                                <rect key="frame" x="251" y="578" width="108" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Like">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addToFavorite:" destination="SFI-uU-a8w" eventType="touchUpInside" id="i1d-v3-f9Y"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8f-fa-a7j">
+                                <rect key="frame" x="243" y="578" width="116" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Dislike"/>
+                                <connections>
+                                    <action selector="removeFromFavorites:" destination="SFI-uU-a8w" eventType="touchUpInside" id="vsc-3y-E9v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -657,7 +675,9 @@
                     <connections>
                         <outlet property="addrLabel" destination="nif-Yi-lPw" id="5Wf-ba-jFV"/>
                         <outlet property="amountPriceLabel" destination="Tow-Sn-dzi" id="RVg-tb-ibR"/>
+                        <outlet property="btnAddToFav" destination="Ufs-LN-1HY" id="R6J-8N-9dZ"/>
                         <outlet property="btnBuyTicket" destination="kdR-cV-bYb" id="eTH-ru-eGe"/>
+                        <outlet property="btnRemoveFromFav" destination="b8f-fa-a7j" id="l4X-II-Vqq"/>
                         <outlet property="descLabel" destination="NHE-GD-Kgr" id="Tms-O8-hax"/>
                         <outlet property="mapView" destination="ABk-Jy-lwZ" id="xDq-Jc-JIE"/>
                         <outlet property="navBar" destination="xed-QS-ymM" id="uGo-jP-tmh"/>

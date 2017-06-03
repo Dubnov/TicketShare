@@ -18,7 +18,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
         self.title = "My Favorites"
-        self.favoritesTickets = Model.instance.getUserFavTickets(user: nil)
+        self.favoritesTickets = Model.instance.getUserFavoriteTickets(user: nil)
     }
 
     override func didReceiveMemoryWarning() {

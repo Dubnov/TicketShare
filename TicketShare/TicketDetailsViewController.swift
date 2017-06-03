@@ -20,6 +20,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     var currloaded = false
     var bIsFromMyTickets = false
     
+    @IBOutlet weak var btnRemoveFromFav: UIButton!
+    @IBOutlet weak var btnAddToFav: UIButton!
     @IBOutlet weak var btnBuyTicket: UIButton!
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var ticketImageView: UIImageView!
@@ -99,7 +101,27 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             } else {
                 self.btnBuyTicket.isHidden = true
             }
+            
+            if (Model.instance.isTicketInUserFavorites(ticket: selectedTicket!) == true) {
+                self.btnRemoveFromFav.isHidden = false
+                self.btnAddToFav.isHidden = true
+            } else {
+                self.btnRemoveFromFav.isHidden = true
+                self.btnAddToFav.isHidden = false
+            }
         }
+    }
+    
+    @IBAction func addToFavorite(_ sender: UIButton) {
+        Model.instance.addFavoriteTicket(ticket: selectedTicket!)
+        self.btnAddToFav.isHidden = true
+        self.btnRemoveFromFav.isHidden = false
+    }
+    
+    @IBAction func removeFromFavorites(_ sender: UIButton) {
+        Model.instance.removeFavoriteTicket(ticketId: selectedTicket!.id)
+        self.btnRemoveFromFav.isHidden = true
+        self.btnAddToFav.isHidden = false
     }
     
     @IBAction func backToMyTickets(_ sender: Any) {

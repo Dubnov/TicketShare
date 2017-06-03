@@ -24,7 +24,8 @@ class SQLite {
             
             if (Ticket.createTicketsTable(database: self.database) == false ||
                 LastUpdateTable.createTable(database: self.database) == false ||
-                Purchase.createPurchasesTable(database: self.database) == false) {
+                Purchase.createPurchasesTable(database: self.database) == false ||
+                Favorite.createFavoritesTable(database: self.database) == false) {
                 return nil
             }
             
