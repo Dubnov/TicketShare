@@ -28,6 +28,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.backgroundColor = UIColor.clear
         return self.favoritesTickets.count
     }
     
