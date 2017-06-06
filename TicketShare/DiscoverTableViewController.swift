@@ -10,6 +10,7 @@ import UIKit
 
 class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     var ticketsList = [Ticket]()
+    var recommendedTicketsList = [Ticket]()
     var ticketsSearchResults:Array<Ticket>?
     let detailSegueIdentifier = "ShowTicketDetailSegue"
     var headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1.0, height: 33.0))
@@ -38,12 +39,20 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
+        NotificationCenter.default.addObserver(self, selector:
+            #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyRecommendedTickets),object: nil)
         
         Model.instance.getAllTicketsAndObserve()
+        Model.instance.getRecommendedTickets()
     }
     
     @objc func ticketsListDidUpdate(notification:NSNotification){
         self.ticketsList = notification.userInfo?["tickets"] as! [Ticket]
+        self.tableView!.reloadData()
+    }
+    
+    @objc func recommendedTickets(notification:NSNotification){
+        self.recommendedTicketsList = notification.userInfo?["tickets"] as! [Ticket]
         self.tableView!.reloadData()
     }
     

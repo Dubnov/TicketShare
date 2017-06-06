@@ -36,6 +36,7 @@
 		620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D183D1E42611400233819 /* LaunchScreen.storyboard */; };
 		626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */; };
 		626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE211E7B3767007EFE41 /* StringExtension.swift */; };
+		628F4F741EE70C9E00E64A79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62E4AA441EE19CB700A0F908 /* Assets.xcassets */; };
 		629BE9E51E6376BC006C5055 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E41E6376BC006C5055 /* User.swift */; };
 		629BE9E71E6376E0006C5055 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E61E6376E0006C5055 /* Ticket.swift */; };
 		629BE9E91E6376F8006C5055 /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9E81E6376F8006C5055 /* EventType.swift */; };
@@ -43,7 +44,6 @@
 		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
 		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
 		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
-		62E4AA451EE19CB700A0F908 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62E4AA441EE19CB700A0F908 /* Assets.xcassets */; };
 		62E4AA471EE1A12500A0F908 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E4AA461EE1A12500A0F908 /* Favorite.swift */; };
 		62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EABFF61EABC33A00A0ED84 /* Purchase.swift */; };
 		6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */; };
@@ -288,11 +288,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628F4F741EE70C9E00E64A79 /* Assets.xcassets in Resources */,
 				50A03EA61EAB80D400241B99 /* Lato-Bold.ttf in Resources */,
 				620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */,
 				50A03EA91EAB80D400241B99 /* Lato-HairlineItalic.ttf in Resources */,
 				50A03EAB1EAB80D400241B99 /* Lato-Light.ttf in Resources */,
-				62E4AA451EE19CB700A0F908 /* Assets.xcassets in Resources */,
 				629BE9EB1E64B28C006C5055 /* GoogleService-Info.plist in Resources */,
 				50A03EAA1EAB80D400241B99 /* Lato-Italic.ttf in Resources */,
 				50A03EA71EAB80D400241B99 /* Lato-BoldItalic.ttf in Resources */,

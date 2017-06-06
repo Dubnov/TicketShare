@@ -13,6 +13,7 @@ let notifyTicketListUpdate = "com.ticketShare.notifyTicketListUpdate"
 let notifyTicketsSoldUpdate = "com.ticketShare.notifyTicketsSoldUpdate"
 let notifyBoughtTicketsUpdate = "com.ticketShare.notifyBoughtTicketsUpdate"
 let notifyTicketsForSell = "com.ticketShare.notifyTicketsForSell"
+let notifyRecommendedTickets = "com.ticketShare.notifyRecommendedTickets"
 
 extension Date {
     
@@ -173,6 +174,20 @@ class Model{
         return false
     }
     
+    func getRecommendedTickets() {
+        self.firebaseModel!.getRecommendedTicketsForUser(userId: self.getCurrentAuthUserUID()!){ ticketsIds in
+            var tickets = [Ticket]()
+            for id in ticketsIds {
+                let tick = Ticket.getTicketByIdFromLocalDB(database: self.sqlModel!.database!, ticketId: id)
+                
+                if (tick != nil) {
+                    tickets.append(tick!)
+                }
+            }
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notifyRecommendedTickets), object:nil , userInfo:["tickets":tickets])
+        }
+    }
     
     
     func buyTicket(ticket:Ticket) {
