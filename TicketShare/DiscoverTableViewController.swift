@@ -71,6 +71,8 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return self.ticketsSearchResults?.count ?? 0
+        } else if self.selectedSegment == -1 {
+            return self.ticketsList.count
         } else {
             return self.currSegmentTicketsList.count
         }
@@ -175,11 +177,19 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     
     func filterContentForSearchText(searchText: String) {
         // Filter the array using the filter method
-        if self.currSegmentTicketsList.isEmpty {
+        var arrayOfTickets:[Ticket]
+        
+        if self.selectedSegment == -1 {
+            arrayOfTickets = self.ticketsList
+        } else {
+            arrayOfTickets = self.currSegmentTicketsList
+        }
+        
+        if arrayOfTickets.isEmpty {
             self.ticketsSearchResults = nil
             return
         }
-        self.ticketsSearchResults = self.currSegmentTicketsList.filter({( aTicket: Ticket) -> Bool in
+        self.ticketsSearchResults = arrayOfTickets.filter({( aTicket: Ticket) -> Bool in
             // to start, let's just search by name
             return aTicket.title.lowercased().range(of: searchText.lowercased()) != nil
         })
@@ -188,6 +198,10 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     func searchDisplayController(_ controller: UISearchDisplayController, shouldReloadTableForSearch searchString: String?) -> Bool {
         self.filterContentForSearchText(searchText: searchString!)
         return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.tableView.reloadData()
     }
     
 //    func searchDisplayController(_ controller: UISearchDisplayController, willShowSearchResultsTableView tableView: UITableView) {
