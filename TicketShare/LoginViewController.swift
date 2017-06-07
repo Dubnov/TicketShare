@@ -18,6 +18,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.clear
+        self.txtPassword.delegate = self
+        self.txtEmail.delegate = self
 
         // TODO - Delete this
         /*self.txtEmail.text = "chen.goren94@gmail.com"
