@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
@@ -31,6 +31,18 @@ class LoginViewController: UIViewController {
         self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         
         self.txtEmail.becomeFirstResponder()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 
     func textFieldDidChanged(_ textField: UITextField) {
@@ -51,7 +63,11 @@ class LoginViewController: UIViewController {
     @IBAction func login(_ sender: Any) {
         self.loadingSpinner.isHidden = false
         self.loadingSpinner.startAnimating()
-        Model.instance.loginUser(email: txtEmail.text!, password: txtPassword.text!) { (error) in
+        
+        let email = txtEmail.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        let password = txtPassword.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        
+        Model.instance.loginUser(email: email, password: password) { (error) in
             self.loadingSpinner.stopAnimating()
             self.loadingSpinner.isHidden = true
             if error == nil {
