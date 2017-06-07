@@ -57,7 +57,7 @@ class Model{
         }
     }
     
-    func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
+    func loginUser(email:String, password:String, completionBlock:@escaping (Any?)->Void) {
         firebaseModel?.loginUser(email: email, password: password){(error) in
             completionBlock(error)
         }

@@ -43,6 +43,21 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         self.txtPrice.delegate = self
         self.txtAmount.delegate = self
+        self.txtTitle.delegate = self
+        self.txtDescription.delegate = self
+        self.txtEventAddress.delegate = self
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
 
     // Validate that amount&price fields contains only numbers and greater than 0
