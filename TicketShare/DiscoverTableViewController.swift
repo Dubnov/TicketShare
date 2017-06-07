@@ -11,10 +11,11 @@ import UIKit
 class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
     var ticketsList = [Ticket]()
     var recommendedTicketsList = [Ticket]()
+    var currSegmentTicketsList = [Ticket]()
     var ticketsSearchResults:Array<Ticket>?
     let detailSegueIdentifier = "ShowTicketDetailSegue"
     var headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1.0, height: 33.0))
-    var selectedSegment = 0
+    var selectedSegment = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +72,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         if tableView == self.searchDisplayController!.searchResultsTableView {
             return self.ticketsSearchResults?.count ?? 0
         } else {
-            return self.ticketsList.count
+            return self.currSegmentTicketsList.count
         }
     }
     
@@ -110,8 +111,10 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         var arrayOfTickets:Array<Ticket>?
         if tableView == self.searchDisplayController!.searchResultsTableView {
             arrayOfTickets = self.ticketsSearchResults
-        } else {
+        } else if self.selectedSegment == -1 {
             arrayOfTickets = self.ticketsList
+        } else {
+            arrayOfTickets = self.currSegmentTicketsList
         }
         
         if arrayOfTickets != nil && arrayOfTickets!.count >= indexPath.row
@@ -158,15 +161,25 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         self.selectedSegment = sender.selectedSegmentIndex
         
         // TO DO call function to filter
+        switch self.selectedSegment {
+        case 1:
+            self.currSegmentTicketsList = self.ticketsList
+        case 2:
+            self.currSegmentTicketsList = self.recommendedTicketsList
+        default:
+            self.currSegmentTicketsList = self.ticketsList
+        }
+        
+        self.tableView!.reloadData()
     }
     
     func filterContentForSearchText(searchText: String) {
         // Filter the array using the filter method
-        if self.ticketsList.isEmpty {
+        if self.currSegmentTicketsList.isEmpty {
             self.ticketsSearchResults = nil
             return
         }
-        self.ticketsSearchResults = self.ticketsList.filter({( aTicket: Ticket) -> Bool in
+        self.ticketsSearchResults = self.currSegmentTicketsList.filter({( aTicket: Ticket) -> Bool in
             // to start, let's just search by name
             return aTicket.title.lowercased().range(of: searchText.lowercased()) != nil
         })
