@@ -32,6 +32,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
         self.txtPassword.isSecureTextEntry = true
         self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtPassword.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        
+        self.txtEmail.becomeFirstResponder()
     }
 
     func textFieldDidChanged(_ textField: UITextField) {

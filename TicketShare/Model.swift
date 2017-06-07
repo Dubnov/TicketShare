@@ -13,6 +13,7 @@ let notifyTicketListUpdate = "com.ticketShare.notifyTicketListUpdate"
 let notifyTicketsSoldUpdate = "com.ticketShare.notifyTicketsSoldUpdate"
 let notifyBoughtTicketsUpdate = "com.ticketShare.notifyBoughtTicketsUpdate"
 let notifyTicketsForSell = "com.ticketShare.notifyTicketsForSell"
+let notifyRecommendedTickets = "com.ticketShare.notifyRecommendedTickets"
 
 extension Date {
     
@@ -146,18 +147,48 @@ class Model{
         NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketsForSell), object:nil , userInfo:["tickets":ticketForSell])
     }
     
-    func getUserFavTickets(user:String?) -> [Ticket] {
-        var user2:String
+    func getUserFavoriteTickets(user:String?) -> [Ticket] {
+        let tickets = Favorite.getAllFavorites(database: self.sqlModel!.database!)
         
-        if (user == nil) {
-            user2 = self.getCurrentAuthUserUID()!
-        } else {
-            user2 = user!
+        // self.firebaseModel!.currAuthUser!.addFavorites(tickets: tickets)
+        return tickets
+    }
+    
+    func addFavoriteTicket(ticket:Ticket) {
+        self.firebaseModel!.currAuthUser!.addFavorite(ticket: ticket)
+        Favorite.addFavorite(database: self.sqlModel!.database!, ticket: ticket)
+    }
+    
+    func removeFavoriteTicket(ticketId:String) {
+        self.firebaseModel!.currAuthUser!.removeFavorite(ticketId: ticketId)
+        Favorite.removeFavorite(database: self.sqlModel!.database!, ticketId: ticketId)
+    }
+    
+    func isTicketInUserFavorites(ticket: Ticket) -> Bool {
+        for tick in self.firebaseModel!.currAuthUser!.favorites {
+            if (ticket.id == tick.key) {
+                return true
+            }
         }
         
-        print(user2)
-        return [Ticket]()
+        return false
     }
+    
+    func getRecommendedTickets() {
+        self.firebaseModel!.getRecommendedTicketsForUser(userId: self.getCurrentAuthUserUID()!){ ticketsIds in
+            var tickets = [Ticket]()
+            for id in ticketsIds {
+                let tick = Ticket.getTicketByIdFromLocalDB(database: self.sqlModel!.database!, ticketId: id)
+                
+                if (tick != nil) {
+                    tickets.append(tick!)
+                }
+            }
+            
+            NotificationCenter.default.post(name: Notification.Name(rawValue: notifyRecommendedTickets), object:nil , userInfo:["tickets":tickets])
+        }
+    }
+    
     
     func buyTicket(ticket:Ticket) {
         self.firebaseModel?.buyTicket(ticket: ticket) { error in

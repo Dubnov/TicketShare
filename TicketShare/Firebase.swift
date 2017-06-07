@@ -145,6 +145,23 @@ class Firebase{
         }
     }
     
+    func getRecommendedTicketsForUser(userId:String, callback:@escaping ([String]) -> Void) {
+        let handler = {(snapshot:FIRDataSnapshot) in
+            var ticketsIds = [String]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    ticketsIds.append((childData.value as? String)!)
+                }
+            }
+            
+            callback(ticketsIds)
+        }
+        
+        let recommendationsRef = FIRDatabase.database().reference().child("recommendations")
+        
+        recommendationsRef.child(userId).observe(FIRDataEventType.value, with: handler)
+    }
+    
     func getCurrentUserPurchases(_ lastUpdateDate:Date?, callback:@escaping ([Purchase]) -> Void) {
         let handler = {(snapshot:FIRDataSnapshot) in
             var purchases = [Purchase]()
