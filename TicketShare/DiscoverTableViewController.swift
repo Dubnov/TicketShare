@@ -200,7 +200,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         return true
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchDisplayControllerDidEndSearch(_ controller: UISearchDisplayController) {
         self.tableView.reloadData()
     }
     
