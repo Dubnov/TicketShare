@@ -144,11 +144,14 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
+        imagePicker.navigationBar.tintColor = .black
         
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
         } else {
-            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+            imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum;
         }
         
         self.present(imagePicker, animated: true, completion: nil)
@@ -160,6 +163,9 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         self.dismiss(animated: true, completion: nil);
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
