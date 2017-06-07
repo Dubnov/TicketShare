@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import FacebookLogin
+import FBSDKLoginKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate  {
+
 
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
@@ -18,7 +21,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.clear
-
+        
         // TODO - Delete this
         /*self.txtEmail.text = "chen.goren94@gmail.com"
         self.txtPassword.text = "123123"
@@ -61,6 +64,46 @@ class LoginViewController: UIViewController {
                 self.present(alertController, animated: true, completion: nil)
             }
         }
+    }
+    
+    @IBAction func loginWithFB(_ sender: Any) {
+        let loginManager = LoginManager()
+        loginManager.logIn([ .publicProfile, .email ], viewController: self) { loginResult in
+            switch loginResult {
+            case .failed(let error):
+                print(error)
+            case .cancelled:
+                print("User cancelled login.")
+            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
+                print("User Logged in")
+            }
+        }
+    }
+    
+    // Facebook Delegate Methods
+    
+    public func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        print("User Logged In")
+        
+        if ((error) != nil)
+        {
+            // Process error
+        }
+        else if result.isCancelled {
+            // Handle cancellations
+        }
+        else {
+            // If you ask for multiple permissions at once, you
+            // should check if specific permissions missing
+            if result.grantedPermissions.contains("email")
+            {
+                // Do work
+            }
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("User Logged Out")
     }
     
     @IBAction func unwindToLogin(segue:UIStoryboardSegue){
