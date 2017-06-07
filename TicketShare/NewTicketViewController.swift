@@ -43,10 +43,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         self.txtPrice.delegate = self
         self.txtAmount.delegate = self
-        self.txtTitle.delegate = self
-        self.txtDescription.delegate = self
-        self.txtEventAddress.delegate = self
-        
+                
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         self.view.addGestureRecognizer(tap)
     }
