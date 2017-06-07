@@ -40,7 +40,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
         NotificationCenter.default.addObserver(self, selector:
-            #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyRecommendedTickets),object: nil)
+            #selector(self.recommendedTickets), name: NSNotification.Name(rawValue: notifyRecommendedTickets),object: nil)
         
         Model.instance.getAllTicketsAndObserve()
         Model.instance.getRecommendedTickets()
