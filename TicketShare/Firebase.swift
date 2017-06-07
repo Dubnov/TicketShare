@@ -104,7 +104,7 @@ class Firebase{
         }
     }
     
-    func loginUser(email:String, password:String, completionBlock:@escaping (Error?)->Void) {
+    func loginUser(email:String, password:String, completionBlock:@escaping (Any?)->Void) {
         FIRAuth.auth()!.signIn(withEmail: email, password: password) {(userAuth, error) in
             if error == nil {
                 self.getUserFromFirebaseDB(uid: (userAuth?.uid)!, callback: { (error, user) in
@@ -112,11 +112,13 @@ class Firebase{
                         completionBlock(error)
                     } else if (user != nil){
                         self.currAuthUser = user
+                        completionBlock(nil)
+                    } else {
+                        completionBlock("No user was found")
                     }
                 })
                 
             }
-            completionBlock(error)
         }
     }
     
