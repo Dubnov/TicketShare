@@ -33,6 +33,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
         self.btnSave.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Lato-bold", size: 20.0)], for: .normal)
+        self.btnSave.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Lato-bold", size: 20.0), NSForegroundColorAttributeName: UIColor(white: 0.85, alpha: 0.8)], for: .disabled)
         txtPrice.keyboardType = UIKeyboardType.numberPad
         txtAmount.keyboardType = UIKeyboardType.numberPad
         self.loadingSpinner.isHidden = true

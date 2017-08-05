@@ -229,7 +229,11 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
             } else {
                 let indexPath = self.tableView?.indexPathForSelectedRow
                 if indexPath != nil {
-                    destination?.selectedTicket = self.ticketsList[indexPath!.row]
+                    if self.selectedSegment == -1 {
+                        destination?.selectedTicket = self.ticketsList[indexPath!.row]
+                    } else {
+                        destination?.selectedTicket = self.currSegmentTicketsList[indexPath!.row]
+                    }
                 }
             }
         }
