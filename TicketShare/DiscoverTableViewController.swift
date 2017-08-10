@@ -49,11 +49,13 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     
     @objc func ticketsListDidUpdate(notification:NSNotification){
         self.ticketsList = notification.userInfo?["tickets"] as! [Ticket]
+        self.ticketsList = self.ticketsList.filter { ($0 as Ticket).isSold == false  }
         self.tableView!.reloadData()
     }
     
     @objc func recommendedTickets(notification:NSNotification){
         self.recommendedTicketsList = notification.userInfo?["tickets"] as! [Ticket]
+        self.recommendedTicketsList = self.recommendedTicketsList.filter { ($0 as Ticket).isSold == false  }
         self.tableView!.reloadData()
     }
     

@@ -8,8 +8,10 @@
 
 import UIKit
 
-class NewTicketViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
+class NewTicketViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    @IBOutlet weak var txtEventType: UITextField!
+    @IBOutlet weak var dropdownEventType: UIPickerView!
     @IBOutlet weak var btnSave: UIBarButtonItem!
     @IBOutlet weak var txtTitle: UITextField!
     @IBOutlet weak var txtDescription: UITextField!
@@ -26,6 +28,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     var bIsAmountValid: Bool = false
     var bIsPriceValid: Bool = false
     var bIsAddressValid: Bool = false
+    var selectedEventTypeId: Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,19 +63,23 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
 
     // Validate that amount&price fields contains only numbers and greater than 0
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // Check if the input string contains only numbers
-        let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
-        let compSepByCharInSet = string.components(separatedBy: aSet)
-        let numberFiltered = compSepByCharInSet.joined(separator: "")
+        if (textField == self.txtAmount || textField == self.txtPrice) {
+            // Check if the input string contains only numbers
+            let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
+            let compSepByCharInSet = string.components(separatedBy: aSet)
+            let numberFiltered = compSepByCharInSet.joined(separator: "")
         
-        var bIsStartWithZero: Bool = false
+            var bIsStartWithZero: Bool = false
         
-        // Check if the field start with zero
-        if (textField.text == "" && string == "0") {
-            bIsStartWithZero = true
+            // Check if the field start with zero
+            if (textField.text == "" && string == "0") {
+                bIsStartWithZero = true
+            }
+        
+            return (string == numberFiltered) && !bIsStartWithZero
         }
         
-        return (string == numberFiltered) && !bIsStartWithZero
+        return true
     }
     
     func textFieldDidChanged(_ textField: UITextField) {
@@ -89,6 +96,9 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         case txtEventAddress:
             isFieldNotEmpty(textField: self.txtEventAddress, validteBool: &bIsAddressValid, requiredLabel: self.lblAddressRequired)
             break
+        case txtEventType:
+            break
+            
         default:
             break
         }
@@ -122,7 +132,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         if self.imgImage.image != nil {
             Model.instance.saveImage(image: self.imgImage.image!, name: self.txtTitle.text!) {(url) in
-                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: 1, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url)
+                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: self.selectedEventTypeId, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url)
                 Model.instance.addTicket(ticket: ticket)
                 
                 self.loadingSpinner.stopAnimating()
@@ -167,6 +177,38 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int{
+        return 1
+        
+    }
+    
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return Model.eventTypes.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        self.view.endEditing(true)
+        return Model.eventTypes[row].displayName
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.txtEventType.text = Model.eventTypes[row].displayName
+        self.selectedEventTypeId = Model.eventTypes[row].id
+        self.dropdownEventType.isHidden = true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == self.txtEventType {
+            self.dropdownEventType.isHidden = false
+            //if you dont want the users to se the keyboard type:
+            textField.endEditing(true)
+        } else {
+            self.dropdownEventType.isHidden = true
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

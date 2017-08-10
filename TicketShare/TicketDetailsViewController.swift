@@ -45,7 +45,15 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             self.descLabel.text = selectedTicket?.description
             self.amountPriceLabel.text = String(ticket.amount) + " x " + String(ticket.price) + "₪"
             self.addrLabel.text = selectedTicket?.address
-            self.sellerLabel.text = selectedTicket?.seller
+            
+            Model.instance.getUserByIdFromFirebase(userId: (selectedTicket?.seller)!) {(err, user) in
+                self.sellerLabel.text = ""
+                if (user != nil) {
+                    self.sellerLabel.text = user?.fullName
+                } else if (err == nil){
+                    self.sellerLabel.text = self.selectedTicket?.seller
+                }
+            }
             
             if let imUrl = selectedTicket?.imageUrl{
                 Model.instance.getImage(urlStr: imUrl, callback: { (image) in
@@ -134,8 +142,12 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     }
     
     @IBAction func buyTicket(_ sender: Any) {
-        // TODO - Call buy ticket function
-        Model.instance.buyTicket(ticket: selectedTicket!)
+        Model.instance.buyTicket(ticket: selectedTicket!) {(err) in
+            if (err != nil) {
+                // Model.instance.getAllTicketsAndObserve()
+            }
+        }
+        
         self.performSegue(withIdentifier: "unwindToDiscover", sender: self)
     }
 
