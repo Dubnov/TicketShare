@@ -69,6 +69,12 @@ class Model{
         }
     }
     
+    func getUserByIdFromFirebase(userId:String, callback:@escaping (Error?, User?) ->Void) {
+        firebaseModel?.getUserFromFirebaseDB(uid: userId) { (err, user) in
+            callback(err, user)
+        }
+    }
+    
     func getAllTicketsAndObserve() {
         let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database, table: Ticket.TABLE_NAME)
         firebaseModel?.getAllTicketsAndObserve(lastUpdateDate, callback: { (tickets) in
@@ -190,13 +196,16 @@ class Model{
     }
     
     
-    func buyTicket(ticket:Ticket) {
+    func buyTicket(ticket:Ticket, callback:@escaping (Error?)->Void) {
         self.firebaseModel?.buyTicket(ticket: ticket) { error in
             if (error == nil) {
                 let purch:Purchase = Purchase(ticketId: ticket.id, ticketTitle: ticket.title, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
                 self.firebaseModel?.addPurchase(purchase: purch) {error in
                     print(error ?? "")
+                    callback(error)
                 }
+            } else {
+                callback(error)
             }
         }
     }

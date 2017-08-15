@@ -96,9 +96,12 @@ class Firebase{
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            let user = User(json: value as! Dictionary<String, Any>)
-            callback(nil, user)
-            
+            if (value != nil) {
+                let user = User(json: value as! Dictionary<String, Any>)
+                callback(nil, user)
+            } else {
+                callback(nil, nil)
+            }
         }) { (error) in
             callback(error, nil)
         }
@@ -118,6 +121,8 @@ class Firebase{
                     }
                 })
                 
+            } else {
+                completionBlock(error)
             }
         }
     }
@@ -142,7 +147,7 @@ class Firebase{
     func buyTicket(ticket:Ticket, completionBlock:@escaping (Error?)->Void) {
         let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
         
-        ref.updateChildValues(["isSold": true]){(error, dbref) in
+        ref.updateChildValues(["isSold": true, "lastUpdateDate": Date().toFirebase()]){(error, dbref) in
             completionBlock(error)
         }
     }
