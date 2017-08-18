@@ -31,6 +31,14 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var sellerLabel: UILabel!
     @IBOutlet weak var amountPriceLabel: UILabel!
+    @IBOutlet weak var txtTitle: UITextField!
+    @IBOutlet weak var txtMulSign: UILabel!
+    @IBOutlet weak var txtPrice: UITextField!
+    @IBOutlet weak var txtAmount: UITextField!
+    @IBOutlet weak var txtDescription: UITextField!
+    @IBOutlet weak var lblEditAmount: UILabel!
+    @IBOutlet weak var lblEditPrice: UILabel!
+    @IBOutlet weak var txtAddress: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,16 +114,35 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             
             if !self.bIsFromMyTickets {
                 self.navBar.isHidden = true
+                
+                if (Model.instance.isTicketInUserFavorites(ticket: selectedTicket!) == true) {
+                    self.btnRemoveFromFav.isHidden = false
+                    self.btnAddToFav.isHidden = true
+                } else {
+                    self.btnRemoveFromFav.isHidden = true
+                    self.btnAddToFav.isHidden = false
+                }
             } else {
                 self.btnBuyTicket.isHidden = true
-            }
-            
-            if (Model.instance.isTicketInUserFavorites(ticket: selectedTicket!) == true) {
-                self.btnRemoveFromFav.isHidden = false
                 self.btnAddToFav.isHidden = true
-            } else {
                 self.btnRemoveFromFav.isHidden = true
-                self.btnAddToFav.isHidden = false
+                self.txtPrice.isHidden = false
+                self.txtPrice.text = self.selectedTicket?.price.description
+                self.txtAmount.isHidden = false
+                self.txtAmount.text = self.selectedTicket?.amount.description
+                self.txtTitle.isHidden = false
+                self.txtTitle.text = self.selectedTicket?.title
+                self.txtDescription.isHidden = false
+                self.txtDescription.text = self.selectedTicket?.description
+                self.txtAddress.isHidden = false
+                self.txtAddress.text = self.selectedTicket?.address
+                self.addrLabel.isHidden = true
+                self.descLabel.isHidden = true
+                self.titleLabel.isHidden = true
+                self.amountPriceLabel.isHidden = true
+                self.lblEditPrice.isHidden = false
+                self.lblEditAmount.isHidden = false
+                self.txtMulSign.isHidden = false
             }
         }
     }
@@ -137,7 +164,13 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     }
     
     @IBAction func saveEditedTicket(_ sender: Any) {
-        // TODO - Call edit ticket function
+        self.selectedTicket?.title = self.txtTitle.text!
+        self.selectedTicket?.amount = Int(self.txtAmount.text!)!
+        self.selectedTicket?.price = Double(self.txtPrice.text!)!
+        self.selectedTicket?.address = self.txtAddress.text!
+        self.selectedTicket?.description = self.txtDescription.text!
+        
+        Model.instance.editTicket(ticket: selectedTicket!)
         self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
     }
     
