@@ -79,6 +79,12 @@ class Model{
         }
     }
     
+    func getTicketByIdFromFirebase(ticketID:String, callback:@escaping (Error?, Ticket?) ->Void) {
+        firebaseModel?.getTicketFromFirebaseDB(uid: ticketID) { (err, ticket) in
+            callback(err, ticket)
+        }
+    }
+    
     func getAllTicketsAndObserve() {
         let lastUpdateDate = LastUpdateTable.getLastUpdateDate(database: sqlModel?.database, table: Ticket.TABLE_NAME)
         firebaseModel?.getAllTicketsAndObserve(lastUpdateDate, callback: { (tickets) in

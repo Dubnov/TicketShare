@@ -162,11 +162,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     // MARK: - Navigation
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if mySegmentedControl.selectedSegmentIndex == TicketCategory.ForSale.hashValue {
-            return true
-        }
-        
-        return false
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -176,8 +172,15 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             let destination = segue.destination as? TicketDetailsViewController
             
             let indexPath = self.myTableView.indexPathForSelectedRow
-            destination?.selectedTicket = (self.forSaleTickets[indexPath!.row])
-            destination?.bIsFromMyTickets = true;
+            if mySegmentedControl.selectedSegmentIndex == TicketCategory.ForSale.hashValue {
+                destination?.selectedTicket = (self.forSaleTickets[indexPath!.row])
+                destination?.bIsFromMyTickets = true;
+            } else if mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.hashValue {
+                destination?.selectedTicketID = (self.boughtTickets[indexPath!.row].ticketId)
+            } else if mySegmentedControl.selectedSegmentIndex == TicketCategory.Sold.hashValue {
+                destination?.selectedTicketID = (self.boughtTickets[indexPath!.row].ticketId)
+                destination?.selectedTicketBuyerID = (self.boughtTickets[indexPath!.row].buyer)
+            }
         }
     }
     
