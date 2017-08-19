@@ -680,14 +680,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sold by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju2-CM-BHi">
-                                <rect key="frame" x="16" y="287" width="67" height="21"/>
+                                <rect key="frame" x="16" y="287" width="87" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvE-6S-70k">
-                                <rect key="frame" x="83" y="287" width="276" height="21"/>
+                                <rect key="frame" x="104" y="287" width="255" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -787,6 +787,7 @@
                         <outlet property="descLabel" destination="NHE-GD-Kgr" id="Tms-O8-hax"/>
                         <outlet property="lblEditAmount" destination="cf1-qC-zrg" id="Nnr-Oa-2cm"/>
                         <outlet property="lblEditPrice" destination="veb-2k-xqG" id="SWV-A8-Ihd"/>
+                        <outlet property="lblSoldBoughtBy" destination="ju2-CM-BHi" id="Fti-6M-iMl"/>
                         <outlet property="mapView" destination="ABk-Jy-lwZ" id="xDq-Jc-JIE"/>
                         <outlet property="navBar" destination="xed-QS-ymM" id="uGo-jP-tmh"/>
                         <outlet property="sellerLabel" destination="FvE-6S-70k" id="Gbr-TV-Yk2"/>

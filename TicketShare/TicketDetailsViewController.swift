@@ -11,6 +11,8 @@ import MapKit
 
 class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     var selectedTicket:Ticket? = nil
+    var selectedTicketID:String? = nil
+    var selectedTicketBuyerID:String? = nil
     var locationManager = CLLocationManager()
     var currLocation = CLLocation()
     var selectedMapItem = MKMapItem()
@@ -39,12 +41,24 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     @IBOutlet weak var lblEditAmount: UILabel!
     @IBOutlet weak var lblEditPrice: UILabel!
     @IBOutlet weak var txtAddress: UITextField!
+    @IBOutlet weak var lblSoldBoughtBy: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.clear
         
+        if self.selectedTicketID != nil {
+            Model.instance.getTicketByIdFromFirebase(ticketID: (self.selectedTicketID)!) {(err, ticket) in
+                self.selectedTicket = ticket;
+                self.initView()
+            }
+        } else {
+            self.initView()
+        }
+    }
+    
+    func initView() {
         if let ticket = selectedTicket {
             
             
@@ -143,6 +157,23 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 self.lblEditPrice.isHidden = false
                 self.lblEditAmount.isHidden = false
                 self.txtMulSign.isHidden = false
+            }
+        }
+        
+        if self.selectedTicketID != nil {
+            self.navBar.isHidden = false
+            self.btnBuyTicket.isHidden = true
+            self.btnAddToFav.isHidden = true
+            self.btnRemoveFromFav.isHidden = true
+            
+            if self.selectedTicketBuyerID != nil {
+                self.lblSoldBoughtBy.text = "Bought by:"
+                Model.instance.getUserByIdFromFirebase(userId: (self.selectedTicketBuyerID)!) {(err, user) in
+                    self.sellerLabel.text = ""
+                    if (user != nil) {
+                        self.sellerLabel.text = user?.fullName
+                    }
+                }
             }
         }
     }
