@@ -34,6 +34,8 @@
 		620D18371E42611400233819 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620D18361E42611400233819 /* RegisterViewController.swift */; };
 		620D183A1E42611400233819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D18381E42611400233819 /* Main.storyboard */; };
 		620D183F1E42611400233819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620D183D1E42611400233819 /* LaunchScreen.storyboard */; };
+		6258E55F1F462DE700D2D445 /* PreferencesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6258E55E1F462DE700D2D445 /* PreferencesTableViewCell.swift */; };
+		6258E5631F48C0ED00D2D445 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6258E5621F48C0ED00D2D445 /* PreferencesViewController.swift */; };
 		626AEE201E7B3053007EFE41 /* LastUpdateTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */; };
 		626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626AEE211E7B3767007EFE41 /* StringExtension.swift */; };
 		628F4F741EE70C9E00E64A79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62E4AA441EE19CB700A0F908 /* Assets.xcassets */; };
@@ -44,6 +46,7 @@
 		629BE9EE1E64B6B4006C5055 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9ED1E64B6B4006C5055 /* Firebase.swift */; };
 		629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 629BE9EF1E64C57E006C5055 /* SQLite.swift */; };
 		629BE9F31E64CAC7006C5055 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */; };
+		62AE1AA01F4C5D0F003D8260 /* PreferencesOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AE1A9F1F4C5D0F003D8260 /* PreferencesOption.swift */; };
 		62E4AA471EE1A12500A0F908 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E4AA461EE1A12500A0F908 /* Favorite.swift */; };
 		62EABFF71EABC33A00A0ED84 /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62EABFF61EABC33A00A0ED84 /* Purchase.swift */; };
 		6A45F62FBCFA76DC4E705F53 /* Pods_TicketShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2D7566780AF15EB6694D4A5 /* Pods_TicketShare.framework */; };
@@ -82,6 +85,8 @@
 		620D18391E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		620D183E1E42611400233819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620D18401E42611400233819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6258E55E1F462DE700D2D445 /* PreferencesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesTableViewCell.swift; sourceTree = "<group>"; };
+		6258E5621F48C0ED00D2D445 /* PreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastUpdateTable.swift; sourceTree = "<group>"; };
 		626AEE211E7B3767007EFE41 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		629BE9E41E6376BC006C5055 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -92,6 +97,7 @@
 		629BE9EF1E64C57E006C5055 /* SQLite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
 		629BE9F21E64CAC7006C5055 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		629BE9F41E64CCF7006C5055 /* TicketShare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TicketShare-Bridging-Header.h"; sourceTree = "<group>"; };
+		62AE1A9F1F4C5D0F003D8260 /* PreferencesOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesOption.swift; sourceTree = "<group>"; };
 		62E4AA441EE19CB700A0F908 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		62E4AA461EE1A12500A0F908 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		62EABFF61EABC33A00A0ED84 /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Purchase.swift; sourceTree = "<group>"; };
@@ -174,6 +180,8 @@
 				144B5BE21EBC8A61009DF256 /* FavoritesTableViewCell.swift */,
 				144B5BE41EBE17DD009DF256 /* MyProfileViewController.swift */,
 				500835D41EC0CA3400F56AD6 /* LabelExt.swift */,
+				6258E55E1F462DE700D2D445 /* PreferencesTableViewCell.swift */,
+				6258E5621F48C0ED00D2D445 /* PreferencesViewController.swift */,
 			);
 			path = TicketShare;
 			sourceTree = "<group>";
@@ -187,6 +195,7 @@
 				626AEE1F1E7B3053007EFE41 /* LastUpdateTable.swift */,
 				62EABFF61EABC33A00A0ED84 /* Purchase.swift */,
 				62E4AA461EE1A12500A0F908 /* Favorite.swift */,
+				62AE1A9F1F4C5D0F003D8260 /* PreferencesOption.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -367,6 +376,7 @@
 				629BE9F01E64C57E006C5055 /* SQLite.swift in Sources */,
 				144B5BE51EBE17DD009DF256 /* MyProfileViewController.swift in Sources */,
 				1455EC961E7C0F3600418511 /* NewTicketViewController.swift in Sources */,
+				6258E55F1F462DE700D2D445 /* PreferencesTableViewCell.swift in Sources */,
 				507E6A411E7D86300091F13C /* DiscoverTableViewController.swift in Sources */,
 				620D18371E42611400233819 /* RegisterViewController.swift in Sources */,
 				62E4AA471EE1A12500A0F908 /* Favorite.swift in Sources */,
@@ -378,12 +388,14 @@
 				142A31181EAD4019000B0510 /* MyTicketsViewController.swift in Sources */,
 				144B5BE31EBC8A61009DF256 /* FavoritesTableViewCell.swift in Sources */,
 				629BE9E91E6376F8006C5055 /* EventType.swift in Sources */,
+				6258E5631F48C0ED00D2D445 /* PreferencesViewController.swift in Sources */,
 				507E6A3F1E7D80840091F13C /* TicketTableViewCell.swift in Sources */,
 				626AEE221E7B3767007EFE41 /* StringExtension.swift in Sources */,
 				141B1ACD1E79DF8F001D3690 /* Model.swift in Sources */,
 				507E6A431E7DB6F10091F13C /* TicketDetailsViewController.swift in Sources */,
 				144B5BE11EBC80E4009DF256 /* FavoritesViewController.swift in Sources */,
 				14D08F4F1EB4B0BA0031BC36 /* PurchaseTableViewCell.swift in Sources */,
+				62AE1AA01F4C5D0F003D8260 /* PreferencesOption.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

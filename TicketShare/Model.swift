@@ -45,11 +45,20 @@ extension Date {
 class Model{
     static let instance = Model()
     static var eventTypes:[EventType] = [EventType]()
+    static var preferencesOptions:[PreferencesOption]!
     
     lazy private var sqlModel:SQLite? = SQLite()
     lazy private var firebaseModel:Firebase? = Firebase()
     
-    private init(){}
+    private init(){
+        firebaseModel?.getEventTypes(callback: {(eveTypes) in
+            Model.eventTypes = eveTypes
+        })
+        
+        firebaseModel?.getPreferencesOptions(callback: {(prefOptions) in
+            Model.preferencesOptions = prefOptions
+        })
+    }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         firebaseModel?.addUser(user: user){(error) in
@@ -108,10 +117,6 @@ class Model{
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketListUpdate), object:nil , userInfo:["tickets":totalList])
         })
-        
-        firebaseModel?.getEventTypes(callback: {(eveTypes) in
-            Model.eventTypes = eveTypes
-        })
     }
     
     func getCurrentUserPurchases(callback:@escaping()->Void) {
@@ -168,6 +173,20 @@ class Model{
         
         // self.firebaseModel!.currAuthUser!.addFavorites(tickets: tickets)
         return tickets
+    }
+    
+    func saveUserPreferences(preferences:[PreferencesOption]) {
+        if (preferences.count > 0) {
+            self.firebaseModel!.saveUserPreferences(preferences: preferences) { error in
+                print(error ?? "")
+            }
+        }
+    }
+    
+    func getUserPreferences(callback: @escaping ([PreferencesOption]) -> Void) {
+        self.firebaseModel!.getUserPreferences() { userPrefs in
+            callback(userPrefs)
+        }
     }
     
     func addFavoriteTicket(ticket:Ticket) {
