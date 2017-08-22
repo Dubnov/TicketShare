@@ -199,7 +199,7 @@ class Firebase{
             
             for child in snapshot.children.allObjects {
                 if let childData = child as? FIRDataSnapshot {
-                    let preferencesOption = PreferencesOption(id: childData.value as! Int, value: childData.key as! String)
+                    let preferencesOption = PreferencesOption(id: childData.value as! Int, value: childData.key )
                     userPrefs.append(preferencesOption)
                 }
             }

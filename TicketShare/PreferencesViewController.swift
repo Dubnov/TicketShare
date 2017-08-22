@@ -36,7 +36,7 @@ class PreferencesViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if self.isMovingFromParentViewController {            
+        if self.isMovingFromParentViewController {
             Model.instance.saveUserPreferences(preferences: self.choices)
         }
     }
