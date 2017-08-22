@@ -107,6 +107,24 @@ class Firebase{
         }
     }
     
+    func getTicketFromFirebaseDB(uid:String, callback:@escaping (Error?, Ticket?) -> Void){
+        let ref = FIRDatabase.database().reference().child("tickets").child(uid)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get ticket value
+            let value = snapshot.value as? NSDictionary
+            if (value != nil) {
+                value?.setValue(uid, forKey: "id")
+                let ticket = Ticket(json: value as! Dictionary<String, Any>)
+                callback(nil, ticket)
+            } else {
+                callback(nil, nil)
+            }
+        }) { (error) in
+            callback(error, nil)
+        }
+    }
+    
     func loginUser(email:String, password:String, completionBlock:@escaping (Any?)->Void) {
         FIRAuth.auth()!.signIn(withEmail: email, password: password) {(userAuth, error) in
             if error == nil {
@@ -134,6 +152,13 @@ class Firebase{
         ref.setValue(tick.toFireBase()){(error, dbref) in
             completionBlock(error)
         }
+    }
+    
+    func editTicket(ticket: Ticket) {
+        let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
+        
+        // set the new ticket's data on the record ref
+        ref.setValue(ticket.toFireBase())
     }
     
     func addPurchase(purchase:Purchase, completionBlock:@escaping (Error?)->Void){

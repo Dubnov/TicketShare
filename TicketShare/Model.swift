@@ -78,9 +78,19 @@ class Model{
         }
     }
     
+    func editTicket(ticket: Ticket) {
+        self.firebaseModel?.editTicket(ticket: ticket)
+    }
+    
     func getUserByIdFromFirebase(userId:String, callback:@escaping (Error?, User?) ->Void) {
         firebaseModel?.getUserFromFirebaseDB(uid: userId) { (err, user) in
             callback(err, user)
+        }
+    }
+    
+    func getTicketByIdFromFirebase(ticketID:String, callback:@escaping (Error?, Ticket?) ->Void) {
+        firebaseModel?.getTicketFromFirebaseDB(uid: ticketID) { (err, ticket) in
+            callback(err, ticket)
         }
     }
     
