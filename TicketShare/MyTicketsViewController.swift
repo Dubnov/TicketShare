@@ -134,20 +134,38 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             myCell.lblDateLabel.isHidden = true
             break
         case TicketCategory.Sold.rawValue:
+            Model.instance.getUserByIdFromFirebase(userId: soldTickets[indexPath.row].buyer) {(err, user) in
+                if (user != nil) {
+                    myCell.lblBuyerSellerValue.text = user?.fullName
+                } else {
+                    myCell.lblBuyerSellerValue.text = self.soldTickets[indexPath.row].buyer
+                }
+            }
+            
             myCell.lblTitle?.text = soldTickets[indexPath.row].ticketTitle
             myCell.lblPrice?.text = soldTickets[indexPath.row].purchaseCost.description
             myCell.lblAmount?.text = soldTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Buyer:"
-            myCell.lblBuyerSellerValue.text = soldTickets[indexPath.row].buyer
+            
             myCell.lblDateValue.text = soldTickets[indexPath.row].purchaseDate.description
             myCell.lblDateLabel.isHidden = false
+            
+            
             break
         case TicketCategory.Bought.rawValue:
+            Model.instance.getUserByIdFromFirebase(userId: boughtTickets[indexPath.row].seller) {(err, user) in
+                if (user != nil) {
+                    myCell.lblBuyerSellerValue.text = user?.fullName
+                } else {
+                    myCell.lblBuyerSellerValue.text = self.boughtTickets[indexPath.row].seller
+                }
+            }
+            
             myCell.lblTitle?.text = boughtTickets[indexPath.row].ticketTitle
             myCell.lblPrice?.text = boughtTickets[indexPath.row].purchaseCost.description
             myCell.lblAmount?.text = boughtTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Seller:"
-            myCell.lblBuyerSellerValue.text = boughtTickets[indexPath.row].seller
+            
             myCell.lblDateValue.text = boughtTickets[indexPath.row].purchaseDate.description
             myCell.lblDateLabel.isHidden = false
             break
