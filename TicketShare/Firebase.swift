@@ -152,6 +152,37 @@ class Firebase{
         }
     }
     
+    func saveUserPreferences(preferences:[PreferencesOption], callback:@escaping (Error?) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersPreferences").child(self.getCurrentAuthUserUID()!)
+        
+        var prefsDictionary:Dictionary<String, Int> = [:]
+        
+        for prefOpt in preferences {
+            prefsDictionary[prefOpt.value] = prefOpt.id
+        }
+        
+        ref.setValue(prefsDictionary) {(error, dbref) in
+            callback(error)
+        }
+    }
+    
+    func getUserPreferences(callback: @escaping ([PreferencesOption]) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersPreferences").child(self.getCurrentAuthUserUID()!)
+        
+        ref.observe(FIRDataEventType.value, with: { snapshot in
+            var userPrefs = [PreferencesOption]()
+            
+            for child in snapshot.children.allObjects {
+                if let childData = child as? FIRDataSnapshot {
+                    let preferencesOption = PreferencesOption(id: childData.value as! Int, value: childData.key as! String)
+                    userPrefs.append(preferencesOption)
+                }
+            }
+            
+            callback(userPrefs)
+        })
+    }
+    
     func getRecommendedTicketsForUser(userId:String, callback:@escaping ([String]) -> Void) {
         let handler = {(snapshot:FIRDataSnapshot) in
             var ticketsIds = [String]()
@@ -229,6 +260,24 @@ class Firebase{
         }else{
             ref.observe(FIRDataEventType.value, with: handler)
         }
+    }
+    
+    func getPreferencesOptions(callback:@escaping ([PreferencesOption]) -> Void) {
+        let ref = FIRDatabase.database().reference().child("preferencesOptions")
+        
+        ref.observe(FIRDataEventType.value, with: {(snapshot) in
+            var preferencesOptions = [PreferencesOption]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    if let json = childData.value as? Dictionary<String,Any>{
+                        let preferencesOption = PreferencesOption(json: json)
+                        preferencesOptions.append(preferencesOption)
+                    }
+                }
+            }
+            
+            callback(preferencesOptions)
+        })
     }
     
     func getEventTypes(callback:@escaping ([EventType])->Void) {
