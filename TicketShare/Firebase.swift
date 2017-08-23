@@ -191,6 +191,42 @@ class Firebase{
         }
     }
     
+    func saveFavoriteTicketForUser(favTicket:Ticket, callback:@escaping (Error?) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersFavorites").child(self.getCurrentAuthUserUID()!).child(favTicket.id)
+        
+        ref.setValue(favTicket.toFireBase()){(error, dbref) in
+            callback(error)
+        }
+    }
+    
+    func removeFavoriteTicketForUser(ticketId:String, callback:@escaping (Error?) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersFavorites").child(self.getCurrentAuthUserUID()!).child(ticketId)
+        
+        ref.removeValue() { (error, ref) in
+            callback(error)
+        }
+    }
+    
+    func getUserFavoriteTickets(userId:String?, callback:@escaping ([Ticket]) -> Void) {
+        let userid = userId ?? self.getCurrentAuthUserUID()!
+        let ref = FIRDatabase.database().reference().child("usersFavorites").child(userid)
+        
+        ref.observe(FIRDataEventType.value, with: { snapshot in
+            var tickets = [Ticket]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    if var json = childData.value as? Dictionary<String,Any>{
+                        json["id"] = childData.key
+                        let tick = Ticket(json: json)
+                        tickets.append(tick)
+                    }
+                }
+            }
+            
+            callback(tickets)
+        })
+    }
+    
     func getUserPreferences(callback: @escaping ([PreferencesOption]) -> Void) {
         let ref = FIRDatabase.database().reference().child("usersPreferences").child(self.getCurrentAuthUserUID()!)
         

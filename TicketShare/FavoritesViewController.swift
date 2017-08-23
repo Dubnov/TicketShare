@@ -22,7 +22,10 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.backgroundColor = UIColor.clear
         self.favTable.backgroundColor = UIColor.clear
         self.title = "My Favorites"
-        self.favoritesTickets = Model.instance.getUserFavoriteTickets(user: nil)
+        Model.instance.getUserFavoriteTickets(userId: nil) { tickets in
+            self.favoritesTickets = tickets
+            self.favTable.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
