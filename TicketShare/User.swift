@@ -17,7 +17,8 @@ class User {
     var dateOfBirth: Date
     var lastLocation: String?
     var imageUrl:String?
-    var favorites:Dictionary = Dictionary<String,Ticket>()
+    // var favorites:Dictionary = Dictionary<String,Ticket>()
+    var favorites:[Ticket]!
     
     init(email:String, password:String, fullName:String, dateOfBirth:Date, location:String? = nil, uid:String = "", imageUrl:String? = nil) {
         self.uid = uid
@@ -28,7 +29,9 @@ class User {
         self.lastLocation = location
         self.imageUrl = imageUrl
         
-        self.addFavorites(tickets: Model.instance.getUserFavoriteTickets(user: uid))
+        Model.instance.getUserFavoriteTickets(userId: self.uid){ tickets in
+            self.initFavorites(tickets: tickets)
+        }
     }
     
     init(json:Dictionary<String, Any>) {
@@ -46,7 +49,9 @@ class User {
             self.imageUrl = im
         }
         
-        self.addFavorites(tickets: Model.instance.getUserFavoriteTickets(user: uid))
+        Model.instance.getUserFavoriteTickets(userId: self.uid){ tickets in
+            self.initFavorites(tickets: tickets)
+        }
     }
     
     func toFireBase() -> Dictionary<String, Any> {
@@ -68,19 +73,17 @@ class User {
         return json
     }
     
-    func addFavorites(tickets: [Ticket]) {
-        for tick in tickets {
-            self.favorites[tick.id] = tick
-        }
+    func initFavorites(tickets: [Ticket]) {
+        self.favorites = tickets
     }
     
-    func addFavorite(ticket:Ticket) {
-        self.favorites[ticket.id] = ticket
-    }
-    
-    func removeFavorite(ticketId:String) {
-        self.favorites.removeValue(forKey: ticketId)
-    }
+//    func addFavorite(ticket:Ticket) {
+//        self.favorites[ticket.id] = ticket
+//    }
+//    
+//    func removeFavorite(ticketId:String) {
+//        self.favorites.removeValue(forKey: ticketId)
+//    }
     
     // SQLite Code
     static let TABLE_NAME = "USERS"
