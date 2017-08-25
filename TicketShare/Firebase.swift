@@ -154,11 +154,13 @@ class Firebase{
         }
     }
     
-    func editTicket(ticket: Ticket) {
+    func editTicket(ticket: Ticket, completionBlock:@escaping (Error?)->Void) {
         let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
         
         // set the new ticket's data on the record ref
-        ref.setValue(ticket.toFireBase())
+        ref.setValue(ticket.toFireBase()) {(err, dbref) in
+            completionBlock(err)
+        }
     }
     
     func addPurchase(purchase:Purchase, completionBlock:@escaping (Error?)->Void){
