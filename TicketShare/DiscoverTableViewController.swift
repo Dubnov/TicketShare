@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
 
-class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate, CLLocationManagerDelegate {
     var ticketsList = [Ticket]()
     var recommendedTicketsList = [Ticket]()
+    var nearByTickets = [Ticket]()
     var currSegmentTicketsList = [Ticket]()
+    var locationManager = CLLocationManager()
+    var currLocation = CLLocation()
     var ticketsSearchResults:Array<Ticket>?
     let detailSegueIdentifier = "ShowTicketDetailSegue"
     var headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1.0, height: 33.0))
@@ -38,6 +42,16 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         segBar.addTarget(self, action: "segmentClicked:", for: .valueChanged)
         self.headerView.addSubview(segBar)
         
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        // get current location
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            currLocation = locationManager.location!
+        }
+        
         NotificationCenter.default.addObserver(self, selector:
             #selector(self.ticketsListDidUpdate), name: NSNotification.Name(rawValue: notifyTicketListUpdate),object: nil)
         NotificationCenter.default.addObserver(self, selector:
@@ -52,7 +66,13 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         self.ticketsList = self.ticketsList.filter { ($0 as Ticket).isSold == false }
         let currUserId = Model.instance.getCurrentAuthUserUID()
         self.ticketsList = self.ticketsList.filter { ($0 as Ticket).seller != currUserId }
-        self.tableView!.reloadData()
+        self.nearByTickets = self.ticketsList.filter { ($0 as Ticket) != nil }
+        if (self.selectedSegment == 0 || self.selectedSegment == 2) {
+            self.tableView!.reloadData()
+        }
+        
+        self.calcTicketsDistance()
+        
     }
     
     @objc func recommendedTickets(notification:NSNotification){
@@ -68,6 +88,37 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
+    func calcTicketsDistance() {
+        if (!(currLocation.coordinate.longitude == 0 && currLocation.coordinate.latitude == 0)) {
+            var j = 0;
+            for var ticket in self.nearByTickets {
+                let geocoder = CLGeocoder()
+                geocoder.geocodeAddressString(ticket.address) { (placemarksOptional, error) -> Void in
+                    j += 1
+                    if let placemarks = placemarksOptional {
+                        if let location = placemarks.first?.location {
+                            let distanceInMeters = self.currLocation.distance(from: CLLocation(latitude: location.coordinate.latitude,
+                                 longitude: location.coordinate.longitude))
+                            ticket.distanceFromUser = distanceInMeters
+                        }
+                    }
+                    
+                    if j == self.nearByTickets.count {
+                        self.reloadNearByTickets()
+                    }
+                }
+            }
+        } else {
+           self.reloadNearByTickets()
+        }
+    }
+    
+    private func reloadNearByTickets() {
+        self.nearByTickets = self.nearByTickets.filter { ($0 as Ticket).distanceFromUser < 50000.0 }
+        if (self.selectedSegment == 1) {
+            self.tableView!.reloadData()
+        }
+    }
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -170,10 +221,12 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         
         // TO DO call function to filter
         switch self.selectedSegment {
-        case 1:
+        case 0:
             self.currSegmentTicketsList = self.ticketsList
         case 2:
             self.currSegmentTicketsList = self.recommendedTicketsList
+        case 1:
+            self.currSegmentTicketsList = self.nearByTickets
         default:
             self.currSegmentTicketsList = self.ticketsList
         }
