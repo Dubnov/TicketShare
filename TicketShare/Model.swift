@@ -79,7 +79,9 @@ class Model{
     }
     
     func editTicket(ticket: Ticket) {
-        self.firebaseModel?.editTicket(ticket: ticket)
+        self.firebaseModel?.editTicket(ticket: ticket){error in
+            Model.instance.getCurrentUserTicketsForSell()
+        }
     }
     
     func getUserByIdFromFirebase(userId:String, callback:@escaping (Error?, User?) ->Void) {
