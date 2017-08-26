@@ -207,6 +207,10 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
                 cell.typeImg.image = UIImage(named: "unknown")
             }
             
+            if self.selectedSegment == 1 {
+                cell.distanceLable.text = String(format: "%\(0.1)f", tickets.distanceFromUser / 1000) + "Km away"
+            }
+            
             if tableView != self.searchDisplayController!.searchResultsTableView {
                 // Load more species if needed
                 // see https://grokswift.com/rest-tableview-in-swift/ for details
