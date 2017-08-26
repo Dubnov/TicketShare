@@ -115,6 +115,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     
     private func reloadNearByTickets() {
         self.nearByTickets = self.nearByTickets.filter { ($0 as Ticket).distanceFromUser < 50000.0 }
+            .sorted(by: {($0 as Ticket).distanceFromUser < ($1 as Ticket).distanceFromUser})
         if (self.selectedSegment == 1) {
             self.tableView!.reloadData()
         }
@@ -209,6 +210,8 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
             
             if self.selectedSegment == 1 {
                 cell.distanceLable.text = String(format: "%\(0.1)f", tickets.distanceFromUser / 1000) + "Km away"
+            } else {
+                cell.distanceLable.text = ""
             }
             
             if tableView != self.searchDisplayController!.searchResultsTableView {
