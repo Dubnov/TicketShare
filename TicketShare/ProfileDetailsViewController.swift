@@ -15,6 +15,7 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lblInvalidName: UILabel!
     @IBOutlet weak var lblInvalidEmail: UILabel!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
+    @IBOutlet weak var btnSave: UIButton!
     
     var bIsEmailValid: Bool = true
     var bIsFullNameValid: Bool = true
@@ -44,7 +45,8 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
             break
         }
         
-        btnEdit.isEnabled = bIsEmailValid && bIsFullNameValid
+        //btnEdit.isEnabled = bIsEmailValid && bIsFullNameValid
+        btnSave.isEnabled = bIsEmailValid && bIsFullNameValid
     }
     
     func validateEmail() {
@@ -77,6 +79,26 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func saveChanges(_ sender: Any) {
+        //self.loadingSpinner.isHidden = false
+        //self.loadingSpinner.startAnimating()
+        
+        Model.instance.editUser(name: self.txtFullName.text!, email: self.txtEmail.text!) {(err) in
+            //self.loadingSpinner.stopAnimating()
+            //self.loadingSpinner.isHidden = true
+            
+            if err == nil {
+                self.performSegue(withIdentifier: "unwindToMyProfilePage", sender: self)
+            } else {
+                print("Chen")
+                let alertController = UIAlertController(title: "Details Update Error", message: err?.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
     @IBAction func editUserProfileDetails(_ sender: Any) {
         //self.loadingSpinner.isHidden = false
         //self.loadingSpinner.startAnimating()
@@ -86,16 +108,15 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
             //self.loadingSpinner.isHidden = true
             
             if err == nil {
-                // TODO: Change this
-                self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+                self.performSegue(withIdentifier: "unwindToMyProfilePage", sender: self)
             } else {
-                let alertController = UIAlertController(title: "Sign Up Error", message: err?.localizedDescription, preferredStyle: .alert)
+                print("Chen")
+                let alertController = UIAlertController(title: "Details Update Error", message: err?.localizedDescription, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 
                 self.present(alertController, animated: true, completion: nil)
             }
         }
-
     }
 
     override func didReceiveMemoryWarning() {

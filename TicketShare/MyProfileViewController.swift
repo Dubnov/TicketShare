@@ -27,6 +27,9 @@ class MyProfileViewController: UIViewController {
         
         self.performSegue(withIdentifier: "unwindToLogin", sender: self)
     }
+    
+    @IBAction func unwindToMyProfilePage(segue: UIStoryboardSegue) {
+    }
 
     /*
     // MARK: - Navigation
