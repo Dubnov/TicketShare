@@ -41,6 +41,10 @@ class Firebase{
         }
     }
     
+    func editUser(name: String, email: String, completionBlock:@escaping (Error?)->Void){
+        
+    }
+    
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         FIRAuth.auth()?.createUser(withEmail: user.email, password: user.password) { (authUser, error) in
             
