@@ -8,10 +8,17 @@
 
 import UIKit
 
-class ProfileDetailsViewController: UIViewController {
+class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var txtFullName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
+    @IBOutlet weak var lblInvalidName: UILabel!
+    @IBOutlet weak var lblInvalidEmail: UILabel!
+    @IBOutlet weak var btnEdit: UIBarButtonItem!
+    
+    var bIsEmailValid: Bool = true
+    var bIsFullNameValid: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +26,76 @@ class ProfileDetailsViewController: UIViewController {
         self.view.backgroundColor = UIColor.clear
         self.txtFullName.text = Model.instance.getCurrentAuthUserName()
         self.txtEmail.text = Model.instance.getCurrentAuthUserEmail()
+        
+        self.txtFullName.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+    }
+    
+    func textFieldDidChanged(_ textField: UITextField) {
+        
+        switch textField {
+        case txtEmail:
+            validateEmail()
+            break
+        case txtFullName:
+            validateFullName()
+            break
+        default:
+            break
+        }
+        
+        btnEdit.isEnabled = bIsEmailValid && bIsFullNameValid
+    }
+    
+    func validateEmail() {
+        if (txtEmail.text == "") {
+            lblInvalidEmail.isHidden = false
+            bIsEmailValid = false
+        } else if (!isValidEmail(testStr: txtEmail.text!)) {
+            lblInvalidEmail.isHidden = false
+            bIsEmailValid = false
+        } else {
+            lblInvalidEmail.isHidden = true
+            bIsEmailValid = true
+        }
+    }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    func validateFullName() {
+        if (txtFullName.text != "") {
+            bIsFullNameValid = true
+            lblInvalidName.isHidden = true
+        } else {
+            bIsFullNameValid = false
+            lblInvalidName.isHidden = false
+        }
+    }
+    
+    @IBAction func editUserProfileDetails(_ sender: Any) {
+        //self.loadingSpinner.isHidden = false
+        //self.loadingSpinner.startAnimating()
+        
+        Model.instance.editUser(name: self.txtFullName.text!, email: self.txtEmail.text!) {(err) in
+            //self.loadingSpinner.stopAnimating()
+            //self.loadingSpinner.isHidden = true
+            
+            if err == nil {
+                // TODO: Change this
+                self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+            } else {
+                let alertController = UIAlertController(title: "Sign Up Error", message: err?.localizedDescription, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+
     }
 
     override func didReceiveMemoryWarning() {

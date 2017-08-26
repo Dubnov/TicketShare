@@ -66,6 +66,12 @@ class Model{
         }
     }
     
+    func editUser(name: String, email: String, completionBlock:@escaping (Error?)->Void){
+        firebaseModel?.editUser(name: name, email: email){(error) in
+            completionBlock(error)
+        }
+    }
+    
     func loginUser(email:String, password:String, completionBlock:@escaping (Any?)->Void) {
         firebaseModel?.loginUser(email: email, password: password){(error) in
             completionBlock(error)
