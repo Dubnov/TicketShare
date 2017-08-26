@@ -19,6 +19,7 @@ class TicketTableViewCell: UITableViewCell {
     @IBOutlet weak var locIcon: UIImageView!
     @IBOutlet weak var dateIcon: UIImageView!
     @IBOutlet weak var priceIcon: UIImageView!
+    @IBOutlet weak var distanceLable: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
