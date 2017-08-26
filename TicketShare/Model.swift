@@ -45,11 +45,20 @@ extension Date {
 class Model{
     static let instance = Model()
     static var eventTypes:[EventType] = [EventType]()
+    static var preferencesOptions:[PreferencesOption]!
     
     lazy private var sqlModel:SQLite? = SQLite()
     lazy private var firebaseModel:Firebase? = Firebase()
     
-    private init(){}
+    private init(){
+        firebaseModel?.getEventTypes(callback: {(eveTypes) in
+            Model.eventTypes = eveTypes
+        })
+        
+        firebaseModel?.getPreferencesOptions(callback: {(prefOptions) in
+            Model.preferencesOptions = prefOptions
+        })
+    }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
         firebaseModel?.addUser(user: user){(error) in
@@ -66,6 +75,24 @@ class Model{
     func addTicket(ticket: Ticket) {
         self.firebaseModel?.addTicket(tick: ticket){ (error) in
             self.getCurrentUserTicketsForSell()
+        }
+    }
+    
+    func editTicket(ticket: Ticket) {
+        self.firebaseModel?.editTicket(ticket: ticket){error in
+            Model.instance.getCurrentUserTicketsForSell()
+        }
+    }
+    
+    func getUserByIdFromFirebase(userId:String, callback:@escaping (Error?, User?) ->Void) {
+        firebaseModel?.getUserFromFirebaseDB(uid: userId) { (err, user) in
+            callback(err, user)
+        }
+    }
+    
+    func getTicketByIdFromFirebase(ticketID:String, callback:@escaping (Error?, Ticket?) ->Void) {
+        firebaseModel?.getTicketFromFirebaseDB(uid: ticketID) { (err, ticket) in
+            callback(err, ticket)
         }
     }
     
@@ -91,10 +118,6 @@ class Model{
             let totalList = Ticket.getAllTicketsFromLocalDB(database: (self.sqlModel?.database)!)
             
             NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketListUpdate), object:nil , userInfo:["tickets":totalList])
-        })
-        
-        firebaseModel?.getEventTypes(callback: {(eveTypes) in
-            Model.eventTypes = eveTypes
         })
     }
     
@@ -147,26 +170,45 @@ class Model{
         NotificationCenter.default.post(name: Notification.Name(rawValue: notifyTicketsForSell), object:nil , userInfo:["tickets":ticketForSell])
     }
     
-    func getUserFavoriteTickets(user:String?) -> [Ticket] {
-        let tickets = Favorite.getAllFavorites(database: self.sqlModel!.database!)
-        
-        // self.firebaseModel!.currAuthUser!.addFavorites(tickets: tickets)
-        return tickets
+    func getUserFavoriteTickets(userId:String?, callback:@escaping ([Ticket]) -> Void) {
+        self.firebaseModel!.getUserFavoriteTickets(userId: userId) { tickets in
+            callback(tickets)
+        }
+    }
+    
+    func saveUserPreferences(preferences:[PreferencesOption]) {
+        if (preferences.count > 0) {
+            self.firebaseModel!.saveUserPreferences(preferences: preferences) { error in
+                print(error ?? "")
+            }
+        }
+    }
+    
+    func getUserPreferences(callback: @escaping ([PreferencesOption]) -> Void) {
+        self.firebaseModel!.getUserPreferences() { userPrefs in
+            callback(userPrefs)
+        }
     }
     
     func addFavoriteTicket(ticket:Ticket) {
-        self.firebaseModel!.currAuthUser!.addFavorite(ticket: ticket)
-        Favorite.addFavorite(database: self.sqlModel!.database!, ticket: ticket)
+        self.firebaseModel!.saveFavoriteTicketForUser(favTicket: ticket) { error in
+            print(error ?? "")
+        }
+//        self.firebaseModel!.currAuthUser!.addFavorite(ticket: ticket)
+//        Favorite.addFavorite(database: self.sqlModel!.database!, ticket: ticket)
     }
     
     func removeFavoriteTicket(ticketId:String) {
-        self.firebaseModel!.currAuthUser!.removeFavorite(ticketId: ticketId)
-        Favorite.removeFavorite(database: self.sqlModel!.database!, ticketId: ticketId)
+        self.firebaseModel!.removeFavoriteTicketForUser(ticketId: ticketId) { error in
+            print (error ?? "favorite ticket " + ticketId + " removed")
+        }
+//        self.firebaseModel!.currAuthUser!.removeFavorite(ticketId: ticketId)
+//        Favorite.removeFavorite(database: self.sqlModel!.database!, ticketId: ticketId)
     }
     
     func isTicketInUserFavorites(ticket: Ticket) -> Bool {
         for tick in self.firebaseModel!.currAuthUser!.favorites {
-            if (ticket.id == tick.key) {
+            if (ticket.id == tick.id) {
                 return true
             }
         }
@@ -190,13 +232,16 @@ class Model{
     }
     
     
-    func buyTicket(ticket:Ticket) {
+    func buyTicket(ticket:Ticket, callback:@escaping (Error?)->Void) {
         self.firebaseModel?.buyTicket(ticket: ticket) { error in
             if (error == nil) {
                 let purch:Purchase = Purchase(ticketId: ticket.id, ticketTitle: ticket.title, ticketAmount: ticket.amount, purchaseCost: Double(ticket.amount) * ticket.price, seller: ticket.seller, buyer: self.getCurrentAuthUserUID()!)
                 self.firebaseModel?.addPurchase(purchase: purch) {error in
                     print(error ?? "")
+                    callback(error)
                 }
+            } else {
+                callback(error)
             }
         }
     }

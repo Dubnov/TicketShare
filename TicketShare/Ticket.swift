@@ -21,6 +21,7 @@ class Ticket {
     var address:String
     var imageUrl:String?
     var lastUpdateDate:Date?
+    var distanceFromUser:Double
     
     init(){
         self.id = ""
@@ -31,6 +32,7 @@ class Ticket {
         self.address = ""
         self.eventType = 0
         self.isSold = false
+        self.distanceFromUser = 999999.0
     }
     
     init(seller:String, title:String, price:Double, amount:Int, eventType:Int, address:String, isSold:Bool, description:String?, imageUrl:String?, id:String = "", lastUpdateDate:Date = Date()) {
@@ -45,6 +47,7 @@ class Ticket {
         self.imageUrl = imageUrl
         self.description = description
         self.lastUpdateDate = lastUpdateDate
+        self.distanceFromUser = 999999.0
     }
     
     init(json: Dictionary<String, Any>) {
@@ -67,6 +70,7 @@ class Ticket {
         if let ts = json["lastUpdateDate"] as? Double {
             self.lastUpdateDate = Date.fromFirebase(ts)
         }
+        self.distanceFromUser = 999999.0
     }
     
     func toFireBase() -> Dictionary<String, Any> {

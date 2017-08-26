@@ -96,9 +96,30 @@ class Firebase{
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             let value = snapshot.value as? NSDictionary
-            let user = User(json: value as! Dictionary<String, Any>)
-            callback(nil, user)
-            
+            if (value != nil) {
+                let user = User(json: value as! Dictionary<String, Any>)
+                callback(nil, user)
+            } else {
+                callback(nil, nil)
+            }
+        }) { (error) in
+            callback(error, nil)
+        }
+    }
+    
+    func getTicketFromFirebaseDB(uid:String, callback:@escaping (Error?, Ticket?) -> Void){
+        let ref = FIRDatabase.database().reference().child("tickets").child(uid)
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get ticket value
+            let value = snapshot.value as? NSDictionary
+            if (value != nil) {
+                value?.setValue(uid, forKey: "id")
+                let ticket = Ticket(json: value as! Dictionary<String, Any>)
+                callback(nil, ticket)
+            } else {
+                callback(nil, nil)
+            }
         }) { (error) in
             callback(error, nil)
         }
@@ -118,6 +139,8 @@ class Firebase{
                     }
                 })
                 
+            } else {
+                completionBlock(error)
             }
         }
     }
@@ -128,6 +151,15 @@ class Firebase{
         // set the new ticket's data on the record ref
         ref.setValue(tick.toFireBase()){(error, dbref) in
             completionBlock(error)
+        }
+    }
+    
+    func editTicket(ticket: Ticket, completionBlock:@escaping (Error?)->Void) {
+        let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
+        
+        // set the new ticket's data on the record ref
+        ref.setValue(ticket.toFireBase()) {(err, dbref) in
+            completionBlock(err)
         }
     }
     
@@ -142,9 +174,76 @@ class Firebase{
     func buyTicket(ticket:Ticket, completionBlock:@escaping (Error?)->Void) {
         let ref = FIRDatabase.database().reference().child("tickets").child(ticket.id)
         
-        ref.updateChildValues(["isSold": true]){(error, dbref) in
+        ref.updateChildValues(["isSold": true, "lastUpdateDate": Date().toFirebase()]){(error, dbref) in
             completionBlock(error)
         }
+    }
+    
+    func saveUserPreferences(preferences:[PreferencesOption], callback:@escaping (Error?) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersPreferences").child(self.getCurrentAuthUserUID()!)
+        
+        var prefsDictionary:Dictionary<String, Int> = [:]
+        
+        for prefOpt in preferences {
+            prefsDictionary[prefOpt.value] = prefOpt.id
+        }
+        
+        ref.setValue(prefsDictionary) {(error, dbref) in
+            callback(error)
+        }
+    }
+    
+    func saveFavoriteTicketForUser(favTicket:Ticket, callback:@escaping (Error?) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersFavorites").child(self.getCurrentAuthUserUID()!).child(favTicket.id)
+        
+        ref.setValue(favTicket.toFireBase()){(error, dbref) in
+            callback(error)
+        }
+    }
+    
+    func removeFavoriteTicketForUser(ticketId:String, callback:@escaping (Error?) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersFavorites").child(self.getCurrentAuthUserUID()!).child(ticketId)
+        
+        ref.removeValue() { (error, ref) in
+            callback(error)
+        }
+    }
+    
+    func getUserFavoriteTickets(userId:String?, callback:@escaping ([Ticket]) -> Void) {
+        let userid = userId ?? self.getCurrentAuthUserUID()!
+        let ref = FIRDatabase.database().reference().child("usersFavorites").child(userid)
+        
+        ref.observe(FIRDataEventType.value, with: { snapshot in
+            var tickets = [Ticket]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    if var json = childData.value as? Dictionary<String,Any>{
+                        json["id"] = childData.key
+                        let tick = Ticket(json: json)
+                        tickets.append(tick)
+                    }
+                }
+            }
+            
+            callback(tickets)
+        })
+    }
+    
+    func getUserPreferences(callback: @escaping ([PreferencesOption]) -> Void) {
+        let ref = FIRDatabase.database().reference().child("usersPreferences").child(self.getCurrentAuthUserUID()!)
+        
+        ref.observe(FIRDataEventType.value, with: { snapshot in
+            var userPrefs = [PreferencesOption]()
+            
+            for child in snapshot.children.allObjects {
+                if let childData = child as? FIRDataSnapshot {
+                    let preferencesOption = PreferencesOption(id: childData.value as! Int, value: childData.key )
+                    userPrefs.append(preferencesOption)
+                }
+            }
+            
+            callback(userPrefs)
+        })
     }
     
     func getRecommendedTicketsForUser(userId:String, callback:@escaping ([String]) -> Void) {
@@ -224,6 +323,24 @@ class Firebase{
         }else{
             ref.observe(FIRDataEventType.value, with: handler)
         }
+    }
+    
+    func getPreferencesOptions(callback:@escaping ([PreferencesOption]) -> Void) {
+        let ref = FIRDatabase.database().reference().child("preferencesOptions")
+        
+        ref.observe(FIRDataEventType.value, with: {(snapshot) in
+            var preferencesOptions = [PreferencesOption]()
+            for child in snapshot.children.allObjects{
+                if let childData = child as? FIRDataSnapshot{
+                    if let json = childData.value as? Dictionary<String,Any>{
+                        let preferencesOption = PreferencesOption(json: json)
+                        preferencesOptions.append(preferencesOption)
+                    }
+                }
+            }
+            
+            callback(preferencesOptions)
+        })
     }
     
     func getEventTypes(callback:@escaping ([EventType])->Void) {
