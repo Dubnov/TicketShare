@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate {
     var selectedTicket:Ticket? = nil
     var selectedTicketID:String? = nil
     var selectedTicketBuyerID:String? = nil
@@ -56,6 +56,9 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         } else {
             self.initView()
         }
+        
+        self.txtPrice.delegate = self
+        self.txtAmount.delegate = self
     }
     
     func initView() {
@@ -195,14 +198,37 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     }
     
     @IBAction func saveEditedTicket(_ sender: Any) {
-        self.selectedTicket?.title = self.txtTitle.text!
-        self.selectedTicket?.amount = Int(self.txtAmount.text!)!
-        self.selectedTicket?.price = Double(self.txtPrice.text!)!
-        self.selectedTicket?.address = self.txtAddress.text!
-        self.selectedTicket?.description = self.txtDescription.text!
+        var errorMessage: String = ""
         
-        Model.instance.editTicket(ticket: selectedTicket!)
-        self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
+        if self.txtTitle.text?.characters.count == 0 {
+            errorMessage = errorMessage + "Title Can't Be Empty\n"
+        }
+        if self.txtAddress.text?.characters.count == 0 {
+            errorMessage = errorMessage + "Address Can't Be Empty\n"
+        }
+        if self.txtAmount.text?.characters.count == 0 {
+            errorMessage = errorMessage + "Amount Can't Be Empty\n"
+        }
+        if self.txtPrice.text?.characters.count == 0 {
+            errorMessage = errorMessage + "Price Can't Be Empty\n"
+        }
+        
+        if (errorMessage != "") {
+            errorMessage = errorMessage.substring(to: errorMessage.index(before: errorMessage.endIndex))
+            let alertController = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            self.selectedTicket?.title = self.txtTitle.text!
+            self.selectedTicket?.amount = Int(self.txtAmount.text!)!
+            self.selectedTicket?.price = Double(self.txtPrice.text!)!
+            self.selectedTicket?.address = self.txtAddress.text!
+            self.selectedTicket?.description = self.txtDescription.text!
+        
+            Model.instance.editTicket(ticket: selectedTicket!)
+            self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
+        }
     }
     
     @IBAction func buyTicket(_ sender: Any) {
@@ -215,6 +241,29 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         self.performSegue(withIdentifier: "unwindToDiscover", sender: self)
     }
 
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.txtPrice {
+            if ((self.txtPrice.text?.characters.count == 0 && ((string == ".") || (string == "0"))) ||
+                (string == "." && (self.txtPrice.text?.contains("."))!)) {
+                return false
+            } else if ("0123456789".contains(string)) {
+                return true
+            } else if (string == "") {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            if self.txtAmount.text?.characters.count == 0 && string == "0" {
+                return false
+            } else {
+                let aSet = NSCharacterSet(charactersIn:"0123456789").inverted
+                let compSepByCharInSet = string.components(separatedBy: aSet)
+                let numberFiltered = compSepByCharInSet.joined(separator: "")
+                return string == numberFiltered
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

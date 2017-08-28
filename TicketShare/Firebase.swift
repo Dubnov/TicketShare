@@ -41,8 +41,21 @@ class Firebase{
         }
     }
     
+    
     func editUser(name: String, email: String, completionBlock:@escaping (Error?)->Void){
-        
+        FIRAuth.auth()?.currentUser?.updateEmail(email) { error in
+            if (error != nil) {
+                completionBlock(error)
+            } else {
+                FIRDatabase.database().reference().child("users")
+                    .child((FIRAuth.auth()?.currentUser?.uid)!).child("email").setValue(email)
+                FIRDatabase.database().reference().child("users")
+                    .child((FIRAuth.auth()?.currentUser?.uid)!).child("fullName").setValue(name)
+                self.currAuthUser?.email = email
+                self.currAuthUser?.fullName = name
+                completionBlock(nil)
+            }
+        }
     }
     
     func addUser(user:User, completionBlock:@escaping (Error?)->Void){
