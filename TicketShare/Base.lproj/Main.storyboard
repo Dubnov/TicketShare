@@ -591,6 +591,7 @@
                         <outlet property="lblAmountRequired" destination="PXT-Bo-Rb8" id="jKT-ya-fBc"/>
                         <outlet property="lblPriceRequired" destination="5N4-w6-cNa" id="hrk-Z0-Vqv"/>
                         <outlet property="lblTitleRequired" destination="3Xb-W9-w7E" id="bcg-Qo-U1W"/>
+                        <outlet property="lblTypeRequired" destination="x7Z-aq-AWu" id="ZeP-9J-pAr"/>
                         <outlet property="loadingSpinner" destination="emM-1d-6ic" id="J20-Fo-fKk"/>
                         <outlet property="txtAmount" destination="cZ4-32-pVK" id="dag-7f-rDK"/>
                         <outlet property="txtDescription" destination="PHL-8a-RdX" id="sgr-Bw-kNc"/>
