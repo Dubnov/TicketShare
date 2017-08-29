@@ -21,12 +21,14 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet weak var lblTitleRequired: UILabel!
     @IBOutlet weak var lblAmountRequired: UILabel!
     @IBOutlet weak var lblPriceRequired: UILabel!
+    @IBOutlet weak var lblTypeRequired: UILabel!
     @IBOutlet weak var lblAddressRequired: UILabel!
     @IBOutlet weak var imgImage: UIImageView!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     var bIsTitleValid: Bool = false
     var bIsAmountValid: Bool = false
     var bIsPriceValid: Bool = false
+    var bIsTypeValid: Bool = false
     var bIsAddressValid: Bool = false
     var selectedEventTypeId: Int = 1
     
@@ -45,6 +47,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         self.txtAmount.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtPrice.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtEventAddress.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
+        self.txtEventType.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         
         self.txtPrice.delegate = self
         self.txtAmount.delegate = self
@@ -98,13 +101,14 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
             isFieldNotEmpty(textField: self.txtEventAddress, validteBool: &bIsAddressValid, requiredLabel: self.lblAddressRequired)
             break
         case txtEventType:
+            isFieldNotEmpty(textField: self.txtEventType, validteBool: &bIsTypeValid, requiredLabel: self.lblTypeRequired)
             break
             
         default:
             break
         }
         
-        if (bIsTitleValid && bIsAmountValid && bIsPriceValid && bIsAddressValid) {
+        if (bIsTitleValid && bIsAmountValid && bIsPriceValid && bIsAddressValid && bIsTypeValid) {
             self.btnSave.isEnabled = true
         } else {
             self.btnSave.isEnabled = false
@@ -196,6 +200,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.txtEventType.text = Model.eventTypes[row].displayName
+        textFieldDidChanged(self.txtEventType)
         self.selectedEventTypeId = Model.eventTypes[row].id
         self.dropdownEventType.isHidden = true
     }
