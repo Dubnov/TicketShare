@@ -42,6 +42,10 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     @IBOutlet weak var lblEditPrice: UILabel!
     @IBOutlet weak var txtAddress: UITextField!
     @IBOutlet weak var lblSoldBoughtBy: UILabel!
+    @IBOutlet weak var lblTitleRequired: UILabel!
+    @IBOutlet weak var lblAmountRequired: UILabel!
+    @IBOutlet weak var lblAddressRequired: UILabel!
+    @IBOutlet weak var lblPriceRequired: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,6 +164,10 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 self.lblEditPrice.isHidden = false
                 self.lblEditAmount.isHidden = false
                 self.txtMulSign.isHidden = false
+                self.lblPriceRequired.isHidden = false
+                self.lblAmountRequired.isHidden = false
+                self.lblTitleRequired.isHidden = false
+                self.lblAddressRequired.isHidden = false
             }
         }
         

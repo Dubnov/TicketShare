@@ -769,7 +769,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veb-2k-xqG">
-                                <rect key="frame" x="317" y="242" width="42" height="20"/>
+                                <rect key="frame" x="320" y="242" width="42" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
@@ -780,6 +780,34 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="17"/>
                                 <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ci5-xD-KBA">
+                                <rect key="frame" x="4" y="242" width="10" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.039765733839999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ju1-C0-mVn">
+                                <rect key="frame" x="246" y="241" width="10" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="0.039765733839999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QyQ-Gm-4v4">
+                                <rect key="frame" x="311" y="242" width="10" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="0.039765733839999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="*" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fLA-Gc-4Yl">
+                                <rect key="frame" x="8" y="391" width="10" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.039765733839999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -793,9 +821,13 @@
                         <outlet property="btnBuyTicket" destination="kdR-cV-bYb" id="eTH-ru-eGe"/>
                         <outlet property="btnRemoveFromFav" destination="b8f-fa-a7j" id="l4X-II-Vqq"/>
                         <outlet property="descLabel" destination="NHE-GD-Kgr" id="Tms-O8-hax"/>
+                        <outlet property="lblAddressRequired" destination="fLA-Gc-4Yl" id="dQ5-Jb-cDb"/>
+                        <outlet property="lblAmountRequired" destination="ju1-C0-mVn" id="qPr-Le-VH0"/>
                         <outlet property="lblEditAmount" destination="cf1-qC-zrg" id="Nnr-Oa-2cm"/>
                         <outlet property="lblEditPrice" destination="veb-2k-xqG" id="SWV-A8-Ihd"/>
+                        <outlet property="lblPriceRequired" destination="QyQ-Gm-4v4" id="gfF-0p-ag0"/>
                         <outlet property="lblSoldBoughtBy" destination="ju2-CM-BHi" id="Fti-6M-iMl"/>
+                        <outlet property="lblTitleRequired" destination="Ci5-xD-KBA" id="vrK-9U-tMa"/>
                         <outlet property="mapView" destination="ABk-Jy-lwZ" id="xDq-Jc-JIE"/>
                         <outlet property="navBar" destination="xed-QS-ymM" id="uGo-jP-tmh"/>
                         <outlet property="sellerLabel" destination="FvE-6S-70k" id="Gbr-TV-Yk2"/>
