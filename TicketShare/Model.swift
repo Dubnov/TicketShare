@@ -78,6 +78,12 @@ class Model{
         }
     }
     
+    func loginFromFB(accessToken: String, email: String, name: String, completionBlock:@escaping (Any?)->Void) {
+        firebaseModel?.loginFromFB(accessToken: accessToken, email: email, name: name){(error) in
+            completionBlock(error)
+        }
+    }
+    
     func addTicket(ticket: Ticket) {
         self.firebaseModel?.addTicket(tick: ticket){ (error) in
             self.getCurrentUserTicketsForSell()
@@ -94,6 +100,10 @@ class Model{
         firebaseModel?.getUserFromFirebaseDB(uid: userId) { (err, user) in
             callback(err, user)
         }
+    }
+    
+    func isLoginFromFacebook() -> Bool {
+        return (firebaseModel?.isLoginFromFacebook())!;
     }
     
     func getTicketByIdFromFirebase(ticketID:String, callback:@escaping (Error?, Ticket?) ->Void) {

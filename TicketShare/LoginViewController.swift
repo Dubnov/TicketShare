@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import FacebookCore
+import FacebookLogin
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDelegate {
 
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var txtEmail: UITextField!
@@ -21,6 +23,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.txtPassword.delegate = self
         self.txtEmail.delegate = self
 
+        let frame = CGRect(x: 100, y: 520, width: 180, height: 40)
+        let loginButton = LoginButton(frame: frame, readPermissions: [])
+        view.addSubview(loginButton)
+        loginButton.delegate = self
+        
         // TODO - Delete this
         /*self.txtEmail.text = "chen.goren94@gmail.com"
         self.txtPassword.text = "123123"
@@ -37,6 +44,48 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         self.view.addGestureRecognizer(tap)
     }
+    
+    
+    func loginButtonDidCompleteLogin(_ loginButton: LoginButton, result: LoginResult) {
+        switch result {
+        case .cancelled:
+            break
+        case .failed:
+            break
+        case .success:
+            let accessToken = AccessToken.current
+            guard let accessTokenString = accessToken?.authenticationToken else { return }
+            
+            
+            let req = GraphRequest.init(graphPath: "/me", parameters: ["fields":"id,name,email"])
+            req.start { (urlResponse, requestResult) in
+                switch requestResult {
+                case .failed(let error):
+                    print("error in graph request:", error)
+                    break
+                case .success(let graphResponse):
+                    if let responseDictionary = graphResponse.dictionaryValue {
+                        Model.instance.loginFromFB(accessToken: accessTokenString, email: responseDictionary["email"] as! String, name: responseDictionary["name"] as! String!) {(err) in
+                            if err == nil {
+                                self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+                            } else {
+                                let alertController = UIAlertController(title: "Facebook Login Error", message: err.debugDescription, preferredStyle: .alert)
+                                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                                
+                                self.present(alertController, animated: true, completion: nil)
+                            }
+                        }
+                    }
+                }
+            }
+            break
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: LoginButton) {
+        print("logout")
+    }
+    
     
     func dismissKeyboard() {
         self.view.endEditing(true)

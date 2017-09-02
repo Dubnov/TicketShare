@@ -28,6 +28,12 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
         self.txtFullName.text = Model.instance.getCurrentAuthUserName()
         self.txtEmail.text = Model.instance.getCurrentAuthUserEmail()
         
+        if (Model.instance.isLoginFromFacebook()) {
+            self.txtFullName.isEnabled = false
+            self.txtEmail.isEnabled = false
+            self.btnSave.isHidden = true
+        }
+        
         self.txtFullName.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
         self.txtEmail.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
     }

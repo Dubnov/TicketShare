@@ -12,6 +12,7 @@ import FirebaseStorage
 
 class Firebase{
     var currAuthUser: User? = nil;
+    var bIsFromFacebook: Bool = false;
     
     init(){
         FIRApp.configure()
@@ -26,6 +27,10 @@ class Firebase{
     
     func getCurrentAuthUserEmail() -> String? {
         return self.currAuthUser?.email
+    }
+    
+    func isLoginFromFacebook() -> Bool {
+        return self.bIsFromFacebook
     }
     
     func getCurrentAuthUserUID() -> String? {
@@ -105,6 +110,23 @@ class Firebase{
         }
         
         
+    }
+    
+    func loginFromFB(accessToken: String, email: String, name: String, completionBlock:@escaping (Any?)->Void) {
+        let credentials = FIRFacebookAuthProvider.credential(withAccessToken: accessToken)
+        
+        FIRAuth.auth()?.signIn(with: credentials) { (authUser, error) in
+            if error == nil {
+                self.currAuthUser = User(email: email, password: "aaa", fullName: name, dateOfBirth: Date(), location: nil, uid:(authUser?.uid)!)
+                self.bIsFromFacebook = true;
+                let ref = FIRDatabase.database().reference().child("users").child((self.currAuthUser?.uid)!)
+                ref.setValue(self.currAuthUser?.toFireBase()){(error, dbref) in
+                    completionBlock(error)
+                }
+            } else {
+                completionBlock(error)
+            }
+        }
     }
     
     func getUserFromFirebaseDB(uid:String, callback:@escaping (Error?, User?) -> Void){
