@@ -130,7 +130,19 @@ class Firebase{
                     completionBlock(error)
                 }
             } else {
-                completionBlock(error)
+                //let errCode = FIRAuthErrorCode(rawValue: error!._code)
+                var errMessage = ""
+                
+                switch error!._code {
+                case FIRAuthErrorCode.errorCodeInvalidEmail.rawValue:
+                    errMessage = "Invalid email"
+                case FIRAuthErrorCode.errorCodeEmailAlreadyInUse.rawValue:
+                    errMessage = "The email address is already in use by another account"
+                default:
+                    errMessage = "Create User Error: \(error)"
+                }
+                
+                completionBlock(errMessage)
             }
         }
     }

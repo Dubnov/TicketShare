@@ -69,7 +69,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
                             if err == nil {
                                 self.performSegue(withIdentifier: "performSegueToMain", sender: self)
                             } else {
-                                let alertController = UIAlertController(title: "Facebook Login Error", message: err.debugDescription, preferredStyle: .alert)
+                                let alertController = UIAlertController(title: "Facebook Login Error", message: err as! String, preferredStyle: .alert)
                                 alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                                 
                                 self.present(alertController, animated: true, completion: nil)
