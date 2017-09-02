@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import FacebookCore
+import FacebookLogin
 
 class Firebase{
     var currAuthUser: User? = nil;
@@ -38,6 +40,10 @@ class Firebase{
     }
     
     func signOut() {
+        if bIsFromFacebook {
+            let loginManager = LoginManager()
+            loginManager.logOut()
+        }
         do {
             try FIRAuth.auth()?.signOut()
             self.currAuthUser = nil
