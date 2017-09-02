@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,8 +37,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
         
         UILabel.appearance().substituteFontName = "Lato-Regular"
+
+        
+        SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        let handled = SDKApplicationDelegate.shared.application(app, open: url, options: options)
+        
+        return handled
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
