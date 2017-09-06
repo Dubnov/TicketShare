@@ -39,6 +39,10 @@ class Firebase{
         return self.currAuthUser?.uid
     }
     
+    func getCurrentAuthUserImageUrl() -> String? {
+        return self.currAuthUser?.imageUrl
+    }
+    
     func signOut() {
         if bIsFromFacebook {
             let loginManager = LoginManager()
@@ -118,16 +122,21 @@ class Firebase{
         
     }
     
-    func loginFromFB(accessToken: String, email: String, name: String, completionBlock:@escaping (Any?)->Void) {
+    func loginFromFB(accessToken: String, email: String, name: String, pictureUrl: String, completionBlock:@escaping (Any?)->Void) {
         let credentials = FIRFacebookAuthProvider.credential(withAccessToken: accessToken)
         
         FIRAuth.auth()?.signIn(with: credentials) { (authUser, error) in
             if error == nil {
-                self.currAuthUser = User(email: email, password: "aaa", fullName: name, dateOfBirth: Date(), location: nil, uid:(authUser?.uid)!)
-                self.bIsFromFacebook = true;
-                let ref = FIRDatabase.database().reference().child("users").child((self.currAuthUser?.uid)!)
-                ref.setValue(self.currAuthUser?.toFireBase()){(error, dbref) in
-                    completionBlock(error)
+                let url = URL(string: (authUser!.photoURL?.absoluteString)!)
+                let data = try? Data(contentsOf: url!)
+                let image: UIImage? = UIImage(data: data!)
+                self.saveImageToFirebase(image: image!, name: email) { (imageUrl) in
+                    self.currAuthUser = User(email: email, password: "aaa", fullName: name, dateOfBirth: Date(), location: nil, uid:(authUser?.uid)!, imageUrl: imageUrl)
+                    self.bIsFromFacebook = true;
+                    let ref = FIRDatabase.database().reference().child("users").child((self.currAuthUser?.uid)!)
+                    ref.setValue(self.currAuthUser?.toFireBase()){(error, dbref) in
+                        completionBlock(error)
+                    }
                 }
             } else {
                 //let errCode = FIRAuthErrorCode(rawValue: error!._code)

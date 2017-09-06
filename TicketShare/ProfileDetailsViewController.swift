@@ -15,7 +15,8 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var lblInvalidName: UILabel!
     @IBOutlet weak var lblInvalidEmail: UILabel!
     @IBOutlet weak var btnEdit: UIBarButtonItem!
-    @IBOutlet weak var btnSave: UIButton!
+    @IBOutlet weak var btnSave: 	UIButton!
+    @IBOutlet weak var userImageView: UIImageView!
     
     var bIsEmailValid: Bool = true
     var bIsFullNameValid: Bool = true
@@ -32,6 +33,13 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
             self.txtFullName.isEnabled = false
             self.txtEmail.isEnabled = false
             self.btnSave.isHidden = true
+        }
+        
+        
+        if let imUrl = Model.instance.getCurrentAuthUserImageUrl() {
+            Model.instance.getImage(urlStr: imUrl, callback: { (image) in
+                self.userImageView!.image = image
+            })
         }
         
         self.txtFullName.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)

@@ -78,8 +78,8 @@ class Model{
         }
     }
     
-    func loginFromFB(accessToken: String, email: String, name: String, completionBlock:@escaping (Any?)->Void) {
-        firebaseModel?.loginFromFB(accessToken: accessToken, email: email, name: name){(error) in
+    func loginFromFB(accessToken: String, email: String, name: String, pictureUrl: String, completionBlock:@escaping (Any?)->Void) {
+        firebaseModel?.loginFromFB(accessToken: accessToken, email: email, name: name, pictureUrl: pictureUrl){(error) in
             completionBlock(error)
         }
     }
@@ -315,6 +315,10 @@ class Model{
     
     func getCurrentAuthUserUID() -> String? {
         return firebaseModel?.getCurrentAuthUserUID()
+    }
+    
+    func getCurrentAuthUserImageUrl() -> String? {
+        return firebaseModel?.getCurrentAuthUserImageUrl()
     }
     
     func signOut() {
