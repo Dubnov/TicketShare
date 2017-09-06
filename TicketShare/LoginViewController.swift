@@ -24,7 +24,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
         self.txtEmail.delegate = self
 
         let frame = CGRect(x: 100, y: 520, width: 180, height: 40)
-        let loginButton = LoginButton(frame: frame, readPermissions: [])
+        let loginButton = LoginButton(frame: frame, readPermissions: [ReadPermission.email, ReadPermission.publicProfile])
         view.addSubview(loginButton)
         loginButton.delegate = self
         
@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
             guard let accessTokenString = accessToken?.authenticationToken else { return }
             
             
-            let req = GraphRequest.init(graphPath: "/me", parameters: ["fields":"id,name,email"])
+            let req = GraphRequest.init(graphPath: "/me", parameters: ["fields":"id,name,email,picture"])
             req.start { (urlResponse, requestResult) in
                 switch requestResult {
                 case .failed(let error):
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, LoginButtonDel
                     break
                 case .success(let graphResponse):
                     if let responseDictionary = graphResponse.dictionaryValue {
-                        Model.instance.loginFromFB(accessToken: accessTokenString, email: responseDictionary["email"] as! String, name: responseDictionary["name"] as! String!) {(err) in
+                        Model.instance.loginFromFB(accessToken: accessTokenString, email: responseDictionary["email"] as! String, name: responseDictionary["name"] as! String!, pictureUrl: (((responseDictionary["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String)!) {(err) in
                             if err == nil {
                                 self.performSegue(withIdentifier: "performSegueToMain", sender: self)
                             } else {
