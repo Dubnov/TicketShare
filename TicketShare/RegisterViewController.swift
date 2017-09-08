@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate{
+class RegisterViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate{
     var locationManager = CLLocationManager()
 
     @IBOutlet weak var lblRequiredPassword: UILabel!
@@ -22,6 +22,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationM
     @IBOutlet weak var lblBadEmail: UILabel!
     @IBOutlet weak var lblBadPassword: UILabel!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var imgImage: UIImageView!
     var bIsEmailValid: Bool = false
     var bIsPasswordValid: Bool = false
     var bIsFullNameValid: Bool = false
@@ -120,6 +121,33 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationM
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func chooseImage(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.navigationBar.tintColor = .black
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+        } else {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum;
+        }
+        
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        self.imgImage.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        self.dismiss(animated: true, completion: nil);
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func registerUser(_ sender: Any) {
         self.loadingSpinner.isHidden = false
         self.loadingSpinner.startAnimating()
@@ -135,18 +163,40 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, CLLocationM
             currentLocation = locationManager.location?.coordinate.latitude.description
         }*/
         
-        let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!, dateOfBirth: Date())
-        Model.instance.addUser(user: user) {(err) in
-            self.loadingSpinner.stopAnimating()
-            self.loadingSpinner.isHidden = true
+        if self.imgImage.image != nil {
+            let imageName = self.txtEmail.text!.replacingOccurrences(of: ".", with: "_")
+            Model.instance.saveImage(image: self.imgImage.image!, name: imageName) {(url) in
+                let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!, dateOfBirth: Date(), imageUrl: url)
+                Model.instance.addUser(user: user) {(err) in
+                    self.loadingSpinner.stopAnimating()
+                    self.loadingSpinner.isHidden = true
+                    
+                    if err == nil {
+                        self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+                    } else {
+                        let alertController = UIAlertController(title: "Sign Up Error", message: err?.localizedDescription, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+        else
+        {
+            let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!, dateOfBirth: Date())
+            Model.instance.addUser(user: user) {(err) in
+                self.loadingSpinner.stopAnimating()
+                self.loadingSpinner.isHidden = true
             
-            if err == nil {
-                self.performSegue(withIdentifier: "performSegueToMain", sender: self)
-            } else {
-                let alertController = UIAlertController(title: "Sign Up Error", message: err?.localizedDescription, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                if err == nil {
+                    self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+                } else {
+                    let alertController = UIAlertController(title: "Sign Up Error", message: err?.localizedDescription, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 
-                self.present(alertController, animated: true, completion: nil)
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
     }
