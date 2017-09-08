@@ -40,6 +40,8 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
             Model.instance.getImage(urlStr: imUrl, callback: { (image) in
                 self.userImageView!.image = image
             })
+        } else {
+            self.userImageView!.image = #imageLiteral(resourceName: "no_image")
         }
         
         self.txtFullName.addTarget(self, action: #selector(textFieldDidChanged(_:)), for: .editingChanged)
