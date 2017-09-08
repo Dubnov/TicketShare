@@ -43,18 +43,6 @@
                                 <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-hK-1bQ">
-                                <rect key="frame" x="100" y="460" width="180" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1717022752" green="0.75786930929999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="login:" destination="igX-4u-bfo" eventType="touchUpInside" id="wgA-PC-yfM"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Snn-5t-X08">
                                 <rect key="frame" x="16" y="320" width="51" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -102,9 +90,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fbicon" translatesAutoresizingMaskIntoConstraints="NO" id="klx-4Q-Nl7">
+                                <rect key="frame" x="99" y="519" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GeL-zZ-Bzx">
+                                <rect key="frame" x="100" y="519" width="180" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.27560065755516949" blue="0.77487773541114058" alpha="0.84627827837423308" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                                <state key="normal" title="Login with Facebook"/>
+                                <connections>
+                                    <action selector="FBlogin:" destination="igX-4u-bfo" eventType="touchUpInside" id="b1w-iK-I7U"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qd3-hK-1bQ">
+                                <rect key="frame" x="100" y="464" width="180" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.1717022752" green="0.75786930929999996" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="login:" destination="igX-4u-bfo" eventType="touchUpInside" id="wgA-PC-yfM"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="btnFBLogin" destination="GeL-zZ-Bzx" id="I7w-27-Go0"/>
                         <outlet property="btnLogin" destination="qd3-hK-1bQ" id="xS9-vL-pQ3"/>
                         <outlet property="loadingSpinner" destination="wPr-eb-Lbh" id="Ay1-Rb-Xam"/>
                         <outlet property="txtEmail" destination="q6Y-wc-GAc" id="ycg-bX-mWv"/>
@@ -1381,6 +1396,7 @@
         <image name="Ticket" width="25" height="25"/>
         <image name="blankTicket" width="640" height="264"/>
         <image name="default" width="137" height="137"/>
+        <image name="fbicon" width="250" height="250"/>
         <image name="logo" width="874" height="443"/>
     </resources>
     <inferredMetricsTieBreakers>
