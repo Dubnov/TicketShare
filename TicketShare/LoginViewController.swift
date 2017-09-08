@@ -20,25 +20,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let accessToken = AccessToken.current {
-            // User is logged in, use 'accessToken' here.
-            Model.instance.getUserByIdFromFirebase(userId: accessToken.userId!) {(err, user) in
-                if (user != nil) {
-                    Model.instance.loginFromFB(accessToken: accessToken.authenticationToken, email: user!.email, name: user!.fullName) {(err) in
-                        if err == nil {
-                            self.performSegue(withIdentifier: "performSegueToMain", sender: self)
-                        } else {
-                            let alertController = UIAlertController(title: "Facebook Login Error", message: err.debugDescription, preferredStyle: .alert)
-                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-                            
-                            self.present(alertController, animated: true, completion: nil)
-                        }
-                    }
-                    
-                    self.performSegue(withIdentifier: "performSegueToMain", sender: self)
-                }
-            }
-        }
+//        if let accessToken = AccessToken.current {
+//            // User is logged in, use 'accessToken' here.
+//            Model.instance.getUserByIdFromFirebase(userId: accessToken.userId!) {(err, user) in
+//                if (user != nil) {
+//                    Model.instance.loginFromFB(accessToken: accessToken.authenticationToken, email: user!.email, name: user!.fullName) {(err) in
+//                        if err == nil {
+//                            self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+//                        } else {
+//                            let alertController = UIAlertController(title: "Facebook Login Error", message: err.debugDescription, preferredStyle: .alert)
+//                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//                            
+//                            self.present(alertController, animated: true, completion: nil)
+//                        }
+//                    }
+//                    
+//                    self.performSegue(withIdentifier: "performSegueToMain", sender: self)
+//                }
+//            }
+//        }
         
         self.view.backgroundColor = UIColor.clear
         self.txtPassword.delegate = self
@@ -120,10 +120,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 print(error)
                 break
             case .success:
+                self.loadingSpinner.isHidden = false
+                self.loadingSpinner.startAnimating()
                 let accessToken = AccessToken.current
                 guard let accessTokenString = accessToken?.authenticationToken else { return }                
                 
-                let req = GraphRequest.init(graphPath: "/me", parameters: ["fields":"id,name,email"])
+                let req = GraphRequest.init(graphPath: "/me", parameters: ["fields":"id,name,email,picture"])
                 req.start { (urlResponse, requestResult) in
                     switch requestResult {
                     case .failed(let error):
@@ -131,7 +133,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                         break
                     case .success(let graphResponse):
                         if let responseDictionary = graphResponse.dictionaryValue {
-                            Model.instance.loginFromFB(accessToken: accessTokenString, email: responseDictionary["email"] as! String, name: responseDictionary["name"] as! String!) {(err) in
+                            Model.instance.loginFromFB(accessToken: accessTokenString, email: responseDictionary["email"] as! String, name: responseDictionary["name"] as! String!, pictureUrl: (((responseDictionary["picture"] as? [String: Any])?["data"] as? [String: Any])?["url"] as? String)!) {(err) in
+                                self.loadingSpinner.stopAnimating()
+                                self.loadingSpinner.isHidden = true
                                 if err == nil {
                                     self.performSegue(withIdentifier: "performSegueToMain", sender: self)
                                 } else {
