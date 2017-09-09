@@ -682,7 +682,7 @@
                                                 <action selector="backToMyTickets:" destination="SFI-uU-a8w" id="Yf6-NS-EeI"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="GQt-Qw-t6g">
+                                        <barButtonItem key="rightBarButtonItem" title="Save" style="plain" id="GQt-Qw-t6g">
                                             <connections>
                                                 <action selector="saveEditedTicket:" destination="SFI-uU-a8w" id="NmZ-JO-9oW"/>
                                             </connections>
@@ -864,6 +864,7 @@
                         <outlet property="amountPriceLabel" destination="Tow-Sn-dzi" id="RVg-tb-ibR"/>
                         <outlet property="btnAddToFav" destination="Ufs-LN-1HY" id="R6J-8N-9dZ"/>
                         <outlet property="btnBuyTicket" destination="kdR-cV-bYb" id="eTH-ru-eGe"/>
+                        <outlet property="btnEditButton" destination="GQt-Qw-t6g" id="RQf-HX-nac"/>
                         <outlet property="btnRemoveFromFav" destination="b8f-fa-a7j" id="l4X-II-Vqq"/>
                         <outlet property="descLabel" destination="NHE-GD-Kgr" id="Tms-O8-hax"/>
                         <outlet property="lblAddressRequired" destination="fLA-Gc-4Yl" id="dQ5-Jb-cDb"/>
@@ -898,7 +899,7 @@
             <objects>
                 <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Discover" image="Globe" selectedImage="Globe" id="np1-Kp-fSY"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dj5-eC-9Ge">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1019,7 +1020,7 @@
             <objects>
                 <navigationController id="hUO-ma-vg6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="Profile" selectedImage="Profile" id="30Y-Cf-XVf"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DV0-YD-soX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DV0-YD-soX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1117,7 +1118,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oOz-Bk-kBQ" id="BST-Qs-VXH">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="89.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="kd7-cw-ocD">
@@ -1329,7 +1330,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="105"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Uk-vr-3lY" id="vIm-mI-4rY">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpO-QS-30b">
