@@ -37,15 +37,14 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate, UINav
             self.btnSave.isHidden = true
         }
         
+        if (!Model.instance.isLoginFromFacebook()) {
+            self.btnImgEdit.isHidden = false
+        }
         
         if let imUrl = Model.instance.getCurrentAuthUserImageUrl() {
             Model.instance.getImage(urlStr: imUrl, callback: { (image) in
                 self.userImageView!.image = image
             })
-            
-            if (!Model.instance.isLoginFromFacebook()) {
-                self.btnImgEdit.isHidden = false
-            }
             
         } else {
             self.userImageView!.image = #imageLiteral(resourceName: "no_image")
