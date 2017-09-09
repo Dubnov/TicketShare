@@ -44,6 +44,7 @@ class Firebase{
     }
     
     func signOut() {
+        self.bIsFromFacebook = false
         if bIsFromFacebook {
             let loginManager = LoginManager()
             loginManager.logOut()
