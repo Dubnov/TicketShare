@@ -67,7 +67,13 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         let currUserId = Model.instance.getCurrentAuthUserUID()
         self.ticketsList = self.ticketsList.filter { ($0 as Ticket).seller != currUserId }
         self.nearByTickets = self.ticketsList.filter { ($0 as Ticket) != nil }
-        if (self.selectedSegment == 0 || self.selectedSegment == 2) {
+        if (self.selectedSegment == 0){
+            self.currSegmentTicketsList = self.ticketsList
+            self.tableView!.reloadData()
+        }
+        
+        if (self.selectedSegment == 2) {
+            self.currSegmentTicketsList = self.recommendedTicketsList
             self.tableView!.reloadData()
         }
         
@@ -79,7 +85,8 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         self.recommendedTicketsList = notification.userInfo?["tickets"] as! [Ticket]
         self.recommendedTicketsList = self.recommendedTicketsList.filter { ($0 as Ticket).isSold == false  }
         let currUserId = Model.instance.getCurrentAuthUserUID()
-        self.ticketsList = self.ticketsList.filter { ($0 as Ticket).seller != currUserId }
+        self.recommendedTicketsList = self.recommendedTicketsList.filter { ($0 as Ticket).seller != currUserId }
+        self.currSegmentTicketsList = self.recommendedTicketsList
         self.tableView!.reloadData()
     }
     
