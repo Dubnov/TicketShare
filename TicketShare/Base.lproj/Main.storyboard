@@ -986,10 +986,21 @@
                                 <rect key="frame" x="122" y="72" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button hidden="YES" opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U7Y-Oe-AQy">
+                                <rect key="frame" x="227" y="177" width="25" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button" image="edit"/>
+                                <connections>
+                                    <action selector="EditImage:" destination="08y-N8-iKP" eventType="touchUpInside" id="aVZ-Ph-HAM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="btnImgEdit" destination="U7Y-Oe-AQy" id="yvA-Wv-t57"/>
                         <outlet property="btnSave" destination="AJ1-e5-X9T" id="sEV-mU-lc4"/>
                         <outlet property="lblInvalidEmail" destination="ASJ-8L-UHQ" id="yls-D3-Uag"/>
                         <outlet property="lblInvalidName" destination="LfG-29-s8z" id="IPo-55-31s"/>
@@ -1423,6 +1434,7 @@
         <image name="Ticket" width="25" height="25"/>
         <image name="blankTicket" width="640" height="264"/>
         <image name="default" width="137" height="137"/>
+        <image name="edit" width="512" height="512"/>
         <image name="fbicon" width="250" height="250"/>
         <image name="logo" width="874" height="443"/>
     </resources>
