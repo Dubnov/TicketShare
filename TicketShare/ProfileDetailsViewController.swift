@@ -152,7 +152,7 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate, UINav
         }
         
         if bDidImageChange {
-            let imageName = self.txtEmail.text!.replacingOccurrences(of: ".", with: "_") + String(Date().timeIntervalSince1970.rounded())
+            let imageName = self.txtEmail.text!.replacingOccurrences(of: ".", with: "_") + String(Int(Date().timeIntervalSince1970.rounded()))
            
             Model.instance.saveImage(image: self.userImageView.image!, name: imageName) {(url) in
                 Model.instance.editUser(name: self.txtFullName.text!, email: self.txtEmail.text!, imageUrl: url) {(err) in  // TODO: add imgURL
