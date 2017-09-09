@@ -57,7 +57,7 @@ class Firebase{
     }
     
     
-    func editUser(name: String, email: String, completionBlock:@escaping (Error?)->Void){
+    func editUser(name: String, email: String, imageUrl:String? = nil, completionBlock:@escaping (Error?)->Void){
         FIRAuth.auth()?.currentUser?.updateEmail(email) { error in
             if (error != nil) {
                 completionBlock(error)
@@ -66,6 +66,14 @@ class Firebase{
                     .child((FIRAuth.auth()?.currentUser?.uid)!).child("email").setValue(email)
                 FIRDatabase.database().reference().child("users")
                     .child((FIRAuth.auth()?.currentUser?.uid)!).child("fullName").setValue(name)
+                
+                if imageUrl != nil {
+                    FIRDatabase.database().reference().child("users")
+                        .child((FIRAuth.auth()?.currentUser?.uid)!).child("imageUrl").setValue(imageUrl)
+                    
+                    self.currAuthUser?.imageUrl = imageUrl
+                }
+                
                 self.currAuthUser?.email = email
                 self.currAuthUser?.fullName = name
                 completionBlock(nil)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
+class ProfileDetailsViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var txtFullName: UITextField!
     @IBOutlet weak var txtEmail: UITextField!
@@ -17,9 +17,11 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var btnEdit: UIBarButtonItem!
     @IBOutlet weak var btnSave: 	UIButton!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var btnImgEdit: UIButton!
     
     var bIsEmailValid: Bool = true
     var bIsFullNameValid: Bool = true
+    var bDidImageChange: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,11 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
             Model.instance.getImage(urlStr: imUrl, callback: { (image) in
                 self.userImageView!.image = image
             })
+            
+            if (!Model.instance.isLoginFromFacebook()) {
+                self.btnImgEdit.isHidden = false
+            }
+            
         } else {
             self.userImageView!.image = #imageLiteral(resourceName: "no_image")
         }
@@ -95,6 +102,36 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func EditImage(_ sender: Any) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        imagePicker.navigationBar.tintColor = .black
+        
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary) {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary;
+        } else if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera;
+        } else {
+            imagePicker.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum;
+        }
+        
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        self.userImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        bDidImageChange = true
+        btnSave.isEnabled = bIsEmailValid && bIsFullNameValid
+        
+        self.dismiss(animated: true, completion: nil);
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func saveChanges(_ sender: Any) {
         //self.loadingSpinner.isHidden = false
         //self.loadingSpinner.startAnimating()
@@ -111,6 +148,44 @@ class ProfileDetailsViewController: UIViewController, UITextFieldDelegate {
                 alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                 
                 self.present(alertController, animated: true, completion: nil)
+            }
+        }
+        
+        if bDidImageChange {
+            let imageName = self.txtEmail.text!.replacingOccurrences(of: ".", with: "_") + String(Date().timeIntervalSince1970.rounded())
+           
+            Model.instance.saveImage(image: self.userImageView.image!, name: imageName) {(url) in
+                Model.instance.editUser(name: self.txtFullName.text!, email: self.txtEmail.text!, imageUrl: url) {(err) in  // TODO: add imgURL
+                    //self.loadingSpinner.stopAnimating()
+                    //self.loadingSpinner.isHidden = true
+                    
+                    if err == nil {
+                        self.performSegue(withIdentifier: "unwindToMyProfilePage", sender: self)
+                    } else {
+                        print("Chen")
+                        let alertController = UIAlertController(title: "Details Update Error", message: err?.localizedDescription, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+        else
+        {
+            Model.instance.editUser(name: self.txtFullName.text!, email: self.txtEmail.text!) {(err) in
+                //self.loadingSpinner.stopAnimating()
+                //self.loadingSpinner.isHidden = true
+                
+                if err == nil {
+                    self.performSegue(withIdentifier: "unwindToMyProfilePage", sender: self)
+                } else {
+                    print("Chen")
+                    let alertController = UIAlertController(title: "Details Update Error", message: err?.localizedDescription, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                }
             }
         }
     }
