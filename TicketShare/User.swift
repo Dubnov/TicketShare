@@ -20,7 +20,7 @@ class User {
     // var favorites:Dictionary = Dictionary<String,Ticket>()
     var favorites:[Ticket]!
     
-    init(email:String, password:String, fullName:String, dateOfBirth:Date, location:String? = nil, uid:String = "", imageUrl:String? = nil) {
+    init(email:String, password:String, fullName:String, dateOfBirth:Date, location:String? = nil, uid:String = "", imageUrl:String? = nil, bIsNew: Bool = false) {
         self.uid = uid
         self.email = email
         self.password = password
@@ -29,8 +29,10 @@ class User {
         self.lastLocation = location
         self.imageUrl = imageUrl
         
-        Model.instance.getUserFavoriteTickets(userId: self.uid){ tickets in
-            self.initFavorites(tickets: tickets)
+        if !bIsNew {
+            Model.instance.getUserFavoriteTickets(userId: self.uid){ tickets in
+                self.initFavorites(tickets: tickets)
+            }
         }
     }
     
