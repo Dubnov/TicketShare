@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import GooglePlaces
 
-class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate {
+class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate, GMSAutocompleteViewControllerDelegate {
     var selectedTicket:Ticket? = nil
     var selectedTicketID:String? = nil
     var selectedTicketBuyerID:String? = nil
@@ -21,6 +22,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     var selectedLoaded = false
     var currloaded = false
     var bIsFromMyTickets = false
+    var autocompleteController: GMSAutocompleteViewController? = nil
     
     @IBOutlet weak var btnRemoveFromFav: UIButton!
     @IBOutlet weak var btnAddToFav: UIButton!
@@ -168,6 +170,9 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 self.lblAmountRequired.isHidden = false
                 self.lblTitleRequired.isHidden = false
                 self.lblAddressRequired.isHidden = false
+                self.autocompleteController = GMSAutocompleteViewController()
+                self.autocompleteController?.delegate = self
+                self.autocompleteController?.tableCellBackgroundColor = .lightGray
             }
         }
         
@@ -274,6 +279,53 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             }
         }
     }
+    
+    @IBAction func AddressSearch(_ sender: Any) {
+        present(self.autocompleteController!, animated: true, completion: nil)
+    }
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        self.txtAddress.text = place.name
+        dismiss(animated: true, completion: nil)
+        
+        self.selectedLatitude = place.coordinate.latitude
+        self.selectedLongitude = place.coordinate.longitude
+        self.selectedLoaded = true
+        let coordinates = CLLocationCoordinate2DMake(self.selectedLatitude,
+                                                     self.selectedLongitude)
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        self.selectedMapItem = MKMapItem(placemark: placemark)
+        self.selectedMapItem.name = self.selectedTicket?.title
+        let span = MKCoordinateSpanMake(0.0075, 0.0075)
+        let eventCoordinate = place.coordinate
+        let region = MKCoordinateRegion(center: eventCoordinate, span: span)
+        self.mapView.setRegion(region, animated: true)
+        let eventAnnotation = MKPointAnnotation()
+        eventAnnotation.coordinate = eventCoordinate
+        self.mapView.addAnnotation(eventAnnotation)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+        self.txtAddress.text = ""
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
     /*
     // MARK: - Navigation
 
