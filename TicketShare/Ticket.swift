@@ -24,6 +24,7 @@ class Ticket {
     var distanceFromUser:Double
     var latitude:Double
     var longitude:Double
+    var eventDate:Date
     
     init(){
         self.id = ""
@@ -37,9 +38,10 @@ class Ticket {
         self.distanceFromUser = 999999.0
         self.latitude = 51.483271
         self.longitude = 0.0
+        self.eventDate = Date()
     }
     
-    init(seller:String, title:String, price:Double, amount:Int, eventType:Int, address:String, isSold:Bool, description:String?, imageUrl:String?, id:String = "", lastUpdateDate:Date = Date(), latitude:Double, longitude:Double) {
+    init(seller:String, title:String, price:Double, amount:Int, eventType:Int, address:String, isSold:Bool, description:String?, imageUrl:String?, id:String = "", lastUpdateDate:Date = Date(), latitude:Double, longitude:Double, eventDate:Date = Date()) {
         self.id = id
         self.seller = seller
         self.address = address
@@ -54,6 +56,7 @@ class Ticket {
         self.distanceFromUser = 999999.0
         self.latitude = latitude
         self.longitude = longitude
+        self.eventDate = eventDate
     }
     
     init(json: Dictionary<String, Any>) {
@@ -79,6 +82,7 @@ class Ticket {
         self.distanceFromUser = 999999.0
         self.latitude = json["latitude"] as! Double
         self.longitude = json["longitude"] as! Double
+        self.eventDate = Date.fromFirebase(json["eventDate"] as! Double)
     }
     
     func toFireBase() -> Dictionary<String, Any> {
@@ -102,6 +106,7 @@ class Ticket {
         
         json["latitude"] = self.latitude
         json["longitude"] = self.longitude
+        json["eventDate"] = self.eventDate.toFirebase()
         
         return json
     }
@@ -122,6 +127,7 @@ class Ticket {
     static let LAST_UPDATE_DATE = "LAST_UPDATE_DATE"
     static let LATITUDE = "LATITUDE"
     static let LONGITUDE = "LONGITUDE"
+    static let EVENT_DATE = "EVENT_DATE"
     
     static func createTicketsTable(database: OpaquePointer?) -> Bool {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
@@ -139,7 +145,8 @@ class Ticket {
             + IMAGE_URL + " TEXT, "
             + LAST_UPDATE_DATE + " DOUBLE, "
             + LATITUDE + " DOUBLE, "
-            + LONGITUDE + " DOUBLE)", nil, nil, &errormsg);
+            + LONGITUDE + " DOUBLE, "
+            + EVENT_DATE + " DOUBLE)", nil, nil, &errormsg);
         if(res != 0){
             print("error creating table");
             return false
@@ -163,7 +170,8 @@ class Ticket {
             + Ticket.IMAGE_URL + ","
             + Ticket.LAST_UPDATE_DATE + ","
             + Ticket.LATITUDE + ","
-            + Ticket.LONGITUDE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            + Ticket.LONGITUDE + ","
+            + Ticket.EVENT_DATE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             
             let id = self.id.cString(using: .utf8)
             let title = self.title.cString(using: .utf8)
@@ -200,6 +208,7 @@ class Ticket {
             
             sqlite3_bind_double(sqlite3_stmt, 12, latitude);
             sqlite3_bind_double(sqlite3_stmt, 13, longitude);
+            sqlite3_bind_double(sqlite3_stmt, 14, self.eventDate.toFirebase());
             
             if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
                 print("new row added succefully")
@@ -228,11 +237,12 @@ class Ticket {
                 let lastUpdateDate = sqlite3_column_double(sqlite3_stmt, 10)
                 let latitude =  sqlite3_column_double(sqlite3_stmt, 11)
                 let longitude =  sqlite3_column_double(sqlite3_stmt, 12)
+                let eventDate = sqlite3_column_double(sqlite3_stmt, 13)
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate), latitude: latitude, longitude: longitude)
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate), latitude: latitude, longitude: longitude, eventDate: Date.fromFirebase(eventDate))
                 tickets.append(ticket)
             }
         }
@@ -263,11 +273,12 @@ class Ticket {
                 let lastUpdateDate = sqlite3_column_double(sqlite3_stmt, 10)
                 let latitude =  sqlite3_column_double(sqlite3_stmt, 11)
                 let longitude =  sqlite3_column_double(sqlite3_stmt, 12)
+                let eventDate = sqlite3_column_double(sqlite3_stmt, 13)
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate), latitude: latitude, longitude: longitude)
+                ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate), latitude: latitude, longitude: longitude, eventDate: Date.fromFirebase(eventDate))
             }
         }
         sqlite3_finalize(sqlite3_stmt)
@@ -296,11 +307,12 @@ class Ticket {
                 let lastUpdateDate = sqlite3_column_double(sqlite3_stmt, 10)
                 let latitude =  sqlite3_column_double(sqlite3_stmt, 11)
                 let longitude =  sqlite3_column_double(sqlite3_stmt, 12)
+                let eventDate = sqlite3_column_double(sqlite3_stmt, 13)
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate), latitude: latitude, longitude: longitude)
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, lastUpdateDate: Date.fromFirebase(lastUpdateDate), latitude: latitude, longitude: longitude, eventDate: Date.fromFirebase(eventDate))
                 tickets.append(ticket)
             }
         }

@@ -21,6 +21,7 @@ class Favorite {
     static let IS_SOLD = "IS_SOLD"
     static let LATITUDE = "LATITUDE"
     static let LONGITUDE = "LONGITUDE"
+    static let EVENT_DATE = "EVENT_DATE"
     
     static func createFavoritesTable(database: OpaquePointer?) -> Bool {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
@@ -37,7 +38,8 @@ class Favorite {
             + Favorite.IS_SOLD + " INT, "
             + Favorite.IMAGE_URL + " TEXT, "
             + LATITUDE + " DOUBLE, "
-            + LONGITUDE + " DOUBLE)", nil, nil, &errormsg);
+            + LONGITUDE + " DOUBLE, "
+            + EVENT_DATE + " DOUBLE)", nil, nil, &errormsg);
         if(res != 0){
             print("error creating table");
             return false
@@ -60,7 +62,8 @@ class Favorite {
             + Favorite.IS_SOLD + ","
             + Favorite.IMAGE_URL + ","
             + Favorite.LATITUDE + ","
-            + Favorite.LONGITUDE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            + Favorite.LONGITUDE + ","
+            + Ticket.EVENT_DATE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             
             let id = ticket.id.cString(using: .utf8)
             let title = ticket.title.cString(using: .utf8)
@@ -92,6 +95,7 @@ class Favorite {
             
             sqlite3_bind_double(sqlite3_stmt, 11, latitude);
             sqlite3_bind_double(sqlite3_stmt, 12, longitude);
+            sqlite3_bind_double(sqlite3_stmt, 13, ticket.eventDate.toFirebase());
 
             
             if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
@@ -135,11 +139,12 @@ class Favorite {
                 var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 9))
                 let latitude =  sqlite3_column_double(sqlite3_stmt, 10)
                 let longitude =  sqlite3_column_double(sqlite3_stmt, 11)
+                let eventDate = sqlite3_column_double(sqlite3_stmt, 12)
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, latitude: latitude, longitude: longitude)
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, latitude: latitude, longitude: longitude, eventDate: Date.fromFirebase(eventDate))
                 tickets.append(ticket)
             }
         }

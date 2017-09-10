@@ -164,7 +164,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate, UINavigatio
         }*/
         
         if self.imgImage.image != nil {
-            let imageName = self.txtEmail.text!.replacingOccurrences(of: ".", with: "_") + String(Int(Date().timeIntervalSince1970.rounded()))
+            let imageName = self.txtEmail.text!.replacingOccurrences(of: ".", with: "_") + String(Int(Date().toFirebase().rounded()))
             Model.instance.saveImage(image: self.imgImage.image!, name: imageName) {(url) in
                 let user = User(email: self.txtEmail.text!, password: self.txtPassword.text!, fullName: self.txtFullName.text!, dateOfBirth: Date(), imageUrl: url, bIsNew: true)
                 Model.instance.addUser(user: user) {(err) in

@@ -83,7 +83,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     
     @objc func recommendedTickets(notification:NSNotification){
         self.recommendedTicketsList = notification.userInfo?["tickets"] as! [Ticket]
-        self.recommendedTicketsList = self.recommendedTicketsList.filter { ($0 as Ticket).isSold == false  }
+        //self.recommendedTicketsList = self.recommendedTicketsList.filter { ($0 as Ticket).isSold == false  }
         let currUserId = Model.instance.getCurrentAuthUserUID()
         self.recommendedTicketsList = self.recommendedTicketsList.filter { ($0 as Ticket).seller != currUserId }
         self.currSegmentTicketsList = self.recommendedTicketsList
@@ -189,7 +189,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
             
             cell.priceLabel!.text = String(tickets.price) + "₪"
             cell.locLabel.text = tickets.address
-            let date = Date()
+            let date = tickets.eventDate
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             let result = formatter.string(from: date)
