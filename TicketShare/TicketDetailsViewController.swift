@@ -46,10 +46,10 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     @IBOutlet weak var lblAmountRequired: UILabel!
     @IBOutlet weak var lblAddressRequired: UILabel!
     @IBOutlet weak var lblPriceRequired: UILabel!
+    @IBOutlet var btnEditButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = UIColor.clear
         
         if self.selectedTicketID != nil {
@@ -173,6 +173,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         
         if self.selectedTicketID != nil {
             self.navBar.isHidden = false
+            self.btnEditButton.isEnabled = false
+            self.btnEditButton.title = ""
             self.btnBuyTicket.isHidden = true
             self.btnAddToFav.isHidden = true
             self.btnRemoveFromFav.isHidden = true
