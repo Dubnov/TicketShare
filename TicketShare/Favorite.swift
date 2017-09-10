@@ -19,6 +19,8 @@ class Favorite {
     static let IMAGE_URL = "IMAGE_URL"
     static let PRICE = "PRICE"
     static let IS_SOLD = "IS_SOLD"
+    static let LATITUDE = "LATITUDE"
+    static let LONGITUDE = "LONGITUDE"
     
     static func createFavoritesTable(database: OpaquePointer?) -> Bool {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
@@ -33,7 +35,9 @@ class Favorite {
             + Favorite.DESCRIPTION + " TEXT, "
             + Favorite.PRICE + " DOUBLE, "
             + Favorite.IS_SOLD + " INT, "
-            + Favorite.IMAGE_URL + " TEXT)", nil, nil, &errormsg);
+            + Favorite.IMAGE_URL + " TEXT, "
+            + LATITUDE + " DOUBLE, "
+            + LONGITUDE + " DOUBLE)", nil, nil, &errormsg);
         if(res != 0){
             print("error creating table");
             return false
@@ -54,7 +58,9 @@ class Favorite {
             + Favorite.DESCRIPTION + ","
             + Favorite.PRICE + ","
             + Favorite.IS_SOLD + ","
-            + Favorite.IMAGE_URL + ") VALUES (?,?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            + Favorite.IMAGE_URL + ","
+            + Favorite.LATITUDE + ","
+            + Favorite.LONGITUDE + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             
             let id = ticket.id.cString(using: .utf8)
             let title = ticket.title.cString(using: .utf8)
@@ -80,6 +86,13 @@ class Favorite {
             sqlite3_bind_double(sqlite3_stmt, 8, price);
             sqlite3_bind_int(sqlite3_stmt, 9, Int32(NSNumber(booleanLiteral: isSold)));
             sqlite3_bind_text(sqlite3_stmt, 10, imageUrl,-1,nil);
+            
+            let latitude = ticket.latitude
+            let longitude = ticket.longitude
+            
+            sqlite3_bind_double(sqlite3_stmt, 11, latitude);
+            sqlite3_bind_double(sqlite3_stmt, 12, longitude);
+
             
             if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
                 print("new row added successfully")
@@ -120,11 +133,13 @@ class Favorite {
                 let price =  sqlite3_column_double(sqlite3_stmt, 7)
                 let isSold =  Bool((sqlite3_column_int(sqlite3_stmt, 8) != 0))
                 var imageUrl = String(validatingUTF8:sqlite3_column_text(sqlite3_stmt, 9))
+                let latitude =  sqlite3_column_double(sqlite3_stmt, 10)
+                let longitude =  sqlite3_column_double(sqlite3_stmt, 11)
                 
                 if (imageUrl != nil && imageUrl == ""){
                     imageUrl = nil
                 }
-                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!)
+                let ticket = Ticket(seller: seller!, title: title!, price: price, amount: amount, eventType: eventType, address: address!, isSold:isSold, description: description, imageUrl: imageUrl, id: id!, latitude: latitude, longitude: longitude)
                 tickets.append(ticket)
             }
         }

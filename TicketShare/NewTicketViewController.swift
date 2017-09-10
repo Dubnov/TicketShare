@@ -32,6 +32,8 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     var bIsTypeValid: Bool = false
     var bIsAddressValid: Bool = false
     var selectedEventTypeId: Int = 1
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var autocompleteController = GMSAutocompleteViewController()
     
     override func viewDidLoad() {
@@ -133,10 +135,17 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         present(self.autocompleteController, animated: true, completion: nil)
     }
     
+    @IBAction func AddressTypingStarted(_ sender: Any) {
+        present(self.autocompleteController, animated: true, completion: nil)
+    }
+    
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         self.txtEventAddress.text = place.name
+        self.latitude = place.coordinate.latitude
+        self.longitude = place.coordinate.longitude
         dismiss(animated: true, completion: nil)
+        textFieldDidChanged(self.txtEventAddress)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -147,7 +156,6 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     // User canceled the operation.
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true, completion: nil)
-        self.txtEventAddress.text = ""
     }
     
     // Turn the network activity indicator on and off again.
@@ -170,7 +178,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         if self.imgImage.image != nil {
             Model.instance.saveImage(image: self.imgImage.image!, name: self.txtTitle.text!) {(url) in
-                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: self.selectedEventTypeId, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url)
+                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: self.selectedEventTypeId, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url, latitude: self.latitude, longitude: self.longitude)
                 Model.instance.addTicket(ticket: ticket)
                 
                 self.loadingSpinner.stopAnimating()
@@ -179,7 +187,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
                 self.navigationController!.popViewController(animated: true)
             }
         } else {
-            let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: txtTitle.text!, price: Double(txtPrice.text!)!, amount: Int(txtAmount.text!)!, eventType: 1, address: txtEventAddress.text!, isSold: false, description: txtDescription.text, imageUrl: nil)
+            let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: txtTitle.text!, price: Double(txtPrice.text!)!, amount: Int(txtAmount.text!)!, eventType: 1, address: txtEventAddress.text!, isSold: false, description: txtDescription.text, imageUrl: nil, latitude: self.latitude, longitude: self.longitude)
             Model.instance.addTicket(ticket: ticket)
             
             self.loadingSpinner.stopAnimating()
