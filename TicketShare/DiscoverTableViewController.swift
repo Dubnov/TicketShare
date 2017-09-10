@@ -99,20 +99,13 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
         if (!(currLocation.coordinate.longitude == 0 && currLocation.coordinate.latitude == 0)) {
             var j = 0;
             for var ticket in self.nearByTickets {
-                let geocoder = CLGeocoder()
-                geocoder.geocodeAddressString(ticket.address) { (placemarksOptional, error) -> Void in
-                    j += 1
-                    if let placemarks = placemarksOptional {
-                        if let location = placemarks.first?.location {
-                            let distanceInMeters = self.currLocation.distance(from: CLLocation(latitude: location.coordinate.latitude,
-                                 longitude: location.coordinate.longitude))
-                            ticket.distanceFromUser = distanceInMeters
-                        }
-                    }
-                    
-                    if j == self.nearByTickets.count {
-                        self.reloadNearByTickets()
-                    }
+                j += 1
+                let distanceInMeters = self.currLocation.distance(from: CLLocation(latitude: ticket.latitude,
+                                                                                   longitude: ticket.longitude))
+                ticket.distanceFromUser = distanceInMeters
+
+                if j == self.nearByTickets.count {
+                    self.reloadNearByTickets()
                 }
             }
         } else {

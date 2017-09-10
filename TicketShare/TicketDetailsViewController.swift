@@ -21,7 +21,9 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     var selectedLongitude: Double = 0
     var selectedLoaded = false
     var currloaded = false
-    var bIsFromMyTickets = false
+    var bIsFromMyTickets = false    
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var autocompleteController: GMSAutocompleteViewController? = nil
     
     @IBOutlet weak var btnRemoveFromFav: UIButton!
@@ -94,31 +96,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             
             self.mapView.delegate = self
             
-            // Convert address to latitude&longitude
-            let geocoder = CLGeocoder()
-            geocoder.geocodeAddressString(self.addrLabel.text!) { (placemarksOptional, error) -> Void in
-                if let placemarks = placemarksOptional {
-                    if let location = placemarks.first?.location {
-                        print("latitude:\(location.coordinate.latitude)")
-                        print("longitude:\(location.coordinate.longitude)")
-                        self.selectedLatitude = location.coordinate.latitude
-                        self.selectedLongitude = location.coordinate.longitude
-                        self.selectedLoaded = true
-                        let coordinates = CLLocationCoordinate2DMake(self.selectedLatitude,
-                                                                     self.selectedLongitude)
-                        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-                        self.selectedMapItem = MKMapItem(placemark: placemark)
-                        self.selectedMapItem.name = self.selectedTicket?.title
-                        let span = MKCoordinateSpanMake(0.0075, 0.0075)
-                        let eventCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                        let region = MKCoordinateRegion(center: eventCoordinate, span: span)
-                        self.mapView.setRegion(region, animated: true)
-                        let eventAnnotation = MKPointAnnotation()
-                        eventAnnotation.coordinate = eventCoordinate
-                        self.mapView.addAnnotation(eventAnnotation)
-                    }
-                }
-            }
+            placePlacemarkOnMap(coordinate: CLLocationCoordinate2D(latitude: ticket.latitude, longitude: ticket.longitude))
             
             // 	ask for user's permission to use location
             self.locationManager.requestWhenInUseAuthorization()
@@ -240,6 +218,8 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             self.selectedTicket?.price = Double(self.txtPrice.text!)!
             self.selectedTicket?.address = self.txtAddress.text!
             self.selectedTicket?.description = self.txtDescription.text!
+            self.selectedTicket?.latitude = self.latitude
+            self.selectedTicket?.longitude = self.longitude
         
             Model.instance.editTicket(ticket: selectedTicket!)
             self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
@@ -284,26 +264,18 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         present(self.autocompleteController!, animated: true, completion: nil)
     }
     
+    @IBAction func AddressTypingStarted(_ sender: Any) {
+        present(self.autocompleteController!, animated: true, completion: nil)
+    }
+    
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         self.txtAddress.text = place.name
+        self.latitude = place.coordinate.latitude
+        self.longitude = place.coordinate.longitude
         dismiss(animated: true, completion: nil)
         
-        self.selectedLatitude = place.coordinate.latitude
-        self.selectedLongitude = place.coordinate.longitude
-        self.selectedLoaded = true
-        let coordinates = CLLocationCoordinate2DMake(self.selectedLatitude,
-                                                     self.selectedLongitude)
-        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
-        self.selectedMapItem = MKMapItem(placemark: placemark)
-        self.selectedMapItem.name = self.selectedTicket?.title
-        let span = MKCoordinateSpanMake(0.0075, 0.0075)
-        let eventCoordinate = place.coordinate
-        let region = MKCoordinateRegion(center: eventCoordinate, span: span)
-        self.mapView.setRegion(region, animated: true)
-        let eventAnnotation = MKPointAnnotation()
-        eventAnnotation.coordinate = eventCoordinate
-        self.mapView.addAnnotation(eventAnnotation)
+        placePlacemarkOnMap(coordinate: place.coordinate)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -314,7 +286,6 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     // User canceled the operation.
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true, completion: nil)
-        self.txtAddress.text = ""
     }
     
     // Turn the network activity indicator on and off again.
@@ -324,6 +295,21 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    func placePlacemarkOnMap(coordinate: CLLocationCoordinate2D){
+        let coordinates = CLLocationCoordinate2DMake(coordinate.latitude,
+                                                     coordinate.longitude)
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        self.selectedMapItem = MKMapItem(placemark: placemark)
+        self.selectedMapItem.name = self.selectedTicket?.title
+        let span = MKCoordinateSpanMake(0.0075, 0.0075)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        self.mapView.setRegion(region, animated: true)
+        let eventAnnotation = MKPointAnnotation()
+        eventAnnotation.coordinate = coordinate
+        self.mapView.addAnnotation(eventAnnotation)
+
     }
     
     /*
