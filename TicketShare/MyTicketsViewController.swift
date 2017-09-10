@@ -196,8 +196,8 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             } else if mySegmentedControl.selectedSegmentIndex == TicketCategory.Bought.hashValue {
                 destination?.selectedTicketID = (self.boughtTickets[indexPath!.row].ticketId)
             } else if mySegmentedControl.selectedSegmentIndex == TicketCategory.Sold.hashValue {
-                destination?.selectedTicketID = (self.boughtTickets[indexPath!.row].ticketId)
-                destination?.selectedTicketBuyerID = (self.boughtTickets[indexPath!.row].buyer)
+                destination?.selectedTicketID = (self.soldTickets[indexPath!.row].ticketId)
+                destination?.selectedTicketBuyerID = (self.soldTickets[indexPath!.row].buyer)
             }
         }
     }

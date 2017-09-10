@@ -19,7 +19,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
     var ticketsSearchResults:Array<Ticket>?
     let detailSegueIdentifier = "ShowTicketDetailSegue"
     var headerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 1.0, height: 33.0))
-    var selectedSegment = -1
+    var selectedSegment = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
