@@ -8,6 +8,7 @@
 
 import UIKit
 import FacebookCore
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UILabel.appearance().substituteFontName = "Lato-Regular"
 
+        GMSPlacesClient.provideAPIKey("AIzaSyCmkSKpRAwYC8vkgGsj4_iLG3fvnu9SAfQ")
         
         SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         

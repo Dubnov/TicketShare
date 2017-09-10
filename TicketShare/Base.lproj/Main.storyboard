@@ -311,7 +311,7 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TicketTableViewCell" rowHeight="155" id="7a3-r0-0hV" customClass="TicketTableViewCell" customModule="TicketShare" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="155"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="155"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7a3-r0-0hV" id="DXb-dU-Cwa">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
@@ -563,6 +563,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
+                                    <action selector="AddressTouched:" destination="7IE-b5-0iA" eventType="touchDown" id="GXb-P1-h8p"/>
                                     <outlet property="delegate" destination="7IE-b5-0iA" id="fCv-dG-08K"/>
                                 </connections>
                             </textField>
@@ -784,6 +785,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="AddressSearch:" destination="SFI-uU-a8w" eventType="touchDown" id="TA4-yx-fSL"/>
+                                </connections>
                             </textField>
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wN5-F0-12I" userLabel="Amount Text">
                                 <rect key="frame" x="251" y="262" width="48" height="30"/>
@@ -899,7 +903,7 @@
             <objects>
                 <navigationController id="mGX-WS-h5F" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Discover" image="Globe" selectedImage="Globe" id="np1-Kp-fSY"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dj5-eC-9Ge">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dj5-eC-9Ge">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1020,7 +1024,7 @@
             <objects>
                 <navigationController id="hUO-ma-vg6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="Profile" selectedImage="Profile" id="30Y-Cf-XVf"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DV0-YD-soX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DV0-YD-soX">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

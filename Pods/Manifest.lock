@@ -57,6 +57,16 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
+  - GoogleMaps (2.1.1):
+    - GoogleMaps/Maps (= 2.1.1)
+  - GoogleMaps/Base (2.1.1)
+  - GoogleMaps/Maps (2.1.1):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.1.1):
+    - GoogleMaps (= 2.1.1)
+    - GooglePlaces (= 2.1.1)
+  - GooglePlaces (2.1.1):
+    - GoogleMaps/Base (= 2.1.1)
   - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/DebugUtils (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
@@ -78,6 +88,9 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
 
 SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
@@ -95,10 +108,13 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   FirebaseStorage: 5738284835edb57f0e81d4ae5832bb17c1e4b5fa
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
+  GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
+  GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
 
-PODFILE CHECKSUM: 96fe1b99f3d7fd2e5a861c3b20b015e27402159c
+PODFILE CHECKSUM: 1df61bc90393eb30fc7d6b501712274f7fb268fa
 
 COCOAPODS: 1.1.1

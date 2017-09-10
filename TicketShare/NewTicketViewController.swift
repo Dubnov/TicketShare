@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GooglePlaces
 
-class NewTicketViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class NewTicketViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, GMSAutocompleteViewControllerDelegate  {
 
     @IBOutlet weak var txtEventType: UITextField!
     @IBOutlet weak var dropdownEventType: UIPickerView!
@@ -31,6 +32,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     var bIsTypeValid: Bool = false
     var bIsAddressValid: Bool = false
     var selectedEventTypeId: Int = 1
+    var autocompleteController = GMSAutocompleteViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,8 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         self.txtPrice.delegate = self
         self.txtAmount.delegate = self
+        autocompleteController.delegate = self
+        autocompleteController.tableCellBackgroundColor = .lightGray
                 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         self.view.addGestureRecognizer(tap)
@@ -125,11 +129,40 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         }
     }
     
+    @IBAction func AddressTouched(_ sender: Any) {
+        present(self.autocompleteController, animated: true, completion: nil)
+    }
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        self.txtEventAddress.text = place.name
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+        self.txtEventAddress.text = ""
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     @IBAction func saveTicket(_ sender: Any) {
         self.loadingSpinner.isHidden = false
