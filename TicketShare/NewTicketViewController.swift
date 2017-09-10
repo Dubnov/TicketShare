@@ -26,6 +26,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet weak var lblAddressRequired: UILabel!
     @IBOutlet weak var imgImage: UIImageView!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
+    @IBOutlet weak var eventDatePicker: UIDatePicker!
     var bIsTitleValid: Bool = false
     var bIsAmountValid: Bool = false
     var bIsPriceValid: Bool = false
@@ -57,6 +58,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         self.txtAmount.delegate = self
         autocompleteController.delegate = self
         autocompleteController.tableCellBackgroundColor = .lightGray
+        self.eventDatePicker.minimumDate = Date()
                 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         self.view.addGestureRecognizer(tap)
@@ -178,7 +180,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         
         if self.imgImage.image != nil {
             Model.instance.saveImage(image: self.imgImage.image!, name: self.txtTitle.text!) {(url) in
-                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: self.selectedEventTypeId, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url, latitude: self.latitude, longitude: self.longitude)
+                let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: self.txtTitle.text!, price: Double(self.txtPrice.text!)!, amount: Int(self.txtAmount.text!)!, eventType: self.selectedEventTypeId, address: self.txtEventAddress.text!, isSold: false, description: self.txtDescription.text!, imageUrl: url, latitude: self.latitude, longitude: self.longitude, eventDate: self.eventDatePicker.date)
                 Model.instance.addTicket(ticket: ticket)
                 
                 self.loadingSpinner.stopAnimating()
@@ -187,7 +189,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
                 self.navigationController!.popViewController(animated: true)
             }
         } else {
-            let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: txtTitle.text!, price: Double(txtPrice.text!)!, amount: Int(txtAmount.text!)!, eventType: 1, address: txtEventAddress.text!, isSold: false, description: txtDescription.text, imageUrl: nil, latitude: self.latitude, longitude: self.longitude)
+            let ticket = Ticket(seller: Model.instance.getCurrentAuthUserUID()!, title: txtTitle.text!, price: Double(txtPrice.text!)!, amount: Int(txtAmount.text!)!, eventType: 1, address: txtEventAddress.text!, isSold: false, description: txtDescription.text, imageUrl: nil, latitude: self.latitude, longitude: self.longitude, eventDate: self.eventDatePicker.date)
             Model.instance.addTicket(ticket: ticket)
             
             self.loadingSpinner.stopAnimating()

@@ -53,7 +53,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
             
             cell.priceLabel!.text = String(ticket.price) + "₪"
             cell.locLabel.text = ticket.address
-            let date = Date()
+            let date = ticket.eventDate
             let formatter = DateFormatter()
             formatter.dateFormat = "dd.MM.yyyy"
             let result = formatter.string(from: date)
