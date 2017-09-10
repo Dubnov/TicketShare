@@ -171,6 +171,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             }
         }
         
+        
         if self.selectedTicketID != nil {
             self.navBar.isHidden = false
             self.btnEditButton.isEnabled = false
