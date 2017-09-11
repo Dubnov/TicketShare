@@ -55,7 +55,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
             cell.locLabel.text = ticket.address
             let date = ticket.eventDate
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
             let result = formatter.string(from: date)
             cell.dateLabel.text = result
             

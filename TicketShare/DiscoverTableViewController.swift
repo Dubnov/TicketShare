@@ -191,7 +191,7 @@ class DiscoverTableViewController: UITableViewController, UISearchBarDelegate, U
             cell.locLabel.text = tickets.address
             let date = tickets.eventDate
             let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
+            formatter.dateFormat = "dd.MM.yyyy HH:mm"
             let result = formatter.string(from: date)
             cell.dateLabel.text = result
             

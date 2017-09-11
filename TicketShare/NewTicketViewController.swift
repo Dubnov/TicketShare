@@ -11,6 +11,7 @@ import GooglePlaces
 
 class NewTicketViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, GMSAutocompleteViewControllerDelegate  {
 
+    @IBOutlet weak var lblDateRequired: UILabel!
     @IBOutlet weak var txtEventType: UITextField!
     @IBOutlet weak var dropdownEventType: UIPickerView!
     @IBOutlet weak var btnSave: UIBarButtonItem!
@@ -27,11 +28,13 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
     @IBOutlet weak var imgImage: UIImageView!
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var eventDatePicker: UIDatePicker!
+    @IBOutlet weak var txtEventDate: UITextField!
     var bIsTitleValid: Bool = false
     var bIsAmountValid: Bool = false
     var bIsPriceValid: Bool = false
     var bIsTypeValid: Bool = false
     var bIsAddressValid: Bool = false
+    var bIsDateValid: Bool = false
     var selectedEventTypeId: Int = 1
     var latitude: Double = 0.0
     var longitude: Double = 0.0
@@ -59,12 +62,28 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         autocompleteController.delegate = self
         autocompleteController.tableCellBackgroundColor = .lightGray
         self.eventDatePicker.minimumDate = Date()
+        let grayTrans =	UIColor.darkGray
+        self.eventDatePicker.backgroundColor = grayTrans.withAlphaComponent(0.9)
+        self.eventDatePicker.setValue(UIColor.white, forKeyPath: "textColor")
+        
+        let toolBar = UIToolbar().ToolbarPicker(mySelect: #selector(dismissPicker))
+        toolBar.barStyle = UIBarStyle.black
+        self.txtEventDate.inputAccessoryView = toolBar
                 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         self.view.addGestureRecognizer(tap)
     }
     
     func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
+    
+    func dismissPicker() {
+        self.eventDatePicker.isHidden = true
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        self.txtEventDate.text = formatter.string(from: self.eventDatePicker.date)
+        textFieldDidChanged(self.txtEventDate)
         self.view.endEditing(true)
     }
     
@@ -111,12 +130,15 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         case txtEventType:
             isFieldNotEmpty(textField: self.txtEventType, validteBool: &bIsTypeValid, requiredLabel: self.lblTypeRequired)
             break
+        case txtEventDate:
+            isFieldNotEmpty(textField: self.txtEventDate, validteBool: &bIsDateValid, requiredLabel: self.lblDateRequired)
+            break
             
         default:
             break
         }
         
-        if (bIsTitleValid && bIsAmountValid && bIsPriceValid && bIsAddressValid && bIsTypeValid) {
+        if (bIsTitleValid && bIsAmountValid && bIsPriceValid && bIsAddressValid && bIsTypeValid && bIsDateValid) {
             self.btnSave.isEnabled = true
         } else {
             self.btnSave.isEnabled = false
@@ -256,6 +278,10 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         } else {
             self.dropdownEventType.isHidden = true
         }
+    }
+    
+    @IBAction func dateBeginEdit(_ sender: Any) {
+        self.eventDatePicker.isHidden = false
     }
     
     /*
