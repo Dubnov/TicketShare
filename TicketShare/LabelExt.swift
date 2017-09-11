@@ -22,7 +22,7 @@ extension UIToolbar {
         
         let toolBar = UIToolbar()
         
-        toolBar.barStyle = UIBarStyle.black
+        toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.white
         toolBar.sizeToFit()

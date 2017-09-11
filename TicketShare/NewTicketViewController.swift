@@ -67,6 +67,7 @@ class NewTicketViewController: UIViewController, UINavigationControllerDelegate,
         self.eventDatePicker.setValue(UIColor.white, forKeyPath: "textColor")
         
         let toolBar = UIToolbar().ToolbarPicker(mySelect: #selector(dismissPicker))
+        toolBar.barStyle = UIBarStyle.black
         self.txtEventDate.inputAccessoryView = toolBar
                 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")

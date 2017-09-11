@@ -25,6 +25,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     var latitude: Double = 0.0
     var longitude: Double = 0.0
     var autocompleteController: GMSAutocompleteViewController? = nil
+    var dateFormatter = DateFormatter()
     
     @IBOutlet weak var btnRemoveFromFav: UIButton!
     @IBOutlet weak var btnAddToFav: UIButton!
@@ -51,10 +52,15 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     @IBOutlet weak var lblAddressRequired: UILabel!
     @IBOutlet weak var lblPriceRequired: UILabel!
     @IBOutlet var btnEditButton: UIBarButtonItem!
+    @IBOutlet weak var lblDateRequired: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var txtEventDate: UITextField!
+    @IBOutlet weak var eventDatePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.clear
+        self.dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
         
         if self.selectedTicketID != nil {
             Model.instance.getTicketByIdFromFirebase(ticketID: (self.selectedTicketID)!) {(err, ticket) in
@@ -78,6 +84,10 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             self.descLabel.text = selectedTicket?.description
             self.amountPriceLabel.text = String(ticket.amount) + " x " + String(ticket.price) + "₪"
             self.addrLabel.text = selectedTicket?.address
+            
+            if let currDate = selectedTicket?.eventDate {
+                self.dateLabel.text = dateFormatter.string(from: currDate)
+            }
             
             Model.instance.getUserByIdFromFirebase(userId: (selectedTicket?.seller)!) {(err, user) in
                 self.sellerLabel.text = ""
@@ -148,9 +158,25 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 self.lblAmountRequired.isHidden = false
                 self.lblTitleRequired.isHidden = false
                 self.lblAddressRequired.isHidden = false
+                self.lblDateRequired.isHidden = false
+                self.txtEventDate.isHidden = false
+                self.dateLabel.isHidden = true
+                
+                if let currDate = selectedTicket?.eventDate {
+                    self.txtEventDate.text = dateFormatter.string(from: currDate)
+                    self.eventDatePicker.date = currDate
+                }
+                
                 self.autocompleteController = GMSAutocompleteViewController()
                 self.autocompleteController?.delegate = self
                 self.autocompleteController?.tableCellBackgroundColor = .lightGray
+                self.eventDatePicker.minimumDate = Date()
+                let grayTrans =	UIColor.lightGray
+                self.eventDatePicker.backgroundColor = grayTrans.withAlphaComponent(0.95)
+                self.eventDatePicker.setValue(UIColor.black, forKeyPath: "textColor")
+                
+                let toolBar = UIToolbar().ToolbarPicker(mySelect: #selector(dismissPicker))
+                self.txtEventDate.inputAccessoryView = toolBar
             }
         }
         
@@ -172,6 +198,12 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
                 }
             }
         }
+    }
+    
+    func dismissPicker() {
+        self.eventDatePicker.isHidden = true
+        self.txtEventDate.text = dateFormatter.string(from: self.eventDatePicker.date)
+        self.view.endEditing(true)
     }
     
     @IBAction func addToFavorite(_ sender: UIButton) {
@@ -205,6 +237,9 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
         if self.txtPrice.text?.characters.count == 0 {
             errorMessage = errorMessage + "Price Can't Be Empty\n"
         }
+        if self.txtEventDate.text?.characters.count == 0 {
+            errorMessage = errorMessage + "Date Can't Be Empty\n"
+        }
         
         if (errorMessage != "") {
             errorMessage = errorMessage.substring(to: errorMessage.index(before: errorMessage.endIndex))
@@ -220,6 +255,7 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
             self.selectedTicket?.description = self.txtDescription.text!
             self.selectedTicket?.latitude = self.latitude
             self.selectedTicket?.longitude = self.longitude
+            self.selectedTicket?.eventDate = self.eventDatePicker.date
         
             Model.instance.editTicket(ticket: selectedTicket!)
             self.performSegue(withIdentifier: "unwindToMyTickets", sender: self)
@@ -295,6 +331,10 @@ class TicketDetailsViewController: UIViewController, CLLocationManagerDelegate, 
     
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    @IBAction func dateEditingBegin(_ sender: Any) {
+        self.eventDatePicker.isHidden = false
     }
     
     func placePlacemarkOnMap(coordinate: CLLocationCoordinate2D){
