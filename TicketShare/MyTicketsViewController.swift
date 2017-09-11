@@ -120,6 +120,8 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! PurchaseTableViewCell
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
         
         // TODO: Replace with real values
         switch (mySegmentedControl.selectedSegmentIndex)
@@ -147,7 +149,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             myCell.lblAmount?.text = soldTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Buyer:"
             
-            myCell.lblDateValue.text = soldTickets[indexPath.row].purchaseDate.description
+            myCell.lblDateValue.text = formatter.string(from: soldTickets[indexPath.row].purchaseDate)
             myCell.lblDateLabel.isHidden = false
             
             
@@ -166,7 +168,7 @@ class MyTicketsViewController: UIViewController, UITableViewDataSource, UITableV
             myCell.lblAmount?.text = boughtTickets[indexPath.row].ticketAmount.description
             myCell.lblBuyerSellerLabel.text = "Seller:"
             
-            myCell.lblDateValue.text = boughtTickets[indexPath.row].purchaseDate.description
+            myCell.lblDateValue.text = formatter.string(from: boughtTickets[indexPath.row].purchaseDate)
             myCell.lblDateLabel.isHidden = false
             break
         default:
